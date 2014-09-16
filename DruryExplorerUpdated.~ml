@@ -13,7 +13,11 @@
 <XPD:OBJ name="OwnedElements[0]" type="UMLModel" guid="5zKKYxDYnEi1jYi62bbMqgAA">
 <XPD:ATTR name="Name" type="string">Model1</XPD:ATTR>
 <XPD:REF name="Namespace">JtpMJEQbk0G0C8wY5z/E5wAA</XPD:REF>
+<<<<<<< HEAD
+<XPD:ATTR name="#OwnedDiagrams" type="integer">7</XPD:ATTR>
+=======
 <XPD:ATTR name="#OwnedDiagrams" type="integer">6</XPD:ATTR>
+>>>>>>> master
 <XPD:OBJ name="OwnedDiagrams[0]" type="UMLUseCaseDiagram" guid="9Cg9sOaLq0CfpmQr9WSQQgAA">
 <XPD:ATTR name="Name" type="string">UseCaseDiagram1</XPD:ATTR>
 <XPD:REF name="DiagramOwner">5zKKYxDYnEi1jYi62bbMqgAA</XPD:REF>
@@ -3876,7 +3880,136 @@
 </XPD:OBJ>
 </XPD:OBJ>
 </XPD:OBJ>
+<<<<<<< HEAD
+<XPD:OBJ name="OwnedDiagrams[6]" type="UMLDeploymentDiagram" guid="a4DeW11ipECeeWgOGU61GQAA">
+<XPD:ATTR name="Name" type="string">Sprint1-Elaboration Deployment</XPD:ATTR>
+<XPD:REF name="DiagramOwner">5zKKYxDYnEi1jYi62bbMqgAA</XPD:REF>
+<XPD:OBJ name="DiagramView" type="UMLDeploymentDiagramView" guid="trmBhlQprky25Fw5MZGctgAA">
+<XPD:REF name="Diagram">a4DeW11ipECeeWgOGU61GQAA</XPD:REF>
+<XPD:ATTR name="#OwnedViews" type="integer">4</XPD:ATTR>
+<XPD:OBJ name="OwnedViews[0]" type="UMLNodeView" guid="pPwmQ51RFEm7G1FJKIOBKgAA">
+<XPD:ATTR name="LineColor" type="string">clMaroon</XPD:ATTR>
+<XPD:ATTR name="FillColor" type="string">$00B9FFFF</XPD:ATTR>
+<XPD:ATTR name="Left" type="integer">600</XPD:ATTR>
+<XPD:ATTR name="Top" type="integer">124</XPD:ATTR>
+<XPD:ATTR name="Width" type="integer">289</XPD:ATTR>
+<XPD:ATTR name="Height" type="integer">273</XPD:ATTR>
+<XPD:REF name="Model">NkjMqi3i4Eaadu1gofAGDQAA</XPD:REF>
+<XPD:OBJ name="NameCompartment" type="UMLNameCompartmentView" guid="1K4eVJi9IUuXhx3U/dL+lAAA">
+<XPD:OBJ name="NameLabel" type="LabelView" guid="5fD3Lsj+tEWYZSk9JMlOuQAA">
+<XPD:ATTR name="FontStyle" type="integer">1</XPD:ATTR>
+<XPD:ATTR name="Text" type="string">Phone/Tablet</XPD:ATTR>
+</XPD:OBJ>
+<XPD:OBJ name="StereotypeLabel" type="LabelView" guid="qery4giZwk+vm4pPz1XiEAAA">
+<XPD:ATTR name="Text" type="string">&lt;&lt;Device&gt;&gt;</XPD:ATTR>
+</XPD:OBJ>
+<XPD:OBJ name="PropertyLabel" type="LabelView" guid="wlsCZ03tLkemxXaN8xkI1QAA">
+<XPD:ATTR name="Visible" type="boolean">False</XPD:ATTR>
+</XPD:OBJ>
+</XPD:OBJ>
+<XPD:OBJ name="DeployedComponentCompartment" type="UMLDeployedComponentCompartmentView" guid="iUoTSydJBk6UWGzQzFZDQAAA">
+<XPD:ATTR name="Visible" type="boolean">False</XPD:ATTR>
+<XPD:REF name="Model">NkjMqi3i4Eaadu1gofAGDQAA</XPD:REF>
+</XPD:OBJ>
+<XPD:OBJ name="DeployedArtifactCompartment" type="UMLDeployedArtifactCompartmentView" guid="/w3tZG7MTUa8CqZvurAD9wAA">
+<XPD:ATTR name="Visible" type="boolean">False</XPD:ATTR>
+<XPD:REF name="Model">NkjMqi3i4Eaadu1gofAGDQAA</XPD:REF>
+</XPD:OBJ>
+</XPD:OBJ>
+<XPD:OBJ name="OwnedViews[1]" type="UMLNodeView" guid="HvL3siIPyUKYg3ymORgkCgAA">
+<XPD:ATTR name="LineColor" type="string">clMaroon</XPD:ATTR>
+<XPD:ATTR name="FillColor" type="string">$00B9FFFF</XPD:ATTR>
+<XPD:ATTR name="Left" type="integer">620</XPD:ATTR>
+<XPD:ATTR name="Top" type="integer">172</XPD:ATTR>
+<XPD:ATTR name="Width" type="integer">237</XPD:ATTR>
+<XPD:ATTR name="Height" type="integer">205</XPD:ATTR>
+<XPD:REF name="Model">CEaMHIpXCEaRfaVIxW9V/wAA</XPD:REF>
+<XPD:OBJ name="NameCompartment" type="UMLNameCompartmentView" guid="73oEPKzQJkCbf7gTq8qT/wAA">
+<XPD:OBJ name="NameLabel" type="LabelView" guid="6Wx9gFH2r0yjtq018fP97gAA">
+<XPD:ATTR name="FontStyle" type="integer">1</XPD:ATTR>
+<XPD:ATTR name="Text" type="string">Android OS</XPD:ATTR>
+</XPD:OBJ>
+<XPD:OBJ name="StereotypeLabel" type="LabelView" guid="M9yoMMRV7U2FP0MR5E2w8AAA">
+<XPD:ATTR name="Text" type="string">&lt;&lt;Operating System&gt;&gt;</XPD:ATTR>
+</XPD:OBJ>
+<XPD:OBJ name="PropertyLabel" type="LabelView" guid="Y6TRG9TLQE6ooRVmVRLYpgAA">
+<XPD:ATTR name="Visible" type="boolean">False</XPD:ATTR>
+</XPD:OBJ>
+</XPD:OBJ>
+<XPD:OBJ name="DeployedComponentCompartment" type="UMLDeployedComponentCompartmentView" guid="BBFXPbwO70+QS4JgGTtxswAA">
+<XPD:ATTR name="Visible" type="boolean">False</XPD:ATTR>
+<XPD:REF name="Model">CEaMHIpXCEaRfaVIxW9V/wAA</XPD:REF>
+</XPD:OBJ>
+<XPD:OBJ name="DeployedArtifactCompartment" type="UMLDeployedArtifactCompartmentView" guid="FQvQYnQgVkWtZtk7RTMz4AAA">
+<XPD:ATTR name="Visible" type="boolean">False</XPD:ATTR>
+<XPD:REF name="Model">CEaMHIpXCEaRfaVIxW9V/wAA</XPD:REF>
+</XPD:OBJ>
+</XPD:OBJ>
+<XPD:OBJ name="OwnedViews[2]" type="UMLArtifactView" guid="iYDVqP+Ag0mTjfsz1sOb4wAA">
+<XPD:ATTR name="LineColor" type="string">clMaroon</XPD:ATTR>
+<XPD:ATTR name="FillColor" type="string">$00B9FFFF</XPD:ATTR>
+<XPD:ATTR name="Left" type="integer">676</XPD:ATTR>
+<XPD:ATTR name="Top" type="integer">224</XPD:ATTR>
+<XPD:ATTR name="Width" type="integer">128</XPD:ATTR>
+<XPD:ATTR name="Height" type="integer">42</XPD:ATTR>
+<XPD:ATTR name="StereotypeDisplay" type="UMLStereotypeDisplayKind">sdkDecoration</XPD:ATTR>
+<XPD:REF name="Model">CbNinmNYC0ilI9net9uUNgAA</XPD:REF>
+<XPD:OBJ name="NameCompartment" type="UMLNameCompartmentView" guid="RlAH3L7JLE+qIaqUuO47KAAA">
+<XPD:OBJ name="NameLabel" type="LabelView" guid="q2Hc5oIFukS3gh5yReQZogAA">
+<XPD:ATTR name="FontStyle" type="integer">1</XPD:ATTR>
+<XPD:ATTR name="Text" type="string">DUExplorer.apk</XPD:ATTR>
+</XPD:OBJ>
+<XPD:OBJ name="StereotypeLabel" type="LabelView" guid="Qry3UWZ31UOqVjQOe2twZgAA">
+<XPD:ATTR name="Text" type="string">&lt;&lt;artifact&gt;&gt;</XPD:ATTR>
+</XPD:OBJ>
+<XPD:OBJ name="PropertyLabel" type="LabelView" guid="FE+f5DvZyUafN59FMb3shQAA">
+<XPD:ATTR name="Visible" type="boolean">False</XPD:ATTR>
+</XPD:OBJ>
+</XPD:OBJ>
+<XPD:OBJ name="AttributeCompartment" type="UMLAttributeCompartmentView" guid="vuYR3aZkCEKbR9fdSBK4GAAA">
+<XPD:ATTR name="Visible" type="boolean">False</XPD:ATTR>
+<XPD:REF name="Model">CbNinmNYC0ilI9net9uUNgAA</XPD:REF>
+</XPD:OBJ>
+<XPD:OBJ name="OperationCompartment" type="UMLOperationCompartmentView" guid="qYifhnXwzEeu/3ROZbYLhwAA">
+<XPD:ATTR name="Visible" type="boolean">False</XPD:ATTR>
+<XPD:REF name="Model">CbNinmNYC0ilI9net9uUNgAA</XPD:REF>
+</XPD:OBJ>
+</XPD:OBJ>
+<XPD:OBJ name="OwnedViews[3]" type="UMLNodeView" guid="CWYIaLI5m02HkK30mMuazQAA">
+<XPD:ATTR name="LineColor" type="string">clMaroon</XPD:ATTR>
+<XPD:ATTR name="FillColor" type="string">$00B9FFFF</XPD:ATTR>
+<XPD:ATTR name="Left" type="integer">688</XPD:ATTR>
+<XPD:ATTR name="Top" type="integer">300</XPD:ATTR>
+<XPD:ATTR name="Width" type="integer">87</XPD:ATTR>
+<XPD:ATTR name="Height" type="integer">55</XPD:ATTR>
+<XPD:REF name="Model">l5tJiwpbu0y/xdKVOBiDkwAA</XPD:REF>
+<XPD:OBJ name="NameCompartment" type="UMLNameCompartmentView" guid="rs+QPHNqi0Wcgthxw9BVTAAA">
+<XPD:OBJ name="NameLabel" type="LabelView" guid="b3v29nh/xkCxdA8Zc3Z5QgAA">
+<XPD:ATTR name="FontStyle" type="integer">1</XPD:ATTR>
+<XPD:ATTR name="Text" type="string">SQLite</XPD:ATTR>
+</XPD:OBJ>
+<XPD:OBJ name="StereotypeLabel" type="LabelView" guid="Pnh3JdGFxkKeAGVwgIaStwAA">
+<XPD:ATTR name="Text" type="string">&lt;&lt;DBMS&gt;&gt;</XPD:ATTR>
+</XPD:OBJ>
+<XPD:OBJ name="PropertyLabel" type="LabelView" guid="FAyXcuQuaEKXIaa1Y0ZZiwAA">
+<XPD:ATTR name="Visible" type="boolean">False</XPD:ATTR>
+</XPD:OBJ>
+</XPD:OBJ>
+<XPD:OBJ name="DeployedComponentCompartment" type="UMLDeployedComponentCompartmentView" guid="lL9DvhDowky4/r6FKn/kaAAA">
+<XPD:ATTR name="Visible" type="boolean">False</XPD:ATTR>
+<XPD:REF name="Model">l5tJiwpbu0y/xdKVOBiDkwAA</XPD:REF>
+</XPD:OBJ>
+<XPD:OBJ name="DeployedArtifactCompartment" type="UMLDeployedArtifactCompartmentView" guid="Oni7fTG5UESEBU5B35XJ7wAA">
+<XPD:ATTR name="Visible" type="boolean">False</XPD:ATTR>
+<XPD:REF name="Model">l5tJiwpbu0y/xdKVOBiDkwAA</XPD:REF>
+</XPD:OBJ>
+</XPD:OBJ>
+</XPD:OBJ>
+</XPD:OBJ>
+<XPD:ATTR name="#OwnedElements" type="integer">75</XPD:ATTR>
+=======
 <XPD:ATTR name="#OwnedElements" type="integer">71</XPD:ATTR>
+>>>>>>> master
 <XPD:OBJ name="OwnedElements[0]" type="UMLActor" guid="1psUfZtShk6NXc9oYvqZmgAA">
 <XPD:ATTR name="Name" type="string">Admin</XPD:ATTR>
 <XPD:ATTR name="Documentation" type="string">Admin updates and fixes errors to the app</XPD:ATTR>
@@ -5141,6 +5274,44 @@
 <XPD:REF name="Views[2]">qrEsSeG3N02/sLZzRfO01gAA</XPD:REF>
 <XPD:REF name="Views[3]">ZES1aRXDtEaQAiGbdZ09ogAA</XPD:REF>
 </XPD:OBJ>
+<<<<<<< HEAD
+<XPD:OBJ name="OwnedElements[71]" type="UMLNode" guid="NkjMqi3i4Eaadu1gofAGDQAA">
+<XPD:ATTR name="Name" type="string">Phone/Tablet</XPD:ATTR>
+<XPD:ATTR name="StereotypeName" type="string">Device</XPD:ATTR>
+<XPD:REF name="Namespace">5zKKYxDYnEi1jYi62bbMqgAA</XPD:REF>
+<XPD:ATTR name="#Views" type="integer">3</XPD:ATTR>
+<XPD:REF name="Views[0]">pPwmQ51RFEm7G1FJKIOBKgAA</XPD:REF>
+<XPD:REF name="Views[1]">iUoTSydJBk6UWGzQzFZDQAAA</XPD:REF>
+<XPD:REF name="Views[2]">/w3tZG7MTUa8CqZvurAD9wAA</XPD:REF>
+</XPD:OBJ>
+<XPD:OBJ name="OwnedElements[72]" type="UMLNode" guid="CEaMHIpXCEaRfaVIxW9V/wAA">
+<XPD:ATTR name="Name" type="string">Android OS</XPD:ATTR>
+<XPD:ATTR name="StereotypeName" type="string">Operating System</XPD:ATTR>
+<XPD:REF name="Namespace">5zKKYxDYnEi1jYi62bbMqgAA</XPD:REF>
+<XPD:ATTR name="#Views" type="integer">3</XPD:ATTR>
+<XPD:REF name="Views[0]">HvL3siIPyUKYg3ymORgkCgAA</XPD:REF>
+<XPD:REF name="Views[1]">BBFXPbwO70+QS4JgGTtxswAA</XPD:REF>
+<XPD:REF name="Views[2]">FQvQYnQgVkWtZtk7RTMz4AAA</XPD:REF>
+</XPD:OBJ>
+<XPD:OBJ name="OwnedElements[73]" type="UMLArtifact" guid="CbNinmNYC0ilI9net9uUNgAA">
+<XPD:ATTR name="Name" type="string">DUExplorer.apk</XPD:ATTR>
+<XPD:REF name="Namespace">5zKKYxDYnEi1jYi62bbMqgAA</XPD:REF>
+<XPD:ATTR name="#Views" type="integer">3</XPD:ATTR>
+<XPD:REF name="Views[0]">iYDVqP+Ag0mTjfsz1sOb4wAA</XPD:REF>
+<XPD:REF name="Views[1]">vuYR3aZkCEKbR9fdSBK4GAAA</XPD:REF>
+<XPD:REF name="Views[2]">qYifhnXwzEeu/3ROZbYLhwAA</XPD:REF>
+</XPD:OBJ>
+<XPD:OBJ name="OwnedElements[74]" type="UMLNode" guid="l5tJiwpbu0y/xdKVOBiDkwAA">
+<XPD:ATTR name="Name" type="string">SQLite</XPD:ATTR>
+<XPD:ATTR name="StereotypeName" type="string">DBMS</XPD:ATTR>
+<XPD:REF name="Namespace">5zKKYxDYnEi1jYi62bbMqgAA</XPD:REF>
+<XPD:ATTR name="#Views" type="integer">3</XPD:ATTR>
+<XPD:REF name="Views[0]">CWYIaLI5m02HkK30mMuazQAA</XPD:REF>
+<XPD:REF name="Views[1]">lL9DvhDowky4/r6FKn/kaAAA</XPD:REF>
+<XPD:REF name="Views[2]">Oni7fTG5UESEBU5B35XJ7wAA</XPD:REF>
+</XPD:OBJ>
+=======
+>>>>>>> master
 <XPD:ATTR name="#OwnedCollaborationInstanceSets" type="integer">3</XPD:ATTR>
 <XPD:OBJ name="OwnedCollaborationInstanceSets[0]" type="UMLCollaborationInstanceSet" guid="XgS+iz1bSk+3fSCE7fcKKwAA">
 <XPD:ATTR name="Name" type="string">CollaborationInstanceSet1</XPD:ATTR>
