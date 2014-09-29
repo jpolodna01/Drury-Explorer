@@ -27,6 +27,15 @@
         <meta-data
             android:name="com.google.android.maps.v2.API_KEY"
             android:value="@string/google_maps_key" />
+
+        <activity
+            android:name=".Buildings"
+            android:label="@string/title_activity_buildings" >
+        </activity>
+        <activity
+            android:name=".Departments"
+            android:label="@string/title_activity_departments" >
+        </activity>
     </application>
 
     <uses-permission android:name="android.permission.INTERNET" />

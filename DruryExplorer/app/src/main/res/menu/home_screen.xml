@@ -5,4 +5,16 @@
         android:title="@string/action_settings"
         android:orderInCategory="100"
         android:showAsAction="never" />
+    <item android:id="@+id/action_map"
+        android:title="Drury Map"
+        android:orderInCategory="100"
+        android:showAsAction="always" />
+    <item android:id="@+id/action_departments"
+        android:title="Departments"
+        android:orderInCategory="100"
+        android:showAsAction="always" />
+    <item android:id="@+id/action_Buildings"
+        android:title="Buildings"
+        android:orderInCategory="100"
+        android:showAsAction="always" />
 </menu>

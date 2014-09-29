@@ -7,6 +7,7 @@ import android.app.ActionBar;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
+import android.content.Intent;
 import android.support.v13.app.FragmentPagerAdapter;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
@@ -92,6 +93,18 @@ public class HomeScreen extends Activity implements ActionBar.TabListener {
         int id = item.getItemId();
         if (id == R.id.action_settings) {
             return true;
+        }
+        if(id==R.id.action_Buildings){
+            Intent intent = new Intent(this, Buildings.class);
+            startActivity(intent);
+        }
+        if(id==R.id.action_map){
+            Intent intent = new Intent(this, DruryMap.class);
+            startActivity(intent);
+        }
+        if(id==R.id.action_departments){
+            Intent intent = new Intent(this, Departments.class);
+            startActivity(intent);
         }
         return super.onOptionsItemSelected(item);
     }

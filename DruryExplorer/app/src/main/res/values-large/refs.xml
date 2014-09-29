@@ -8,7 +8,6 @@
     For more on layout aliases, see:
     http://developer.android.com/training/multiscreen/screensizes.html#TaskUseAliasFilters
     -->
-    <item name="fragment_building" type="layout">@layout/fragment_building_grid</item>
-    <item name="fragment_department" type="layout">@layout/fragment_department_grid</item>
+
 
 </resources>
