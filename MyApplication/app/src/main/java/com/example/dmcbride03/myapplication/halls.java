@@ -1,7 +1,6 @@
-package edu.drury.mcs.icarus.druryexplorer;
+package com.example.dmcbride03.myapplication;
 
 import android.app.Activity;
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -12,26 +11,29 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class Buildings extends Activity {
-private ListView lv;
+public class halls extends Activity {
+    private ListView lv;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_buildings);
-
-        lv =(ListView) findViewById(R.id.buildinglist);
+        setContentView(R.layout.activity_halls);
+        lv=(ListView) findViewById(R.id.listView);
 
         List<String> buildingArray = new ArrayList<String>();
-        buildingArray.add("Pearson Hall");
-        buildingArray.add("Smith Hall");
+        buildingArray.add("Pearsons Hall");
+        buildingArray.add("Springfield Hall");
         buildingArray.add("Bay Hall");
         buildingArray.add("Stone Chapel");
-        buildingArray.add("Burnham Hall");
+        buildingArray.add("Burnham");
         buildingArray.add("Breech");
-        buildingArray.add("Springfield Hall");
         buildingArray.add("Barabra Fitness Center");
         buildingArray.add("Trustee Science Center");
-        buildingArray.add("Washington Baptist Church");
+        buildingArray.add("Washingto Baptist Church");
+        buildingArray.add("Pool Art Center");
+        buildingArray.add("Oriely Center");
+        buildingArray.add("Findley Student Center");
+        buildingArray.add("Freeman");
+        buildingArray.add("Shewmaker");
 
         ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, buildingArray);
         lv.setAdapter(arrayAdapter);
@@ -41,7 +43,7 @@ private ListView lv;
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.home_screen, menu);
+        getMenuInflater().inflate(R.menu.halls, menu);
         return true;
     }
 
@@ -53,18 +55,6 @@ private ListView lv;
         int id = item.getItemId();
         if (id == R.id.action_settings) {
             return true;
-        }
-        if(id==R.id.action_Buildings){
-            Intent intent = new Intent(this, Buildings.class);
-            startActivity(intent);
-        }
-        if(id==R.id.action_map){
-            Intent intent = new Intent(this, DruryMap.class);
-            startActivity(intent);
-        }
-        if(id==R.id.action_departments){
-            Intent intent = new Intent(this, Departments.class);
-            startActivity(intent);
         }
         return super.onOptionsItemSelected(item);
     }

@@ -154,9 +154,9 @@ public class HomeScreen extends Activity implements ActionBar.TabListener {
                 case 0:
                     return getString(R.string.title_activity_drury_map).toUpperCase(l);
                 case 1:
-                    return getString(R.string.title_section2).toUpperCase(l);
+                    return getString(R.string.title_activity_buildings).toUpperCase(l);
                 case 2:
-                    return getString(R.string.title_section3).toUpperCase(l);
+                    return getString(R.string.title_activity_departments).toUpperCase(l);
             }
             return null;
         }

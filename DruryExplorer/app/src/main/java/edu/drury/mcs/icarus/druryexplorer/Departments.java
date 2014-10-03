@@ -5,14 +5,36 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
+
+import java.util.ArrayList;
+import java.util.List;
 
 
 public class Departments extends Activity {
-
+    private ListView lv;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_departments);
+
+        lv =(ListView) findViewById(R.id.department_list);
+
+        List<String> departmentArray = new ArrayList<String>();
+        departmentArray.add("Math and Computer Science");
+        departmentArray.add("English");
+        departmentArray.add("History");
+        departmentArray.add("Business");
+        departmentArray.add("Theater");
+        departmentArray.add("Information Technology");
+        departmentArray.add("Athletics");
+        departmentArray.add("Science");
+        departmentArray.add("Communication");
+        departmentArray.add("Admissions");
+
+        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, departmentArray);
+        lv.setAdapter(arrayAdapter);
     }
 
 
