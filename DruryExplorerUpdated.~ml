@@ -5672,7 +5672,7 @@
 <XPD:REF name="DiagramOwner">5zKKYxDYnEi1jYi62bbMqgAA</XPD:REF>
 <XPD:OBJ name="DiagramView" type="UMLDeploymentDiagramView" guid="RMHBkGiSxUe2OeipGr75MQAA">
 <XPD:REF name="Diagram">URJrbp6UVkGM4k5ZPdnDBgAA</XPD:REF>
-<XPD:ATTR name="#OwnedViews" type="integer">18</XPD:ATTR>
+<XPD:ATTR name="#OwnedViews" type="integer">19</XPD:ATTR>
 <XPD:OBJ name="OwnedViews[0]" type="UMLNodeView" guid="tCpWs/r5qEW1ui6oK23q4AAA">
 <XPD:ATTR name="LineColor" type="string">clMaroon</XPD:ATTR>
 <XPD:ATTR name="FillColor" type="string">$00B9FFFF</XPD:ATTR>
@@ -6528,9 +6528,39 @@
 <XPD:REF name="Model">SMkp/2yuUEmm8VEmNFa0IQAA</XPD:REF>
 </XPD:OBJ>
 </XPD:OBJ>
+<XPD:OBJ name="OwnedViews[18]" type="UMLArtifactView" guid="eOuXVDMW6EG6nCWFE8XKRAAA">
+<XPD:ATTR name="LineColor" type="string">clMaroon</XPD:ATTR>
+<XPD:ATTR name="FillColor" type="string">$00B9FFFF</XPD:ATTR>
+<XPD:ATTR name="Left" type="integer">876</XPD:ATTR>
+<XPD:ATTR name="Top" type="integer">308</XPD:ATTR>
+<XPD:ATTR name="Width" type="integer">113</XPD:ATTR>
+<XPD:ATTR name="Height" type="integer">42</XPD:ATTR>
+<XPD:ATTR name="StereotypeDisplay" type="UMLStereotypeDisplayKind">sdkDecoration</XPD:ATTR>
+<XPD:REF name="Model">isFiwmhXbU+zkUS2QEEpZAAA</XPD:REF>
+<XPD:OBJ name="NameCompartment" type="UMLNameCompartmentView" guid="emc/6lQYQUKikzIi51BbzAAA">
+<XPD:OBJ name="NameLabel" type="LabelView" guid="KuU3AYY5W0OgNBzN0E4nlgAA">
+<XPD:ATTR name="FontStyle" type="integer">1</XPD:ATTR>
+<XPD:ATTR name="Text" type="string">MySQL</XPD:ATTR>
+</XPD:OBJ>
+<XPD:OBJ name="StereotypeLabel" type="LabelView" guid="J5MJ4+rRoUGFy5PdZ1ri/gAA">
+<XPD:ATTR name="Text" type="string">&lt;&lt;artifact&gt;&gt;</XPD:ATTR>
+</XPD:OBJ>
+<XPD:OBJ name="PropertyLabel" type="LabelView" guid="x56MOdbP6UOX8/A4IOkbGQAA">
+<XPD:ATTR name="Visible" type="boolean">False</XPD:ATTR>
 </XPD:OBJ>
 </XPD:OBJ>
-<XPD:ATTR name="#OwnedElements" type="integer">110</XPD:ATTR>
+<XPD:OBJ name="AttributeCompartment" type="UMLAttributeCompartmentView" guid="jEKmsNJ7P0q741NXJsovEQAA">
+<XPD:ATTR name="Visible" type="boolean">False</XPD:ATTR>
+<XPD:REF name="Model">isFiwmhXbU+zkUS2QEEpZAAA</XPD:REF>
+</XPD:OBJ>
+<XPD:OBJ name="OperationCompartment" type="UMLOperationCompartmentView" guid="JHimTcvNN0K7ryyHMM9KVAAA">
+<XPD:ATTR name="Visible" type="boolean">False</XPD:ATTR>
+<XPD:REF name="Model">isFiwmhXbU+zkUS2QEEpZAAA</XPD:REF>
+</XPD:OBJ>
+</XPD:OBJ>
+</XPD:OBJ>
+</XPD:OBJ>
+<XPD:ATTR name="#OwnedElements" type="integer">111</XPD:ATTR>
 <XPD:OBJ name="OwnedElements[0]" type="UMLActor" guid="1psUfZtShk6NXc9oYvqZmgAA">
 <XPD:ATTR name="Name" type="string">Admin</XPD:ATTR>
 <XPD:ATTR name="Documentation" type="string">Admin updates and fixes errors to the app</XPD:ATTR>
@@ -8514,6 +8544,15 @@
 <XPD:REF name="Views[2]">Wd6HuJqBFkG7BeAF0FzBIwAA</XPD:REF>
 <XPD:REF name="Views[3]">mA9EXRwi5EGpYAkzedMvqgAA</XPD:REF>
 </XPD:OBJ>
+</XPD:OBJ>
+<XPD:OBJ name="OwnedElements[110]" type="UMLArtifact" guid="isFiwmhXbU+zkUS2QEEpZAAA">
+<XPD:ATTR name="Name" type="string">MySQL</XPD:ATTR>
+<XPD:ATTR name="StereotypeName" type="string">Database</XPD:ATTR>
+<XPD:REF name="Namespace">5zKKYxDYnEi1jYi62bbMqgAA</XPD:REF>
+<XPD:ATTR name="#Views" type="integer">3</XPD:ATTR>
+<XPD:REF name="Views[0]">eOuXVDMW6EG6nCWFE8XKRAAA</XPD:REF>
+<XPD:REF name="Views[1]">jEKmsNJ7P0q741NXJsovEQAA</XPD:REF>
+<XPD:REF name="Views[2]">JHimTcvNN0K7ryyHMM9KVAAA</XPD:REF>
 </XPD:OBJ>
 <XPD:ATTR name="#OwnedCollaborationInstanceSets" type="integer">3</XPD:ATTR>
 <XPD:OBJ name="OwnedCollaborationInstanceSets[0]" type="UMLCollaborationInstanceSet" guid="XgS+iz1bSk+3fSCE7fcKKwAA">
