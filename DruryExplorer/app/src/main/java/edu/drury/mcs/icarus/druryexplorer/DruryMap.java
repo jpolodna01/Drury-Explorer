@@ -1,10 +1,7 @@
 package edu.drury.mcs.icarus.druryexplorer;
 
-import android.content.Intent;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -64,37 +61,7 @@ public class DruryMap extends FragmentActivity {
      * This should only be called once and when we are sure that {@link #mMap} is not null.
      */
     private void setUpMap() {
-        //mMap.addMarker(new MarkerOptions().position(new LatLng(0, 0)).title("Marker"));
-        mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(37.219736,-93.285769), 16));
-    }
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.home_screen, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-        if (id == R.id.action_settings) {
-            return true;
-        }
-        if(id==R.id.action_Buildings){
-            Intent intent = new Intent(this, Buildings.class);
-            startActivity(intent);
-        }
-        if(id==R.id.action_map){
-            Intent intent = new Intent(this, DruryMap.class);
-            startActivity(intent);
-        }
-        if(id==R.id.action_departments){
-            Intent intent = new Intent(this, Departments.class);
-            startActivity(intent);
-        }
-        return super.onOptionsItemSelected(item);
+        mMap.addMarker(new MarkerOptions().position(new LatLng(0, 0)).title("Marker"));
+        mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(37.219736, -93.285769), 16));
     }
 }
