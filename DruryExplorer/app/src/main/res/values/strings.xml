@@ -7,5 +7,6 @@
     <string name="title_activity_drury_map">Map</string>
     <string name="title_activity_halls">Halls</string>
     <string name="title_activity_departments">Departments</string>
+    <string name="title_activity_splash_screen">SplashScreen</string>
 
 </resources>
