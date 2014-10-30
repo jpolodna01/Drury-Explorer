@@ -8,6 +8,22 @@ import android.view.MenuItem;
 
 public class Halls extends Activity {
 
+    private String _name, _year, _history;
+    private int id;
+
+    public Halls(int id, String name, String year, String history) {
+        _name = name;
+        _year = year;
+        _history = history;
+    }
+
+    public int getID(){
+        return id;
+    }
+    public String getName(){return _name;}
+    public String getYear(){return _year;}
+    public String getHistory(){return _history;}
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
