@@ -8,13 +8,13 @@
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
         <activity
-            android:name=".HomeScreen"
+            android:name=".Navigation"
             android:label="@string/app_name" >
-            <intent-filter>
+            <!--<intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+            </intent-filter>-->
         </activity>
         <activity
             android:name=".DruryMap"
@@ -29,12 +29,21 @@
             android:value="@string/google_maps_key" />
 
         <activity
-            android:name=".Buildings"
-            android:label="@string/title_activity_buildings" >
+            android:name=".Halls"
+            android:label="@string/title_activity_halls" >
+        </activity>
         <activity
-    </activity>
             android:name=".Departments"
             android:label="@string/title_activity_departments" >
+        </activity>
+        <activity
+            android:name=".SplashScreen"
+            android:label="@string/title_activity_splash_screen" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
     </application>
 
