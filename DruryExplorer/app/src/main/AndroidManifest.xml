@@ -31,8 +31,8 @@
         <activity
             android:name=".Buildings"
             android:label="@string/title_activity_buildings" >
-        </activity>
         <activity
+    </activity>
             android:name=".Departments"
             android:label="@string/title_activity_departments" >
         </activity>
