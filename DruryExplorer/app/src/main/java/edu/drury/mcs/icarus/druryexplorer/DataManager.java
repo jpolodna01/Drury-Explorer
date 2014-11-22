@@ -208,10 +208,9 @@ public class DataManager extends SQLiteOpenHelper
 		
 		try {
 
-            String query = "SELECT * FROM" + TABLE_HALL;
+            String query = "SELECT * FROM " + TABLE_HALL;
 
             db = SQLiteDatabase.openDatabase(path, null, SQLiteDatabase.OPEN_READWRITE);
-            open();
             Cursor cursor = db.rawQuery(query, null);
 
             if (cursor.moveToFirst())
@@ -249,10 +248,9 @@ public class DataManager extends SQLiteOpenHelper
 
         try{
 
-            String query = "SELECT Hall.Name FROM " + TABLE_HALL;
+            String query = "SELECT Name FROM " + TABLE_HALL;
 
-            SQLiteDatabase db = SQLiteDatabase.openDatabase(path, null, SQLiteDatabase.OPEN_READWRITE);
-
+            db = SQLiteDatabase.openDatabase(path, null, SQLiteDatabase.OPEN_READWRITE);
             Cursor cursor = db.rawQuery(query, null);
 
             hall = new LinkedList<Halls>();
@@ -262,7 +260,7 @@ public class DataManager extends SQLiteOpenHelper
 
                     Halls hallObject = new Halls();
                     //hallObject.setID(Integer.parseInt(cursor.getString(0)));
-                    hallObject.setName(cursor.getString(1));
+                    hallObject.setName(cursor.getString(0));
                     //hallObject.setYear(Integer.parseInt(cursor.getString(2)));
                     // hallObject.setHistory(cursor.getString(3));
 
@@ -270,8 +268,6 @@ public class DataManager extends SQLiteOpenHelper
                 }
                 while (cursor.moveToNext());
             }
-
-
         }
         catch(Exception e){
             //sql error

@@ -67,9 +67,7 @@ public class Halls extends Activity {
 
     public void populateListView()
     {
-        DataManager entry = new DataManager(Halls.this);
-
-        List<Halls> all = entry.getHallList();
+        List<Halls> all = db.getHallList();
         if(all.size()>0) // check if list contains items.
         {
             ListView lv = (ListView) findViewById(R.id.hallView);
@@ -83,7 +81,10 @@ public class Halls extends Activity {
         }
     }
 
-
+    @Override
+    public String toString() {
+        return _name;
+    }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
