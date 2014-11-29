@@ -50,6 +50,11 @@ public class DataManager extends SQLiteOpenHelper
        KEY_YEAR = "year",
        KEY_HISTORY = "history";
 
+    private String TABLE_DEPT = "Department",
+        KEY_ID2 = "Dept_ID",
+        KEY_NAME2 = "Name",
+        KEY_DESCRIPTION = "Description",
+        KEY_LOCATION = "Location";
     /**
      * Constructor for class with context variable
      *
@@ -198,47 +203,6 @@ public class DataManager extends SQLiteOpenHelper
 	*/
 
     /**
-     * Gets the halls and all associated data
-     *
-     * @return
-     */
-	public List<Halls> getHalls()
-	{
-		List<Halls> hallz = new ArrayList<Halls>();
-		
-		try {
-
-            String query = "SELECT * FROM " + TABLE_HALL;
-
-            db = SQLiteDatabase.openDatabase(path, null, SQLiteDatabase.OPEN_READWRITE);
-            Cursor cursor = db.rawQuery(query, null);
-
-            if (cursor.moveToFirst())
-            {
-                do
-                {
-
-                    Halls hallObject = new Halls();
-                    hallObject.setID(Integer.parseInt(cursor.getString(0)));
-                    hallObject.setName(cursor.getString(1));
-                    hallObject.setYear(Integer.parseInt(cursor.getString(2)));
-                    hallObject.setHistory(cursor.getString(3));
-
-                    hallz.add(hallObject);
-
-                }
-                while (cursor.moveToNext());
-            }
-        }
-		catch(Exception e) 
-		{
-		  // sql error
-		}
-
-		return hallz;
-	}
-
-    /**
      * Collects the hall names to be projected onto the screen
      *
      * @return
@@ -274,6 +238,41 @@ public class DataManager extends SQLiteOpenHelper
         }
 
         return hall;
+    }
+
+    /**
+     * Collects the hall names to be projected onto the screen
+     *
+     * @return
+     */
+    public List<Departments> getDeptList(){
+        List<Departments> department = null;
+
+        try{
+
+            String query = "SELECT Name FROM " + TABLE_DEPT;
+
+            db = SQLiteDatabase.openDatabase(path, null, SQLiteDatabase.OPEN_READWRITE);
+            Cursor cursor = db.rawQuery(query, null);
+
+            department = new LinkedList<Departments>();
+            if(cursor.moveToFirst())
+            {
+                do {
+
+                    Departments deptObject = new Departments();
+                    deptObject.setName(cursor.getString(0));
+
+                    department.add(deptObject);
+                }
+                while (cursor.moveToNext());
+            }
+        }
+        catch(Exception e){
+            //sql error
+        }
+
+        return department;
     }
 
 }

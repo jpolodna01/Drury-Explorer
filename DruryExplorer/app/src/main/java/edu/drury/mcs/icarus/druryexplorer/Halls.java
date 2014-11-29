@@ -20,11 +20,9 @@ public class Halls extends Activity {
     public int _id, _year;
 
     //empty constructor
-    public Halls(){
+    public Halls(){}
 
-    }
-
-
+    //constructor with all table elements
     public Halls(int id, String name, int year, String history)
     {
         this._id=id;
@@ -33,13 +31,13 @@ public class Halls extends Activity {
         this._history = history;
     }
 
+    //constructor with all table elements minus id
     public Halls(String name, int year, String history)
     {
         this._name = name;
         this._year = year;
         this._history = history;
     }
-
 
     //Get Methods
     public int getID(){
@@ -55,7 +53,7 @@ public class Halls extends Activity {
     public void setYear(int year){this._year=year;}
     public void setHistory(String history){this._history=history;}
 
-    DataManager db=new DataManager(Halls.this);
+    DataManager db = new DataManager(Halls.this);
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -81,10 +79,12 @@ public class Halls extends Activity {
         }
     }
 
+    //tostring function turns the address of name to a string
     @Override
     public String toString() {
         return _name;
     }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
