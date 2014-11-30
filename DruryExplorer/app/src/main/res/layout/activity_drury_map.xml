@@ -34,19 +34,21 @@
         style="?android:attr/buttonStyleSmall"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="New Button"
-        android:id="@+id/button"
+        android:text="Buildings"
+        android:id="@+id/buildingMarkers"
         android:layout_alignWithParentIfMissing="false"
         android:layout_alignParentBottom="true"
-        android:layout_toRightOf="@+id/button3"
-        android:layout_toEndOf="@+id/button3" />
+        android:layout_toRightOf="@+id/startTour"
+        android:layout_toEndOf="@+id/startTour"
+        android:onClick="buildingMarkers"
+        android:clickable="true" />
 
     <Button
         style="?android:attr/buttonStyleSmall"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Start Tour"
-        android:id="@+id/button3"
+        android:id="@+id/startTour"
         android:layout_alignParentBottom="true"
         android:layout_toRightOf="@+id/tourRoute"
         android:layout_toEndOf="@+id/tourRoute"

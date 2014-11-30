@@ -37,7 +37,7 @@ public class DruryMap extends FragmentActivity  {
     private LatLng sunderland = new LatLng(37.221336, -93.286516);
     private LatLng president = new LatLng(37.221800, -93.287127);
     private LatLng manley = new LatLng(37.221874, -93.287682);
-    private LatLng congregational = new LatLng(37.221875, -93.287684);
+    private LatLng congregational = new LatLng(37.222251, -93.287189);
     private LatLng parsonage = new LatLng(37.222208, -93.286704);
     private LatLng collegepark = new LatLng(37.222532, -93.288681);
     private LatLng studentcenter = new LatLng(37.222856, -93.288742);
@@ -47,6 +47,9 @@ public class DruryMap extends FragmentActivity  {
     private LatLng olin = new LatLng(37.219318, -93.286156);
     private LatLng[] tour1 = {bay,shewmaker,WBC,TSC,Hammons,Breech,Springfield,Gym,FSC,freeman,smith,wallace,
             sunderland,president,manley,congregational,parsonage,collegepark,studentcenter,mabee,philosopher,lay,olin};
+    private String[] buildings = {"Bay","ShewMaker","Washington Baptist Church","Trustee's Science Center","Hammons","Breech","Springfield","Gym","Finley Student Center",
+            "Freeman","Smith","Wallace","Sunderland","President's House","Manley","Congregational","Parsonage","Collage Park",
+            "Student Center","Maybees","Philosopher's Table","Lay Hall","Olin Library"};
     private Boolean firstTime=true;
     private Boolean closeToNext=false;
     private PolylineOptions tourRoute = new PolylineOptions();
@@ -107,6 +110,7 @@ public class DruryMap extends FragmentActivity  {
     private void setUpMap() {
         mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(37.219736, -93.285769), 18));
         //(example of interior map)mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(-33.86997, 151.2089), 18));
+
         mMap.setMyLocationEnabled(true);
         mMap.getMyLocation();
         LocationManager manager = (LocationManager)this.getSystemService(Context.LOCATION_SERVICE);
@@ -120,6 +124,7 @@ public class DruryMap extends FragmentActivity  {
                     if (firstTime) {
                         int i = closestBuilding(location, tour1);
                         toStart(location, tour1[i]);
+                        mMap.addMarker(new MarkerOptions().position(tour1[i]).title(buildings[i]));
                         firstTime = false;
                         next = i;
                     }
@@ -129,6 +134,7 @@ public class DruryMap extends FragmentActivity  {
                         } else {
                             next++;
                         }
+                        mMap.addMarker(new MarkerOptions().position(tour1[next]).title(buildings[next]));
                         toStart(location, tour1[next]);
                     }
                 }
@@ -215,6 +221,16 @@ public class DruryMap extends FragmentActivity  {
                     .add(tour1[i+1])
                     .width(15);
             mMap.addPolyline(tourRoute);
+
+        }
+    }
+
+
+
+    public void buildingMarkers(View view){
+        for(int i=0;i<buildings.length;i++){
+
+            mMap.addMarker(new MarkerOptions().position(tour1[i]).title(buildings[i]));
 
         }
     }
