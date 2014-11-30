@@ -8,11 +8,13 @@ import android.location.LocationListener;
 import android.location.LocationManager;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
+import android.view.View;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
+import com.google.android.gms.maps.model.GroundOverlayOptions;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.PolylineOptions;
@@ -47,9 +49,11 @@ public class DruryMap extends FragmentActivity  {
             sunderland,president,manley,congregational,parsonage,collegepark,studentcenter,mabee,philosopher,lay,olin};
     private Boolean firstTime=true;
     private Boolean closeToNext=false;
+    private PolylineOptions tourRoute = new PolylineOptions();
     private PolylineOptions touring = new PolylineOptions();
     private int next=0;
     private int times=0;
+    private Boolean  tour= false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -111,20 +115,22 @@ public class DruryMap extends FragmentActivity  {
             public void onLocationChanged(Location location) {
                 //mMap.addMarker(new MarkerOptions().position(new LatLng(location.getLatitude(),location.getLongitude())));
                 //mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(location.getLatitude(), location.getLongitude()), 18));
-                mMap.addMarker(new MarkerOptions().position(bay).title("bay").snippet("Bay"));
-                if(firstTime) {
-                    int i = closestBuilding(location, tour1);
-                    toStart(location, tour1[i]);
-                    firstTime = false;
-                    next = i;
-                }
-                if (close(location, tour1[next]) && location.hasAccuracy()) {
-                    if (next == tour1.length - 1) {
-                        next = 0;
-                    } else {
-                        next++;
+                //mMap.addMarker(new MarkerOptions().position(bay).title("bay").snippet("Bay"));
+                if(tour) {
+                    if (firstTime) {
+                        int i = closestBuilding(location, tour1);
+                        toStart(location, tour1[i]);
+                        firstTime = false;
+                        next = i;
                     }
-                    toStart(location, tour1[next]);
+                    if (close(location, tour1[next]) && location.hasAccuracy()) {
+                        if (next == tour1.length - 1) {
+                            next = 0;
+                        } else {
+                            next++;
+                        }
+                        toStart(location, tour1[next]);
+                    }
                 }
 
 
@@ -152,39 +158,16 @@ public class DruryMap extends FragmentActivity  {
         //manager.requestLocationUpdates(LocationManager.PASSIVE_PROVIDER,0,0,listener);
         boolean on =manager.isProviderEnabled(LocationManager.GPS_PROVIDER);
 
-        /*if(on) {
-            //manager.requestLocationUpdates(LocationManager.GPS_PROVIDER,0,0,listener);
-            Location location = manager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
-            if(firstTime) {
-                int i = closestBuilding(location, tour1);
-                toStart(location, tour1[i]);
-                firstTime = false;
-                next = i;
-            }
 
-            if (firstTime == false) {
-                while (times < tour1.length) {
-                    location = manager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
-                    if (close(location, tour1[next])) {
-                        toStart(location, tour1[next]);
-                        if (next == tour1.length - 1) {
-                            next = 0;
-                        } else {
-                            next++;
-                        }
-                        times++;
-
-                    }
-                }
-
-            }
-        }*/
 
     }
 
 
 
+    public void startTour(View view){
+        tour = true;
 
+    }
 
 
     private double trig(Location loc1, LatLng loc2){
@@ -224,14 +207,14 @@ public class DruryMap extends FragmentActivity  {
         mMap.addPolyline(touring);
 
     }
-    private void fullTour(LatLng[] tour){
-        for(int i=0;i<tour.length-1;i++){
+    public void fullTour(View view){
+        for(int i=0;i<tour1.length-1;i++){
 
-            touring.geodesic(true)
-                    .add(tour[i])
-                    .add(tour[i+1])
-                    .width(5);
-            mMap.addPolyline(touring);
+            tourRoute.geodesic(true)
+                    .add(tour1[i])
+                    .add(tour1[i+1])
+                    .width(15);
+            mMap.addPolyline(tourRoute);
 
         }
     }
