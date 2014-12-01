@@ -212,7 +212,7 @@ public class DataManager extends SQLiteOpenHelper
 
         try{
 
-            String query = "SELECT Name FROM " + TABLE_HALL;
+            String query = "SELECT Name FROM " + TABLE_HALL + " ORDER BY Name ASC";
 
             db = SQLiteDatabase.openDatabase(path, null, SQLiteDatabase.OPEN_READWRITE);
             Cursor cursor = db.rawQuery(query, null);
@@ -223,10 +223,7 @@ public class DataManager extends SQLiteOpenHelper
                 do {
 
                     Halls hallObject = new Halls();
-                    //hallObject.setID(Integer.parseInt(cursor.getString(0)));
                     hallObject.setName(cursor.getString(0));
-                    //hallObject.setYear(Integer.parseInt(cursor.getString(2)));
-                    // hallObject.setHistory(cursor.getString(3));
 
                     hall.add(hallObject);
                 }
@@ -250,7 +247,7 @@ public class DataManager extends SQLiteOpenHelper
 
         try{
 
-            String query = "SELECT Name FROM " + TABLE_DEPT;
+            String query = "SELECT Name FROM " + TABLE_DEPT + " ORDER BY Name ASC";
 
             db = SQLiteDatabase.openDatabase(path, null, SQLiteDatabase.OPEN_READWRITE);
             Cursor cursor = db.rawQuery(query, null);
