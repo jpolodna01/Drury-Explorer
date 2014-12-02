@@ -1,6 +1,7 @@
 package edu.drury.mcs.icarus.druryexplorer;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.view.Menu;
@@ -88,7 +89,7 @@ public class Halls extends Activity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.halls, menu);
+        getMenuInflater().inflate(R.menu.navigation, menu);
         return true;
     }
 
@@ -98,7 +99,9 @@ public class Halls extends Activity {
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
-        if (id == R.id.action_settings) {
+        if (id == R.id.action_about) {
+            Intent about = new Intent(this, About_Page.class);
+            startActivity(about);
             return true;
         }
         return super.onOptionsItemSelected(item);

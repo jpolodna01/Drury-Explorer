@@ -47,7 +47,9 @@ public class Navigation extends TabActivity {
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
-        if (id == R.id.action_settings) {
+        if (id == R.id.action_about) {
+            Intent about = new Intent(this, About_Page.class);
+            startActivity(about);
             return true;
         }
         return super.onOptionsItemSelected(item);

@@ -8,5 +8,12 @@
     <string name="title_activity_halls">Halls</string>
     <string name="title_activity_departments">Departments</string>
     <string name="title_activity_splash_screen">SplashScreen</string>
+    <string name="title_activity_about__page">About_Page</string>
+    <string name="about">AppName: Drury Explorer\n Company Name: Icuras Software\n
+    Team Name: ASCII U\n Team Members:\n    Daiv McBride\n
+        Daniel Chick\n
+        Josef Polodna\n
+    Version: 1.2.0\n
+    Last Update:</string>
 
 </resources>

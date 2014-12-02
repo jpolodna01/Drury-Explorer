@@ -225,6 +225,12 @@ public class DruryMap extends FragmentActivity  {
         }
     }
 
+    public void clearMap(View view){
+        mMap.clear();
+        tour=false;
+        firstTime=true;
+    }
+
 
 
     public void buildingMarkers(View view){
