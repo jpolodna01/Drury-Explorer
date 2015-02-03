@@ -1,13 +1,13 @@
 package edu.drury.mcs.icarus.druryexplorer;
-
+/*
+* Author: Daniel Chick
+* */
 import android.app.Activity;
 import android.content.Intent;
-import android.database.Cursor;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ArrayAdapter;
-import android.widget.CursorAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -17,6 +17,7 @@ import java.util.List;
 
 public class Halls extends Activity {
 
+    //instantiate variables for table elements
     public String _name, _history;
     public int _id, _year;
 
@@ -55,6 +56,8 @@ public class Halls extends Activity {
     public void setHistory(String history){this._history=history;}
 
     DataManager db = new DataManager(Halls.this);
+
+    //on create it will move the db from assets folder to sdcard0 then fills the list view with the halls
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -64,6 +67,7 @@ public class Halls extends Activity {
         populateListView();
     }
 
+    //populateListView pulls the list of hall names from the database and puts them on the screen in a list
     public void populateListView()
     {
         List<Halls> all = db.getHallList();
@@ -86,6 +90,7 @@ public class Halls extends Activity {
         return _name;
     }
 
+    //
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -93,6 +98,7 @@ public class Halls extends Activity {
         return true;
     }
 
+    //
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle action bar item clicks here. The action bar will
@@ -107,10 +113,9 @@ public class Halls extends Activity {
         return super.onOptionsItemSelected(item);
     }
 
+    //
     public void preLoadDb()
     {
-        DataManager db = new DataManager(this);
-
         try
         {
             db.create();

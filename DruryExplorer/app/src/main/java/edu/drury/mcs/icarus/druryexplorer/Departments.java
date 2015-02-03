@@ -1,9 +1,10 @@
 package edu.drury.mcs.icarus.druryexplorer;
-
+/*
+* Author: Daniel Chick
+* */
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.provider.ContactsContract;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ArrayAdapter;
@@ -16,6 +17,7 @@ import java.util.List;
 
 public class Departments extends Activity {
 
+    //instantiate variables for table elements
     public String _name, _description, _location;
     public int _id;
 
@@ -45,6 +47,7 @@ public class Departments extends Activity {
     public String getDescription() {return this._description;}
     public String getLocation() {return this._location;}
 
+    //set methods
     public void setID(int ID){this._id=ID;}
     public void setName(String name){this._name=name;}
     public void setDescription(String description){this._description=description;}
@@ -83,6 +86,7 @@ public class Departments extends Activity {
     @Override
     public String toString() {return _name;}
 
+    //
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -90,6 +94,7 @@ public class Departments extends Activity {
         return true;
     }
 
+    //
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle action bar item clicks here. The action bar will
@@ -104,10 +109,9 @@ public class Departments extends Activity {
         return super.onOptionsItemSelected(item);
     }
 
+    //
     public void preLoadDb()
     {
-        DataManager db = new DataManager(this);
-
         try
         {
             db.create();
