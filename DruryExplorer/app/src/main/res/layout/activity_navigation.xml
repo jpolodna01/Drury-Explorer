@@ -18,6 +18,10 @@
             android:background="#ffB80000"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
+<<<<<<< HEAD
+=======
+            android:backgroud="#ffb80000"
+>>>>>>> f768bd9f76dcd94e5372c344b13305e4ca5fb88d
             android:animateLayoutChanges="true"
             android:tabStripEnabled="false">
 

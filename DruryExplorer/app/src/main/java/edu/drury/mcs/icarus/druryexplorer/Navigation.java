@@ -35,7 +35,10 @@ public class Navigation extends TabActivity {
         spec3.setIndicator("Departments");
         th.addTab(spec3);
 
+<<<<<<< HEAD
         //hides the actionbar above the tabs
+=======
+>>>>>>> f768bd9f76dcd94e5372c344b13305e4ca5fb88d
         getActionBar().hide();
     }
 
