@@ -215,7 +215,7 @@ public class DataManager extends SQLiteOpenHelper
 
             String query = "SELECT Name FROM " + TABLE_HALL + " ORDER BY Name ASC";
 
-            db = SQLiteDatabase.openDatabase(path, null, SQLiteDatabase.OPEN_READWRITE);
+            open();
             Cursor cursor = db.rawQuery(query, null);
 
             hall = new ArrayList<Halls>();
@@ -237,6 +237,7 @@ public class DataManager extends SQLiteOpenHelper
 
         return hall;
     }
+
 
     /*public ArrayList<HallListActivity> getHallList2(){
         ArrayList<HallListActivity> hall = null;
