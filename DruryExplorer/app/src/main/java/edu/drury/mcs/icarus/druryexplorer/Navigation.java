@@ -3,10 +3,12 @@ package edu.drury.mcs.icarus.druryexplorer;
 import android.app.Activity;
 import android.app.TabActivity;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TabHost;
+import android.widget.TextView;
 
 
 public class Navigation extends TabActivity {
@@ -17,6 +19,7 @@ public class Navigation extends TabActivity {
         setContentView(R.layout.activity_navigation);
 
         th=(TabHost)findViewById(android.R.id.tabhost);
+
         TabHost.TabSpec spec = th.newTabSpec("tab1");
         spec.setContent(new Intent(this,DruryMap.class));
         spec.setIndicator("Drury Map");
@@ -31,6 +34,9 @@ public class Navigation extends TabActivity {
         spec3.setContent(new Intent(this,Departments.class));
         spec3.setIndicator("Departments");
         th.addTab(spec3);
+
+        //hides the actionbar above the tabs
+        getActionBar().hide();
     }
 
 
@@ -54,4 +60,5 @@ public class Navigation extends TabActivity {
         }
         return super.onOptionsItemSelected(item);
     }
+
 }

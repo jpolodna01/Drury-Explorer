@@ -1,7 +1,7 @@
 package edu.drury.mcs.icarus.druryexplorer;
-/*
+/**
 * Author: Daniel Chick
-* */
+*/
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -14,12 +14,19 @@ import android.widget.Toast;
 import java.io.IOException;
 import java.util.List;
 
-
+/**
+* The Department class contains the get and set methods to set each of the variables required for a department.
+* It also contains the methods to connect to the SQLite database to pull information for the department.
+*/
 public class Departments extends Activity {
+
+    //////////////////////////////Variables///////////////////////////////
 
     //instantiate variables for table elements
     public String _name, _description, _location;
     public int _id;
+
+    /////////////////////////////Constructors//////////////////////////////////
 
     //empty constructor
     public Departments(){}
@@ -40,6 +47,8 @@ public class Departments extends Activity {
         this._description=description;
         this._location=location;
     }
+
+    /////////////////////////Methods/////////////////////////////
 
     //Get methods
     public int getID() {return this._id;}

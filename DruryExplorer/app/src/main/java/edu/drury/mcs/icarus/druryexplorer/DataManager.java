@@ -30,6 +30,8 @@ import java.util.List;
 public class DataManager extends SQLiteOpenHelper
 {
 
+    //////////////////////////////Variables///////////////////////////////
+
     private static final int DATABASE_VERSION = 1;
 	
 	// path to db
@@ -55,6 +57,9 @@ public class DataManager extends SQLiteOpenHelper
         KEY_NAME2 = "Name",
         KEY_DESCRIPTION = "Description",
         KEY_LOCATION = "Location";
+
+    /////////////////////////////Constructors//////////////////////////////////
+
     /**
      * Constructor for class with context variable
      *
@@ -68,6 +73,8 @@ public class DataManager extends SQLiteOpenHelper
 		// update: set the context for the db
 		this.context=context;
     }
+
+    /////////////////////////Methods/////////////////////////////
 
     /**
      * Create a database and override it with our created database
@@ -160,9 +167,7 @@ public class DataManager extends SQLiteOpenHelper
 	}
 
     /**
-
      * Close the database
-     *
      */
 	@Override
 	public synchronized void close(){
@@ -196,11 +201,7 @@ public class DataManager extends SQLiteOpenHelper
      */
 	@Override
 	public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion){}
-	
-	
-	/*
-		Public methods to access the database
-	*/
+
 
     /**
      * Collects the hall names to be projected onto the screen
@@ -217,7 +218,7 @@ public class DataManager extends SQLiteOpenHelper
             db = SQLiteDatabase.openDatabase(path, null, SQLiteDatabase.OPEN_READWRITE);
             Cursor cursor = db.rawQuery(query, null);
 
-            hall = new LinkedList<Halls>();
+            hall = new ArrayList<Halls>();
             if(cursor.moveToFirst())
             {
                 do {
@@ -236,6 +237,36 @@ public class DataManager extends SQLiteOpenHelper
 
         return hall;
     }
+
+    /*public ArrayList<HallListActivity> getHallList2(){
+        ArrayList<HallListActivity> hall = null;
+
+        try{
+
+            String query = "SELECT Name FROM " + TABLE_HALL + " ORDER BY Name ASC";
+
+            db = SQLiteDatabase.openDatabase(path, null, SQLiteDatabase.OPEN_READWRITE);
+            Cursor cursor = db.rawQuery(query, null);
+
+            hall = new ArrayList<HallListActivity>();
+            if(cursor.moveToFirst())
+            {
+                do {
+
+                    HallListActivity hallObject = new HallListActivity();
+                    hallObject.setName(cursor.getString(0));
+
+                    hall.add(hallObject);
+                }
+                while (cursor.moveToNext());
+            }
+        }
+        catch(Exception e){
+            //sql error
+        }
+
+        return hall;
+    }*/
 
     /**
      * Collects the hall names to be projected onto the screen

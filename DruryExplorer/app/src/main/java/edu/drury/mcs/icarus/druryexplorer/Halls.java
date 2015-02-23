@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
@@ -14,12 +15,19 @@ import android.widget.Toast;
 import java.io.IOException;
 import java.util.List;
 
-
+/*
+The Hall class contains the get and set methods to set each of the variables required for a hall.
+It also contains the methods to connect to the SQLite database to pull information for the halls.
+ */
 public class Halls extends Activity {
+
+    //////////////////////////////Variables///////////////////////////////
 
     //instantiate variables for table elements
     public String _name, _history;
     public int _id, _year;
+
+    /////////////////////////////Constructors//////////////////////////////////
 
     //empty constructor
     public Halls(){}
@@ -40,6 +48,8 @@ public class Halls extends Activity {
         this._year = year;
         this._history = history;
     }
+
+    /////////////////////////Methods/////////////////////////////
 
     //Get Methods
     public int getID(){
@@ -125,5 +135,11 @@ public class Halls extends Activity {
             throw new Error("Unable to create Database");
         }
     }
+
+    /*public void onListItemClick(ListView listView, View view, int position, long id) {
+        super.onListItemClick(listView, view, position, id);
+
+
+    }*/
 
 }

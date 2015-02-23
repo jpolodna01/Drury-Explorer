@@ -1,5 +1,7 @@
 package edu.drury.mcs.icarus.druryexplorer;
-
+/*
+Author: Daniel Chick
+ */
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -7,7 +9,10 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.os.Handler;
 
-
+/**
+ * The splash screen class runs when the app is opened and produces a red background with
+ * the Drury University logo as the foreground. The splash screen lasts for 3 seconds.
+ */
 public class SplashScreen extends Activity {
 
     // Splash screen timer

@@ -15,5 +15,10 @@
         Josef Polodna\n
     Version: 1.2.0\n
     Last Update:</string>
+    <string name="title_halldetail_list">HallDetails</string>
+    <string name="title_halldetail_detail">HallDetail Detail</string>
+    <string name="title_hall_list">Halls</string>
+    <string name="title_hall_detail">Hall Detail</string>
+    <string name="title_activity_hall_facts">HallFacts</string>
 
 </resources>
