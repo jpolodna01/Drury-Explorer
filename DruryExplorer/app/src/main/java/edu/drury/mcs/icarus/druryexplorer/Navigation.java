@@ -31,6 +31,8 @@ public class Navigation extends TabActivity {
         spec3.setContent(new Intent(this,Departments.class));
         spec3.setIndicator("Departments");
         th.addTab(spec3);
+
+        getActionBar().hide();
     }
 
 

@@ -16,7 +16,10 @@
         <TabWidget
             android:id="@android:id/tabs"
             android:layout_width="fill_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:backgroud="#ffb80000"
+            android:animateLayoutChanges="true"
+            android:tabStripEnabled="false">
 
 
         </TabWidget>
