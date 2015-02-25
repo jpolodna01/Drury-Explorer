@@ -85,7 +85,7 @@ public class DataManager extends SQLiteOpenHelper
 
 		  //By calling this method and empty database will be created into the default system path
 		  //of your application so we are gonna be able to overwrite that database with our database.
-			this.getWritableDatabase();
+		    this.getWritableDatabase();
 
 			try {
 
@@ -113,7 +113,7 @@ public class DataManager extends SQLiteOpenHelper
 	  }
 
     /**
-     * Copy the database assets to the new new system database
+     * Copy the database assets to the new system database
      *
      * @throws IOException
      */
@@ -207,7 +207,7 @@ public class DataManager extends SQLiteOpenHelper
      *
      * @return
      */
-    public List<Halls> getHallList(){
+   /* public List<Halls> getHallList(){
         List<Halls> hall = null;
 
         try{
@@ -235,14 +235,14 @@ public class DataManager extends SQLiteOpenHelper
         }
 
         return hall;
-    }
+    }*/
 
     /**
      * Collects the hall names to be projected onto the screen
      *
      * @return
      */
-    public List<Departments> getDeptList(){
+   /* public List<Departments> getDeptList(){
         List<Departments> department = null;
 
         try{
@@ -270,6 +270,6 @@ public class DataManager extends SQLiteOpenHelper
         }
 
         return department;
-    }
+    }*/
 
 }

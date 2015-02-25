@@ -1,124 +1,192 @@
 package edu.drury.mcs.icarus.druryexplorer;
 /*
-* Author: Daniel Chick
+* Author: Daniel Chick && Josef Polodna
 * */
-import android.app.Activity;
-import android.content.Intent;
+
+/*********** original sqlite imports *************/
+// import android.app.Activity;
+// import android.content.Intent;
+// import android.os.Bundle;
+// import android.view.Menu;
+// import android.view.MenuItem;
+// import android.widget.ArrayAdapter;
+// import android.widget.ListView;
+// import android.widget.Toast;
+
+//import java.io.IOException;
+//import java.util.List;
+/************************************************/
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import org.apache.http.HttpResponse;
+import org.apache.http.client.ClientProtocolException;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.impl.client.DefaultHttpClient;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import android.os.AsyncTask;
 import android.os.Bundle;
+import android.app.Activity;
 import android.view.Menu;
-import android.view.MenuItem;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.SimpleAdapter;
 import android.widget.Toast;
 
-import java.io.IOException;
-import java.util.List;
-
-
+/**
+ Author(s): Josef Polodna (Current Version), Daniel Chick and Josef Polodna (Old Version)
+ Version: 0.7 - Josef Polodna, working on adding in functionality and support for mysql
+ */
 public class Departments extends Activity {
 
     //instantiate variables for table elements
-    public String _name, _description, _location;
-    public int _id;
+/*     public String _name, _description, _location;
+    public int _id; */
 
-    //empty constructor
-    public Departments(){}
+    private String jsonResult; // string to store the json result
+    private String url = "http://mcs.drury.edu/jpolodna01/DUE_PHP/DUE_DataManager_Departments.php"; //url to the php echo'ed data
+    private ListView listView; // listview variable
 
-    //constructor with all table elements
-    public Departments(int id, String name, String description, String location)
-    {
-        this._id=id;
-        this._name=name;
-        this._description=description;
-        this._location=location;
-    }
-
-    //constructor with all table elements minus id
-    public Departments(String name, String description, String location)
-    {
-        this._name=name;
-        this._description=description;
-        this._location=location;
-    }
-
-    //Get methods
-    public int getID() {return this._id;}
-    public String getName() {return this._name;}
-    public String getDescription() {return this._description;}
-    public String getLocation() {return this._location;}
-
-    //set methods
-    public void setID(int ID){this._id=ID;}
-    public void setName(String name){this._name=name;}
-    public void setDescription(String description){this._description=description;}
-    public void setLocation(String location){this._location=location;}
-
-    DataManager db = new DataManager(Departments.this);
-
-    //on create it will move the db from assets folder to sdcard0 then fills the list view with the departments
+    /* This is the onCreate method required via the extension. It is the operations preformed on the creation of the app
+        @param savedInstanceState - This bundle type parameter is used to take the data from the saved instance state
+                                    as a bundle for passing between states and activities
+    */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+        super.onCreate(savedInstanceState); // Use parent (onCreate) with the bundle
         setContentView(R.layout.activity_departments);
-
-        preLoadDb();
-        populateListView();
+        listView = (ListView) findViewById(R.id.deptView); // same as above
+        accessWebService(); //
     }
 
-    //populateListView pulls the list of department names from the database and puts them on the screen in a list
-    public void populateListView()
-    {
-        List<Departments> all = db.getDeptList();
-        if(all.size()>0) //check if list contains items.
-        {
-            ListView lv = (ListView) findViewById(R.id.deptView);
-            ArrayAdapter<Departments> arrayAdapter = new ArrayAdapter<Departments>(this, android.R.layout.simple_list_item_1, all);
+    /* Overrides the parent functionality for the method of the same name to inflate the action bar items
+        if the action bar is present
 
-            lv.setAdapter(arrayAdapter);
-        }
-        else
-        {
-            Toast.makeText(Departments.this, "Daniel says no data from DB", Toast.LENGTH_LONG).show();
-        }
-    }
-
-    //toString function turns the address of name to a string
-    @Override
-    public String toString() {return _name;}
-
-    //
+        @param menu - Represents the menu to be inflated
+    */
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.navigation, menu);
-        return true;
+        getMenuInflater().inflate(R.menu.navigation, menu); // inflate the menu, adding items to action bar if present
+        return true; // return true to indicate usage
     }
 
-    //
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-        if (id == R.id.action_about) {
-            Intent about = new Intent(this, About_Page.class);
-            startActivity(about);
-            return true;
+    /**
+     * Sub-class of of the Department class, which is used for handling the asynchronous functionality.
+     * Its nature forces sub-classing for implementation; several methods such as doInBackground are overwritten
+     * to handle the asynchronous threads as they are appropriate for this app.
+     * <p/>
+     * Author: Josef Polodna
+     */
+    private class JsonReadTask extends AsyncTask<String, Void, String> {
+
+        /* Override the doInBackground method, which handles most of the background processing, to
+            collect the data from the database.
+
+            @param params - vararg, which allows for theoretically unlimited amount of string params.
+                            params: the read-in json data, of undetermined length.
+        */
+        @Override
+        protected String doInBackground(String... params) {
+            //Create the http client and use the post to request the origin server accept the enclosed entity
+            HttpClient httpclient = new DefaultHttpClient();
+            HttpPost httppost = new HttpPost(params[0]);
+            try {
+                // set response variable to the execution of the httppost
+                HttpResponse response = httpclient.execute(httppost);
+                // jsonResult (field) is equal to the content of the response converted to a string
+                jsonResult = inputStreamToString(response.getEntity().getContent()).toString();
+            }
+            // catch various errors and print stack trace them
+            catch (ClientProtocolException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            // this method is to return its computation for purposes of threading
+            return null;
         }
-        return super.onOptionsItemSelected(item);
+
+        /* This method builds a string from the input stream
+
+            @param is - input stream
+        */
+        private StringBuilder inputStreamToString(InputStream is) {
+            String rLine = ""; //String for read-line
+            StringBuilder answer = new StringBuilder(); //string builder, for using modifiable sequence of characters
+            BufferedReader rd = new BufferedReader(new InputStreamReader(is));// buffered reader to read from the input stream
+
+            try {
+                //while another line exists in the input stream, read it in and append it to the stringbuilder answer
+                while ((rLine = rd.readLine()) != null) {
+                    answer.append(rLine);
+                }
+            } catch (IOException e) {
+                // presents the error to the user in an unobtrusive message utilizing toast
+                Toast.makeText(getApplicationContext(), "Error..." + e.toString(), Toast.LENGTH_LONG).show();
+            }
+            return answer; //return the built answer
+        }
+
+
+        /* The final method of the asynchronous sub-class, which posts the data to the ui thread. Overrode
+			to utilize the ListDrwaer method defined in the outer-class
+			
+			@param result - String built in the stringbuilder method from the json data
+		*/
+        @Override
+        protected void onPostExecute(String result) {
+            ListDrwaer();
+        }
+    }// End Async task
+
+    // access the web service
+    public void accessWebService() {
+        JsonReadTask task = new JsonReadTask();
+        // passes values for the urls string array
+        task.execute(new String[] { url });
     }
 
-    //
-    public void preLoadDb()
-    {
-        try
-        {
-            db.create();
+    // build hash set for list view
+    public void ListDrwaer() {
+        //
+        List<Map<String, String>> departmentList = new ArrayList<Map<String, String>>();
+
+        try {
+            JSONObject jsonResponse = new JSONObject(jsonResult);
+            JSONArray jsonMainNode = jsonResponse.optJSONArray("department");
+
+            for (int i = 0; i < jsonMainNode.length(); i++) {
+                JSONObject jsonChildNode = jsonMainNode.getJSONObject(i);
+                String name = jsonChildNode.optString("name");
+                String outPut = name;
+                departmentList.add(createDepartment("departments", outPut));
+            }
+        } catch (JSONException e) {
+            Toast.makeText(getApplicationContext(), "error" + e.toString(), Toast.LENGTH_SHORT).show();
         }
-        catch(IOException ioe)
-        {
-            throw new Error("Unable to create Database");
-        }
+        // android.R.layout.simple_list_item_1 is predefined in android libraries and not in local xml, and it specifies
+        // to the listview how to display the data
+        SimpleAdapter simpleAdapter = new SimpleAdapter(this, departmentList, android.R.layout.simple_list_item_1,
+                new String[]{"departments"}, new int[]{android.R.id.text1}); //android.R.id.text1 defined by android and not locally
+        listView.setAdapter(simpleAdapter);// set the listview to the previously created adapter (write data to screen)
+    }
+
+    /* As a hashmap, this associates data with a certain key in such a way that each piece has a unique key
+
+    */
+    private HashMap<String, String> createDepartment(String name, String number) {
+        HashMap<String, String> departmentName = new HashMap<String, String>();
+        departmentName.put(name, number);
+        return departmentName;
     }
 }
