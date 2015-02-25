@@ -208,7 +208,7 @@ public class DataManager extends SQLiteOpenHelper
      *
      * @return
      */
-    public List<Halls> getHallList(){
+    /*public List<Halls> getHallList(){
         List<Halls> hall = null;
 
         try{
@@ -236,7 +236,7 @@ public class DataManager extends SQLiteOpenHelper
         }
 
         return hall;
-    }
+    }*/
 
 
     /*public ArrayList<HallListActivity> getHallList2(){
@@ -274,7 +274,7 @@ public class DataManager extends SQLiteOpenHelper
      *
      * @return
      */
-    public List<Departments> getDeptList(){
+   /* public List<Departments> getDeptList(){
         List<Departments> department = null;
 
         try{
@@ -302,6 +302,6 @@ public class DataManager extends SQLiteOpenHelper
         }
 
         return department;
-    }
+    }*/
 
 }
