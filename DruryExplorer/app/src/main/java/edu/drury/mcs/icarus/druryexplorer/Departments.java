@@ -35,12 +35,16 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.app.Activity;
 import android.view.Menu;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
+import android.widget.TextView;
 import android.widget.Toast;
 
 /**
@@ -67,6 +71,24 @@ public class Departments extends Activity {
         setContentView(R.layout.activity_departments);
         listView = (ListView) findViewById(R.id.deptView); // same as above
         accessWebService(); //
+
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+                //selected item in the list
+                String clickedDept = ((TextView) view).getText().toString();
+
+                //creates a new intent that will open the DepartmentFacts activity
+                Intent i = new Intent(getApplicationContext(), DepartmentFacts.class);
+
+                //puts the clicked object in the bundle
+                i.putExtra("clickedDept", clickedDept);
+
+                //start the DepartmentFacts activity
+                startActivity(i);
+            }
+        });
     }
 
     /* Overrides the parent functionality for the method of the same name to inflate the action bar items
