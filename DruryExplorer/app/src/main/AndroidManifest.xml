@@ -83,6 +83,10 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="edu.drury.mcs.icarus.druryexplorer.HallListActivity" />
         </activity>
+        <activity
+            android:name=".DepartmentFacts"
+            android:label="@string/title_activity_department_facts" >
+        </activity>
     </application>
 
 </manifest>
