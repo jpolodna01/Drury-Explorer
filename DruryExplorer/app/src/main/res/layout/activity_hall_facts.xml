@@ -23,8 +23,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Hall Name"
-        android:id="@+id/nameView"
+        android:id="@+id/hNameView"
         android:layout_marginTop="110dp"
         android:layout_alignParentTop="false"
         android:layout_centerHorizontal="true"
