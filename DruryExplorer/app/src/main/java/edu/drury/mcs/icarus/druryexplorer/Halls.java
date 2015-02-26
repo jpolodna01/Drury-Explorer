@@ -35,12 +35,17 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.app.Activity;
+import android.support.v7.internal.widget.AdapterViewCompat;
 import android.view.Menu;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
+import android.widget.TextView;
 import android.widget.Toast;
 
 /**
@@ -67,7 +72,26 @@ public class Halls extends Activity {
         setContentView(R.layout.activity_halls);
         listView = (ListView) findViewById(R.id.hallView); // same as above
         accessWebService(); //
+
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+                //Selected item in the list
+                String clickedHall = ((TextView) view).getText().toString();
+
+                //creates a new intent that will open the HallFacts activity
+                Intent i = new Intent(getApplicationContext(), HallFacts.class);
+
+                //puts the clicked object in the bundle
+                i.putExtra("clickedHall", clickedHall);
+
+                //start the HallFacts activity
+                startActivity(i);
+            }
+        });
     }
+
 
     /* Overrides the parent functionality for the method of the same name to inflate the action bar items
         if the action bar is present
@@ -115,6 +139,8 @@ public class Halls extends Activity {
             // this method is to return its computation for purposes of threading
             return null;
         }
+
+
 
         /* This method builds a string from the input stream
 
