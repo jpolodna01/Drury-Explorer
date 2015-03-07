@@ -18,55 +18,90 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
 
-    <Button
-        style="?android:attr/buttonStyleSmall"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Tour Route"
-        android:id="@+id/tourRoute"
-        android:clickable="true"
-        android:onClick="fullTour"
-        android:layout_alignTop="@+id/startTour"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
 
-    <Button
-        style="?android:attr/buttonStyleSmall"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Buildings"
-        android:id="@+id/buildingMarkers"
-        android:layout_alignWithParentIfMissing="false"
-        android:layout_toEndOf="@+id/startTour"
-        android:onClick="buildingMarkers"
-        android:clickable="true"
-        android:layout_alignParentBottom="true"
-        android:layout_toRightOf="@+id/startTour"
-        android:layout_marginBottom="40dp" />
 
-    <Button
-        style="?android:attr/buttonStyleSmall"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Start Tour"
-        android:id="@+id/startTour"
-        android:layout_toEndOf="@+id/tourRoute"
-        android:onClick="startTour"
-        android:clickable="true"
-        android:layout_alignTop="@+id/buildingMarkers"
-        android:layout_toRightOf="@+id/tourRoute" />
+    <SlidingDrawer
+        android:layout_width="250dp"
+        android:layout_height="fill_parent"
+        android:content="@+id/content"
+        android:handle="@+id/handle"
+        android:id="@+id/slidingDrawer"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:orientation="horizontal"
+        android:rotation="180"
+        android:layout_alignParentStart="true">
 
-    <Button
-        style="?android:attr/buttonStyleSmall"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Clear Map"
-        android:id="@+id/clear"
-        android:layout_above="@+id/tourRoute"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:clickable="true"
-        android:onClick="clearMap" />
+        <LinearLayout
+            android:id="@+id/content"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:orientation="vertical"
+            android:rotation="180"
+            android:background="#59121212">
+
+            <ImageView
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/imageView2"/>
+
+            <Button
+                style="?android:attr/buttonStyleSmall"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Tour Route"
+                android:id="@+id/tourRoute"
+                android:clickable="true"
+                android:onClick="fullTour"
+                android:layout_alignTop="@+id/startTour"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true" />
+
+            <Button
+                style="?android:attr/buttonStyleSmall"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Buildings"
+                android:id="@+id/buildingMarkers"
+                android:layout_alignWithParentIfMissing="false"
+                android:layout_toEndOf="@+id/startTour"
+                android:onClick="buildingMarkers"
+                android:clickable="true"
+                android:layout_alignParentBottom="true"
+                android:layout_toRightOf="@+id/startTour"
+                android:layout_marginBottom="40dp" />
+
+            <Button
+                style="?android:attr/buttonStyleSmall"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Start Tour"
+                android:id="@+id/startTour"
+                android:layout_toEndOf="@+id/tourRoute"
+                android:onClick="startTour"
+                android:clickable="true"
+                android:layout_alignTop="@+id/buildingMarkers"
+                android:layout_toRightOf="@+id/tourRoute" />
+
+            <Button
+                style="?android:attr/buttonStyleSmall"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Clear Map"
+                android:id="@+id/clear"
+                android:layout_above="@+id/tourRoute"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:clickable="true"
+                android:onClick="clearMap" />
+            </LinearLayout>
+
+        <Button
+            android:id="@+id/handle"
+            android:layout_width="wrap_content"
+            android:layout_height="fill_parent"
+            android:background="@android:color/transparent"/>
+    </SlidingDrawer>
 
 
 </RelativeLayout>

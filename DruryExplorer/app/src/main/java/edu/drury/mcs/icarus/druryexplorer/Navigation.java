@@ -7,6 +7,7 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.TabHost;
 import android.widget.TextView;
 
@@ -34,6 +35,19 @@ public class Navigation extends TabActivity {
         spec3.setContent(new Intent(this,Departments.class));
         spec3.setIndicator("Departments");
         th.addTab(spec3);
+        getTabHost().animate();
+
+
+        for(int i=0; i<getTabHost().getTabWidget().getChildCount();i++){
+            View v = getTabHost().getTabWidget().getChildAt(i);
+            View w = getTabHost().getRootView();
+            w.setBackgroundColor(Color.WHITE);
+
+            TextView tv = (TextView) getTabHost().getTabWidget().getChildAt(i).findViewById(android.R.id.title);
+            tv.setTextColor(Color.WHITE);
+        }
+
+
 
 
         //hides the actionbar above the tabs

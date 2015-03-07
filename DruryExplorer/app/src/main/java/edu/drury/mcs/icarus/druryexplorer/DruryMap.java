@@ -1,14 +1,39 @@
 package edu.drury.mcs.icarus.druryexplorer;
 
+import edu.drury.mcs.icarus.druryexplorer.Building;
+import edu.drury.mcs.icarus.druryexplorer.TourPoint;
+
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import org.apache.http.HttpResponse;
+import org.apache.http.client.ClientProtocolException;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.impl.client.DefaultHttpClient;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import android.content.Context;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
+import android.os.AsyncTask;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.SimpleAdapter;
+import android.widget.Toast;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -22,34 +47,8 @@ import com.google.android.gms.maps.model.PolylineOptions;
 public class DruryMap extends FragmentActivity  {
 
     private GoogleMap mMap; // Might be null if Google Play services APK is not available.
-    private LatLng bay = new LatLng(37.218116,-93.286308);
-    private LatLng shewmaker = new LatLng(37.217034,-93.286043);
-    private LatLng WBC = new LatLng(37.216265,-93.286067);
-    private LatLng TSC = new LatLng(37.215741,-93.286208);
-    private LatLng Hammons = new LatLng(37.215694,-93.285476);
-    private LatLng Breech = new LatLng(37.217888,-93.285671);
-    private LatLng Springfield = new LatLng(37.218524,-93.285630);
-    private LatLng Gym = new LatLng(37.219232,-93.285612);
-    private LatLng FSC = new LatLng(37.221037, -93.285309);
-    private LatLng freeman = new LatLng(37.220804, -93.284343);
-    private LatLng smith = new LatLng(37.221645, -93.284861);
-    private LatLng wallace = new LatLng(37.221364, -93.285687);
-    private LatLng sunderland = new LatLng(37.221336, -93.286516);
-    private LatLng president = new LatLng(37.221800, -93.287127);
-    private LatLng manley = new LatLng(37.221874, -93.287682);
-    private LatLng congregational = new LatLng(37.222251, -93.287189);
-    private LatLng parsonage = new LatLng(37.222208, -93.286704);
-    private LatLng collegepark = new LatLng(37.222532, -93.288681);
-    private LatLng studentcenter = new LatLng(37.222856, -93.288742);
-    private LatLng mabee = new LatLng(37.220449, -93.287076);
-    private LatLng philosopher = new LatLng(37.219969, -93.287103);
-    private LatLng lay = new LatLng(37.219512, -93.286778);
-    private LatLng olin = new LatLng(37.219318, -93.286156);
-    private LatLng[] tour1 = {bay,shewmaker,WBC,TSC,Hammons,Breech,Springfield,Gym,FSC,freeman,smith,wallace,
-            sunderland,president,manley,congregational,parsonage,collegepark,studentcenter,mabee,philosopher,lay,olin};
-    private String[] buildings = {"Bay","ShewMaker","Washington Baptist Church","Trustee's Science Center","Hammons","Breech","Springfield","Gym","Finley Student Center",
-            "Freeman","Smith","Wallace","Sunderland","President's House","Manley","Congregational","Parsonage","Collage Park",
-            "Student Center","Maybees","Philosopher's Table","Lay Hall","Olin Library"};
+    private Building[] buildingArray;
+    private TourPoint[] tours={};
     private Boolean firstTime=true;
     private Boolean closeToNext=false;
     private PolylineOptions tourRoute = new PolylineOptions();
@@ -57,13 +56,28 @@ public class DruryMap extends FragmentActivity  {
     private int next=0;
     private int times=0;
     private Boolean  tour= false;
+    private String jsonResult;
+    private String Burl ="http://mcs.drury.edu/jpolodna01/DUE_PHP/DUE_Hall_Object.php";
+    private String Turl="http://mcs.drury.edu/jpolodna01/DUE_PHP/DUE_Tour_Object.php";
+    private String Tpurl="http://mcs.drury.edu/jpolodna01/DUE_PHP/DUE_Tour_info.php";
+    private String Tnum="http://mcs.drury.edu/jpolodna01/DUE_PHP/DUE_Number_Tour.php";
+    private int[] test= new int[10];
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_drury_map);
         firstTime=true;
+        for(int i =0;i<10;i++){
+            test[i]=i;
+        }
+        hallArray();
+
+
         setUpMapIfNeeded();
+
 
     }
 
@@ -120,7 +134,7 @@ public class DruryMap extends FragmentActivity  {
                 //mMap.addMarker(new MarkerOptions().position(new LatLng(location.getLatitude(),location.getLongitude())));
                 //mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(location.getLatitude(), location.getLongitude()), 18));
                 //mMap.addMarker(new MarkerOptions().position(bay).title("bay").snippet("Bay"));
-                if(tour) {
+                /*if(tour) {
                     if (firstTime) {
                         int i = closestBuilding(location, tour1);
                         toStart(location, tour1[i]);
@@ -137,7 +151,7 @@ public class DruryMap extends FragmentActivity  {
                         mMap.addMarker(new MarkerOptions().position(tour1[next]).title(buildings[next]));
                         toStart(location, tour1[next]);
                     }
-                }
+                }*/
 
 
 
@@ -213,7 +227,7 @@ public class DruryMap extends FragmentActivity  {
         mMap.addPolyline(touring);
 
     }
-    public void fullTour(View view){
+    /*public void fullTour(View view){
         for(int i=0;i<tour1.length-1;i++){
 
             tourRoute.geodesic(true)
@@ -223,7 +237,7 @@ public class DruryMap extends FragmentActivity  {
             mMap.addPolyline(tourRoute);
 
         }
-    }
+    }*/
 
     public void clearMap(View view){
         mMap.clear();
@@ -234,9 +248,11 @@ public class DruryMap extends FragmentActivity  {
 
 
     public void buildingMarkers(View view){
-        for(int i=0;i<buildings.length;i++){
 
-            mMap.addMarker(new MarkerOptions().position(tour1[i]).title(buildings[i]));
+
+        for(int i=0;i<buildingArray.length;i++){
+
+            mMap.addMarker(new MarkerOptions().position(new LatLng(buildingArray[i].getbLatatude(),buildingArray[i].getbLongatude())).title(buildingArray[i].getBuildingName()).snippet(buildingArray[i].getBuildingFacts()));
 
         }
     }
@@ -263,6 +279,117 @@ public class DruryMap extends FragmentActivity  {
                 i++;
             }
         }
+
+    }
+    /**
+     * Sub-class of of the Department class, which is used for handling the asynchronous functionality.
+     * Its nature forces sub-classing for implementation; several methods such as doInBackground are overwritten
+     * to handle the asynchronous threads as they are appropriate for this app.
+     * <p/>
+     * Author: Josef Polodna
+     */
+    private class JsonReadHalls extends AsyncTask<String, Void, String> {
+
+        /* Override the doInBackground method, which handles most of the background processing, to
+            collect the data from the database.
+
+            @param params - vararg, which allows for theoretically unlimited amount of string params.
+                            params: the read-in json data, of undetermined length.
+        */
+        @Override
+        protected String doInBackground(String... params) {
+            //Create the http client and use the post to request the origin server accept the enclosed entity
+            HttpClient httpclient = new DefaultHttpClient();
+            HttpPost httppost = new HttpPost(params[0]);
+            try {
+                // set response variable to the execution of the httppost
+                HttpResponse response = httpclient.execute(httppost);
+                // jsonResult (field) is equal to the content of the response converted to a string
+                jsonResult = inputStreamToString(response.getEntity().getContent()).toString();
+            }
+            // catch various errors and print stack trace them
+            catch (ClientProtocolException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            // this method is to return its computation for purposes of threading
+            return null;
+        }
+
+
+
+        /* This method builds a string from the input stream
+
+            @param is - input stream
+        */
+        private StringBuilder inputStreamToString(InputStream is) {
+            String rLine = ""; //String for read-line
+            StringBuilder answer = new StringBuilder(); //string builder, for using modifiable sequence of characters
+            BufferedReader rd = new BufferedReader(new InputStreamReader(is));// buffered reader to read from the input stream
+
+            try {
+                //while another line exists in the input stream, read it in and append it to the stringbuilder answer
+                while ((rLine = rd.readLine()) != null) {
+                    answer.append(rLine);
+                }
+            } catch (IOException e) {
+                // presents the error to the user in an unobtrusive message utilizing toast
+                Toast.makeText(getApplicationContext(), "Error..." + e.toString(), Toast.LENGTH_LONG).show();
+            }
+            return answer; //return the built answer
+        }
+
+
+        /* The final method of the asynchronous sub-class, which posts the data to the ui thread. Overrode
+			to utilize the ListDrwaer method defined in the outer-class
+
+			@param result - String built in the stringbuilder method from the json data
+		*/
+        @Override
+        protected void onPostExecute(String result) {
+            hallDrawer();
+        }
+    }// End Async task
+
+    // access the web service
+    public void hallArray() {
+        JsonReadHalls task = new JsonReadHalls();
+        // passes values for the urls string array
+        task.execute(new String[] { Burl });
+    }
+    public void hallDrawer() {
+        //
+
+
+        try {
+            JSONObject jsonResponse = new JSONObject(jsonResult);
+            JSONArray jsonMainNode = jsonResponse.optJSONArray("hall");
+            buildingArray=new Building[jsonMainNode.length()];
+
+            for (int i = 0; i < jsonMainNode.length(); i++) {
+                JSONObject jsonChildNode = jsonMainNode.getJSONObject(i);
+                int id = jsonChildNode.optInt("Hall_ID");
+                String name = jsonChildNode.optString("name");
+                String history = jsonChildNode.optString("history");
+                double lat = jsonChildNode.optDouble("latitude");
+                double lon = jsonChildNode.optDouble("longitude");
+                buildingArray[i] = new Building();
+                buildingArray[i].setbLongatude(lon);
+                buildingArray[i].setbLatatude(lat);
+                buildingArray[i].setBuildingName(name);
+                buildingArray[i].setBuildingNumber(id);
+                buildingArray[i].setBuildingFacts(history);
+                Building temp = buildingArray[i];
+
+
+
+            }
+        } catch (JSONException e) {
+            Toast.makeText(getApplicationContext(), "error" + e.toString(), Toast.LENGTH_SHORT).show();
+        }
+        // android.R.layout.simple_list_item_1 is predefined in android libraries and not in local xml, and it specifies
+        // to the listview how to display the data
 
     }
 

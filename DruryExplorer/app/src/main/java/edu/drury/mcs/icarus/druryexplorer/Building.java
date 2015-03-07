@@ -1,15 +1,18 @@
 package edu.drury.mcs.icarus.druryexplorer;
 
+import android.graphics.drawable.BitmapDrawable;
+
 /**
  * Created by Tanya on 2/22/2015.
  */
 public class Building {
 
-    private int buildingNumber;
-    private double bLongatude;
-    private double bLatatude;
+    public int buildingNumber;
+    public double bLongatude;
+    public double bLatatude;
     private String buildingName;
     private String buildingFacts;
+    private BitmapDrawable picture;
 
     public Building(int bnum, double blong, double bLat, String bName, String bFacts){
         this.buildingNumber=bnum;
@@ -17,6 +20,8 @@ public class Building {
         this.bLatatude=bLat;
         this.buildingName=bName;
         this.buildingFacts=bFacts;
+        this.picture=null;
+
     }
 
     public Building(){
@@ -25,6 +30,7 @@ public class Building {
         this.bLatatude=0.0;
         this.buildingName="";
         this.buildingFacts="";
+        this.picture=null;
     }
 
 //object setters
@@ -49,7 +55,11 @@ public class Building {
         this.buildingFacts = buildingFacts;
     }
 
-//object getters
+    public void setPicture(BitmapDrawable picture) {
+        this.picture = picture;
+    }
+
+    //object getters
 
 
     public int getBuildingNumber() {
@@ -71,4 +81,6 @@ public class Building {
     public String getBuildingFacts() {
         return buildingFacts;
     }
+
+    public BitmapDrawable getPicture() {return picture;}
 }
