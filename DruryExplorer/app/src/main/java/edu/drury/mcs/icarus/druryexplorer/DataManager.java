@@ -36,14 +36,16 @@ public class DataManager extends SQLiteOpenHelper
 	
 	// path to db
     //josef edited file path
+    //below not needed for mysql revamp
 	private static String DB_PATH = "/data/data/edu.drury.mcs.icarus.druryexplorer/databases";
 
     private static final String DATABASE_NAME = "hallManager.sqlite";
 
     private String path = DB_PATH + DATABASE_NAME;
 
-    private final Context context;
+    private final Context context; //not needed for mysql revamp
     private SQLiteDatabase db;
+    // not needed end
 
     // pulling from the db, so not necessary
 	private String TABLE_HALL = "Hall",

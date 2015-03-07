@@ -13,6 +13,10 @@ public class HallFacts extends Activity {
 
     public TextView textView1;
 
+    private String jsonReturn;
+    private String url = "http://mcs.drury.edu/jpolodna01/DUE_PHP/DUE_Facts_Halls.php"; //url to the php echo'ed data
+    private TextView testView; // listview variable
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
