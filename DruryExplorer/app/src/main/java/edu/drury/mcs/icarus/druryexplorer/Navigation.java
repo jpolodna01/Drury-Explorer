@@ -50,8 +50,7 @@ public class Navigation extends TabActivity {
 
 
 
-        //hides the actionbar above the tabs
-        getActionBar().hide();
+
     }
 
 
