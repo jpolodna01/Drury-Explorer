@@ -9,7 +9,7 @@ package edu.drury.mcs.icarus.druryexplorer;
 // import android.os.Bundle;
 // import android.view.Menu;
 // import android.view.MenuItem;
-// import android.widget.ArrayAdapter;
+   import android.widget.ArrayAdapter;
 // import android.widget.ListView;
 // import android.widget.Toast;
 
@@ -23,7 +23,8 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
+   import java.util.LinkedList;
+   import java.util.List;
 import java.util.Map;
 
 import org.apache.http.HttpResponse;
@@ -55,12 +56,34 @@ import android.widget.Toast;
 public class Halls extends Activity {
 
     //instantiate variables for table elements
-/*     public String _name, _description, _location;
-    public int _id; */
+    private String name, history;
+    private double latitude, longitude;
+    private int id;
+
+    // This is the list in which all of the hall objects will be stored. Muy importante
+    public List<Halls> hallList;
 
     private String jsonResult; // string to store the json result
-    private String url = "http://mcs.drury.edu/jpolodna01/DUE_PHP/DUE_DataManager_Halls.php"; //url to the php echo'ed data
+    private String url = "http://mcs.drury.edu/jpolodna01/DUE_PHP/DUE_Hall_Object.php"; //url to the php echo'ed data
     private ListView listView; // listview variable
+
+    //Get Methods
+    public int getID(){
+        return this.id;
+    }
+    public String getName(){return this.name;}
+    public String getHistory(){return this.history;}
+    private double getLatitude(){return this.latitude;}
+    private double getLongitude(){return this.longitude;}
+
+    //set Methods
+    public void setID(int ID){this.id = ID;}
+    public void setName(String name){this.name=name;}
+    public void setHistory(String history){this.history=history;}
+    public void setLatitude(double latitude){this.latitude=latitude;}
+    public void setLongitude(double longitude){this.longitude=longitude;}
+
+
 
     /* This is the onCreate method required via the extension. It is the operations preformed on the creation of the app
         @param savedInstanceState - This bundle type parameter is used to take the data from the saved instance state
@@ -72,6 +95,7 @@ public class Halls extends Activity {
         setContentView(R.layout.activity_halls);
         listView = (ListView) findViewById(R.id.hallView); // same as above
         accessWebService(); //
+
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -171,7 +195,7 @@ public class Halls extends Activity {
 		*/
         @Override
         protected void onPostExecute(String result) {
-            ListDrwaer();
+            populateListView();
         }
     }// End Async task
 
@@ -179,40 +203,76 @@ public class Halls extends Activity {
     public void accessWebService() {
         JsonReadTask task = new JsonReadTask();
         // passes values for the urls string array
-        task.execute(new String[] { url });
+        task.execute(new String[]{url});
     }
 
     // build hash set for list view
+
+    /**
+     * This method will be altered to draw the data from the database and insert it in a list
+     */
     public void ListDrwaer() {
-        //
-        List<Map<String, String>> hallList = new ArrayList<Map<String, String>>();
+
+         hallList = new ArrayList<Halls>();
 
         try {
             JSONObject jsonResponse = new JSONObject(jsonResult);
             JSONArray jsonMainNode = jsonResponse.optJSONArray("hall");
 
             for (int i = 0; i < jsonMainNode.length(); i++) {
+                Halls hallObject = new Halls();
                 JSONObject jsonChildNode = jsonMainNode.getJSONObject(i);
-                String name = jsonChildNode.optString("name");
-                String outPut = name;
-                hallList.add(createDepartment("halls", outPut));
+                hallObject.setID(Integer.parseInt(jsonChildNode.optString("Hall_ID")));
+                hallObject.setName(jsonChildNode.optString("name"));
+                hallObject.setHistory(jsonChildNode.optString("history"));
+                hallObject.setLatitude(Double.parseDouble(jsonChildNode.optString("latitude")));
+                hallObject.setLongitude(Double.parseDouble(jsonChildNode.optString("longitude")));
+                hallList.add(hallObject);
+               //String outPut = name;
+               // hallList.add(createDepartment("halls", outPut));
             }
         } catch (JSONException e) {
             Toast.makeText(getApplicationContext(), "error" + e.toString(), Toast.LENGTH_SHORT).show();
         }
         // android.R.layout.simple_list_item_1 is predefined in android libraries and not in local xml, and it specifies
         // to the listview how to display the data
-        SimpleAdapter simpleAdapter = new SimpleAdapter(this, hallList, android.R.layout.simple_list_item_1,
-                new String[]{"halls"}, new int[]{android.R.id.text1}); //android.R.id.text1 defined by android and not locally
-        listView.setAdapter(simpleAdapter);// set the listview to the previously created adapter (write data to screen)
+//        SimpleAdapter simpleAdapter = new SimpleAdapter(this, hallList, android.R.layout.simple_list_item_1,
+//                new String[]{"halls"}, new int[]{android.R.id.text1}); //android.R.id.text1 defined by android and not locally
+//        listView.setAdapter(simpleAdapter);// set the listview to the previously created adapter (write data to screen)
+
+//        LinkedList<Halls> hallListLinked = new LinkedList<Halls>(hallList);
+    }
+
+    public void populateListView()
+    {
+        ListDrwaer();
+//        ListView mainListView;
+//        ArrayAdapter<String> listAdapter = new ArrayAdapter<String>(this, R.layout.activity_halls, namesList);
+
+        if(hallList.size()>0) // check if list contains items.
+        {
+            ListView lv = (ListView) findViewById(R.id.hallView);
+            ArrayAdapter<Halls> arrayAdapter = new ArrayAdapter<Halls>(this, android.R.layout.simple_list_item_1, hallList);
+
+            lv.setAdapter(arrayAdapter);
+        }
+        else
+        {
+            Toast.makeText(Halls.this, "Daniel says no data from DB", Toast.LENGTH_LONG).show();
+        }
+    }
+
+    @Override
+    public String toString(){
+        return name;
     }
 
     /* As a hashmap, this associates data with a certain key in such a way that each piece has a unique key
 
     */
-    private HashMap<String, String> createDepartment(String name, String number) {
-        HashMap<String, String> hallName = new HashMap<String, String>();
-        hallName.put(name, number);
-        return hallName;
-    }
+//    private HashMap<String, String> createDepartment(String name, String number) {
+//        HashMap<String, String> hallName = new HashMap<String, String>();
+//        hallName.put(name, number);
+//        return hallName;
+//    }
 }

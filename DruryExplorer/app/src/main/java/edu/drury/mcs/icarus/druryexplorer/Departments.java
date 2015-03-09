@@ -42,6 +42,7 @@ import android.app.Activity;
 import android.view.Menu;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
 import android.widget.TextView;
@@ -57,9 +58,28 @@ public class Departments extends Activity {
 /*     public String _name, _description, _location;
     public int _id; */
 
+    private int departmentID, hallID;
+    private String name, description, location;
+
+    public List<Departments> departmentList;
+
     private String jsonResult; // string to store the json result
-    private String url = "http://mcs.drury.edu/jpolodna01/DUE_PHP/DUE_DataManager_Departments.php"; //url to the php echo'ed data
+    private String url = "http://mcs.drury.edu/jpolodna01/DUE_PHP/DUE_Department_Object.php"; //url to the php echo'ed data
     private ListView listView; // listview variable
+
+    public Departments(){}
+
+    public int getHallID(){return this.hallID;}
+    public int getDepartmentID(){return this.departmentID;}
+    public String getName(){return this.name;}
+    public String getLocation(){return this.location;}
+    public String getDescription(){return this.description;}
+
+    public void setHallID(int id){this.hallID = id;}
+    public void setDepartmentID(int id){this.departmentID = id;}
+    public void setName(String name){this.name = name;}
+    public void setDescription(String description){this.description = description;}
+    public void setLocation(String location){this.location = location;}
 
     /* This is the onCreate method required via the extension. It is the operations preformed on the creation of the app
         @param savedInstanceState - This bundle type parameter is used to take the data from the saved instance state
@@ -167,7 +187,7 @@ public class Departments extends Activity {
 		*/
         @Override
         protected void onPostExecute(String result) {
-            ListDrwaer();
+            populateListView();
         }
     }// End Async task
 
@@ -181,36 +201,66 @@ public class Departments extends Activity {
     // build hash set for list view
     public void ListDrwaer() {
         //
-        List<Map<String, String>> departmentList = new ArrayList<Map<String, String>>();
+        departmentList = new ArrayList<Departments>();
 
         try {
             JSONObject jsonResponse = new JSONObject(jsonResult);
             JSONArray jsonMainNode = jsonResponse.optJSONArray("department");
 
             for (int i = 0; i < jsonMainNode.length(); i++) {
+                Departments departmentObject = new Departments();
                 JSONObject jsonChildNode = jsonMainNode.getJSONObject(i);
-                String name = jsonChildNode.optString("name");
-                String outPut = name;
-                departmentList.add(createDepartment("departments", outPut));
+                departmentObject.setDepartmentID(Integer.parseInt(jsonChildNode.optString("Dept_ID")));
+                departmentObject.setHallID(Integer.parseInt(jsonChildNode.optString("Hall_ID")));
+                departmentObject.setName(jsonChildNode.optString("Name"));
+                departmentObject.setDescription(jsonChildNode.optString("Description"));
+                departmentObject.setLocation(jsonChildNode.optString("Location"));
+                departmentList.add(departmentObject);
+//                String outPut = name;
+//                departmentList.add(createDepartment("departments", outPut));
             }
         } catch (JSONException e) {
             Toast.makeText(getApplicationContext(), "error" + e.toString(), Toast.LENGTH_SHORT).show();
         }
         // android.R.layout.simple_list_item_1 is predefined in android libraries and not in local xml, and it specifies
         // to the listview how to display the data
-        SimpleAdapter simpleAdapter = new SimpleAdapter(this, departmentList, android.R.layout.simple_list_item_1,
-                new String[]{"departments"}, new int[]{android.R.id.text1}); //android.R.id.text1 defined by android and not locally
-        listView.setAdapter(simpleAdapter);// set the listview to the previously created adapter (write data to screen)
+//        SimpleAdapter simpleAdapter = new SimpleAdapter(this, departmentList, android.R.layout.simple_list_item_1,
+//                new String[]{"departments"}, new int[]{android.R.id.text1}); //android.R.id.text1 defined by android and not locally
+//        listView.setAdapter(simpleAdapter);// set the listview to the previously created adapter (write data to screen)
+    }
+
+
+    public void populateListView()
+    {
+        ListDrwaer();
+//        ListView mainListView;
+//        ArrayAdapter<String> listAdapter = new ArrayAdapter<String>(this, R.layout.activity_halls, namesList);
+
+        if(departmentList.size()>0) // check if list contains items.
+        {
+            ListView lv = (ListView) findViewById(R.id.deptView);
+            ArrayAdapter<Departments> arrayAdapter = new ArrayAdapter<Departments>(this, android.R.layout.simple_list_item_1, departmentList);
+
+            lv.setAdapter(arrayAdapter);
+        }
+        else
+        {
+            Toast.makeText(Departments.this, "Sorry, could not fetch data from database :(", Toast.LENGTH_LONG).show();
+        }
+    }
+
+    @Override
+    public String toString(){
+        return name;
     }
 
     /* As a hashmap, this associates data with a certain key in such a way that each piece has a unique key
-
     */
-    private HashMap<String, String> createDepartment(String name, String number) {
-        HashMap<String, String> departmentName = new HashMap<String, String>();
-        departmentName.put(name, number);
-        return departmentName;
-    }
+//    private HashMap<String, String> createDepartment(String name, String number) {
+//        HashMap<String, String> departmentName = new HashMap<String, String>();
+//        departmentName.put(name, number);
+//        return departmentName;
+//    }
 }
 
 
