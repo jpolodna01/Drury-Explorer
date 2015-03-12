@@ -25,11 +25,14 @@ import org.w3c.dom.Text;
 
 import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
@@ -47,6 +50,7 @@ import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.GroundOverlayOptions;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.gms.maps.model.Polyline;
 import com.google.android.gms.maps.model.PolylineOptions;
 
 public class DruryMap extends FragmentActivity  {
@@ -56,21 +60,28 @@ public class DruryMap extends FragmentActivity  {
     private TourPoint[] tours;
     private TourPoint[] tourOne;
     private TourPoint[] tourTwo;
-    private Boolean firstTime=true;
-    private Boolean closeToNext=false;
     private PolylineOptions tourRoute1 = new PolylineOptions();
     private PolylineOptions tourRoute2 = new PolylineOptions();
-    private PolylineOptions touring = new PolylineOptions();
+    private PolylineOptions selfTour1 = new PolylineOptions();
+    private PolylineOptions selfTour2 = new PolylineOptions();
+    private Polyline toured;
+    private Polyline tourMarkers1;
+    private Polyline tourMarkers2;
     private int next=0;
     private int tn;
-    private Boolean  tour= false;
+    private Boolean  tour1= false;
+    private Boolean tour2 = false;
+    private Boolean firstTime=true;
+    private Boolean startOne=false;
+    private Boolean startTwo = false;
+    Boolean network;
     private String jsonResult;
     private String jsonResult2;
     private String Burl ="http://mcs.drury.edu/jpolodna01/DUE_PHP/DUE_Hall_Object.php";
     private String Turl="http://mcs.drury.edu/jpolodna01/DUE_PHP/DUE_Tour_Objects.php";
     private String Tpurl="http://mcs.drury.edu/jpolodna01/DUE_PHP/DUE_Tour_info.php";
     private String Tnum="http://mcs.drury.edu/jpolodna01/DUE_PHP/DUE_Number_Tour.php";
-    private int[] test= new int[10];
+    JSONObject jsonResponse;
 
 
 
@@ -79,21 +90,41 @@ public class DruryMap extends FragmentActivity  {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_drury_map);
         firstTime=true;
-        for(int i =0;i<10;i++){
-            test[i]=i;
-        }
-        hallArray();
 
+        network = checkNetwork();
+        if(network) {
+            hallArray();
+        }
+        else{
+            hallDrawer();
+            tourDrawer();
+        }
 
         setUpMapIfNeeded();
 
 
     }
 
+
+    public Boolean checkNetwork() {
+        ConnectivityManager connMgr = (ConnectivityManager)
+                getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo networkInfo = connMgr.getActiveNetworkInfo();
+        if (networkInfo != null && networkInfo.isConnected()) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
     @Override
     protected void onResume() {
         super.onResume();
         setUpMapIfNeeded();
+        if(tour1){
+            tourMarkers1.isVisible();
+        }
+
     }
 
     /**
@@ -171,62 +202,154 @@ public class DruryMap extends FragmentActivity  {
 
     }
 
+    public void GPSAlert(){
+        AlertDialog.Builder gps = new AlertDialog.Builder(this);
+        gps.setTitle("GPS");
+        gps.setMessage("You GPS needs to be turned on for this function to work");
+        gps.setPositiveButton("OK", new DialogInterface.OnClickListener(){
+            public void onClick(DialogInterface dialog, int w){
+                //do nothing but close the dialog
+            }
+        });
+        AlertDialog gpsDialog = gps.create();
+        gpsDialog.show();
+    }
+
+    public void stopTours(View view){
+        if(startOne || startTwo){
+            toured.remove();
+        }
+        startOne=false;
+        startTwo=false;
+        mMap.clear();
+    }
 
 
+    public void startTourOne(View view){
+        if(startOne || startTwo) {
+            toured.remove();
+        }
+        startOne = true;
+        firstTime = true;
+        LocationManager manager = (LocationManager) this.getSystemService(Context.LOCATION_SERVICE);
+        if(startOne && manager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
 
-    public void startTour(View view){
-        LocationManager manager = (LocationManager)this.getSystemService(Context.LOCATION_SERVICE);
-        LocationListener listener = new LocationListener() {
-            @Override
-            public void onLocationChanged(Location location) {
-                //mMap.addMarker(new MarkerOptions().position(new LatLng(location.getLatitude(),location.getLongitude())));
-                //mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(location.getLatitude(), location.getLongitude()), 18));
-                //mMap.addMarker(new MarkerOptions().position(bay).title("bay").snippet("Bay"));
+            LocationListener listener = new LocationListener() {
+                @Override
+                public void onLocationChanged(Location location) {
+                    //mMap.addMarker(new MarkerOptions().position(new LatLng(location.getLatitude(),location.getLongitude())));
+                    //mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(location.getLatitude(), location.getLongitude()), 18));
+                    //mMap.addMarker(new MarkerOptions().position(bay).title("bay").snippet("Bay"));
 
-                    if (firstTime) {
-                        int x = closestBuilding(mMap.getMyLocation(), tours);
-                        toStart(mMap.getMyLocation(), new LatLng(tours[x].getLatatude(),tours[x].getLongatude()));
-                        mMap.addMarker(new MarkerOptions().position(new LatLng(tours[x].getLatatude(),tours[x].getLongatude())));
+                    if (firstTime && mMap.getMyLocation()!=null) {
+                        int x = closestBuilding(mMap.getMyLocation(), tourOne);
+                        toStart(mMap.getMyLocation(), new LatLng(tourOne[x].getLatatude(), tourOne[x].getLongatude()),selfTour1);
+                        if (tourOne[x].getBuildingNumber() > 0) {
+                            mMap.addMarker(new MarkerOptions().position(new LatLng(tourOne[x].getLatatude(), tourOne[x].getLongatude())).title(buildingArray[tourOne[x].getBuildingNumber() - 1].getBuildingName()));
+                        }
                         firstTime = false;
                         next = x;
                     }
-                    if (close(mMap.getMyLocation(), new LatLng(tours[next].getLatatude(),tours[next].getLongatude())) && mMap.getMyLocation().hasAccuracy()) {
-                        if (next == tours.length - 1) {
+                    if (close(mMap.getMyLocation(), new LatLng(tourOne[next].getLatatude(), tourOne[next].getLongatude())) && mMap.getMyLocation().hasAccuracy()) {
+                        if (next == tourOne.length - 1) {
                             next = 0;
                         } else {
                             next++;
                         }
-                        if(tours[next].getBuildingNumber()>0) {
-
-                            mMap.addMarker(new MarkerOptions().position(new LatLng(tours[next].getLatatude(), tours[next].getLongatude())).title(buildingArray[tours[next].getBuildingNumber()-1].getBuildingName()));
-
+                        if (tourOne[next].getBuildingNumber() > 0) {
+                            mMap.addMarker(new MarkerOptions().position(new LatLng(tourOne[next].getLatatude(), tourOne[next].getLongatude())).title(buildingArray[tourOne[next].getBuildingNumber() - 1].getBuildingName()));
                         }
-                        toStart(mMap.getMyLocation(), new LatLng(tours[next].getLatatude(), tours[next].getLongatude()));
+                        toContinue(new LatLng(tourOne[next].getLatatude(), tourOne[next].getLongatude()),selfTour1);
                     }
                 }
 
-            @Override
-            public void onStatusChanged(String provider, int status, Bundle extras) {
+                @Override
+                public void onStatusChanged(String provider, int status, Bundle extras) {
 
-            }
+                }
 
-            @Override
-            public void onProviderEnabled(String provider) {
+                @Override
+                public void onProviderEnabled(String provider) {
 
-            }
+                }
 
-            @Override
-            public void onProviderDisabled(String provider) {
+                @Override
+                public void onProviderDisabled(String provider) {
 
-            }
-        };
-        manager.requestLocationUpdates(LocationManager.GPS_PROVIDER,10,0,listener);
-        //manager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER,0,0,listener);
-        //manager.requestLocationUpdates(LocationManager.PASSIVE_PROVIDER,0,0,listener);
-        boolean on =manager.isProviderEnabled(LocationManager.GPS_PROVIDER);
+                }
+            };
+            manager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 10, 0, listener);
+
+        }
+        else{
+            startOne=false;
+            GPSAlert();
+
+        }
 
     }
 
+    public void startTourTwo(View view){
+        if(startOne || startTwo) {
+            toured.remove();
+        }
+        firstTime = true;
+        startTwo = true;
+        LocationManager manager = (LocationManager) this.getSystemService(Context.LOCATION_SERVICE);
+        if(startTwo && manager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
+            LocationListener listener = new LocationListener() {
+                @Override
+                public void onLocationChanged(Location location) {
+                    //mMap.addMarker(new MarkerOptions().position(new LatLng(location.getLatitude(),location.getLongitude())));
+                    //mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(location.getLatitude(), location.getLongitude()), 18));
+                    //mMap.addMarker(new MarkerOptions().position(bay).title("bay").snippet("Bay"));
+
+                    if (firstTime && mMap.getMyLocation()!=null) {
+                        int x = closestBuilding(mMap.getMyLocation(), tourTwo);
+                        toStart(mMap.getMyLocation(), new LatLng(tourTwo[x].getLatatude(), tourTwo[x].getLongatude()),selfTour2);
+                        if (tourTwo[x].getBuildingNumber() > 0) {
+                            mMap.addMarker(new MarkerOptions().position(new LatLng(tourTwo[x].getLatatude(), tourTwo[x].getLongatude())).title(buildingArray[tourTwo[x].getBuildingNumber() - 1].getBuildingName()));
+                        }
+                        firstTime = false;
+                        next = x;
+                    }
+                    if (close(mMap.getMyLocation(), new LatLng(tourTwo[next].getLatatude(), tourTwo[next].getLongatude())) && mMap.getMyLocation().hasAccuracy()) {
+                        if (next == tourTwo.length - 1) {
+                            next = 0;
+                        } else {
+                            next++;
+                        }
+                        if (tourTwo[next].getBuildingNumber() > 0) {
+                            mMap.addMarker(new MarkerOptions().position(new LatLng(tourTwo[next].getLatatude(), tourTwo[next].getLongatude())).title(buildingArray[tourTwo[next].getBuildingNumber() - 1].getBuildingName()));
+                        }
+                        toContinue(new LatLng(tourTwo[next].getLatatude(), tourTwo[next].getLongatude()),selfTour2);
+                    }
+                }
+
+                @Override
+                public void onStatusChanged(String provider, int status, Bundle extras) {
+
+                }
+
+                @Override
+                public void onProviderEnabled(String provider) {
+
+                }
+
+                @Override
+                public void onProviderDisabled(String provider) {
+
+                }
+            };
+            manager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 10, 0, listener);
+
+        }
+        else{
+            startTwo=false;
+            GPSAlert();
+        }
+
+    }
 
     private double trig(Location loc1, LatLng loc2){
         double lat1 = loc1.getLatitude();
@@ -253,7 +376,7 @@ public class DruryMap extends FragmentActivity  {
         return closest;
     }
 
-    private void toStart(Location now, LatLng there){
+    private void toStart(Location now, LatLng there,PolylineOptions touring){
        LatLng here = new LatLng(now.getLatitude(),now.getLongitude());
         touring.geodesic(true)
                     .add(here)
@@ -262,21 +385,34 @@ public class DruryMap extends FragmentActivity  {
                     .color(Color.rgb(204,21,21)  );
 
 
-        mMap.addPolyline(touring);
+        toured = mMap.addPolyline(touring);
+
+    }
+
+    private void toContinue(LatLng there,PolylineOptions touring){
+        touring.geodesic(true)
+                .add(there)
+                .width(15)
+                .color(Color.rgb(204,21,21)  );
+
+
+        toured = mMap.addPolyline(touring);
 
     }
     public void viewTourOne(View view){
+        tour1=true;
         for(int i=0;i<tourOne.length-1;i++){
 
             tourRoute1.geodesic(true)
                     .add(new LatLng(tourOne[i].getLatatude(),tourOne[i].getLongatude()))
                     .add(new LatLng(tourOne[i+1].getLatatude(),tourOne[i+1].getLongatude()))
                     .width(15)
-                    .color(Color.WHITE);
-            mMap.addPolyline(tourRoute1);
+                    .color(Color.GREEN);
+            tourMarkers1=mMap.addPolyline(tourRoute1);
             if(tourOne[i].getBuildingNumber()>0) {
 
-                mMap.addMarker(new MarkerOptions().position(new LatLng(tourOne[i].getLatatude(), tourOne[i].getLongatude())).title(buildingArray[tourOne[i].getBuildingNumber()-1].getBuildingName()));
+                mMap.addMarker(new MarkerOptions().position(new LatLng(tourOne[i].getLatatude(), tourOne[i].getLongatude()))
+                        .title(buildingArray[tourOne[i].getBuildingNumber() - 1].getBuildingName()));
 
             }
 
@@ -284,16 +420,19 @@ public class DruryMap extends FragmentActivity  {
     }
 
     public void viewTourTwo(View view){
+        tour2=true;
         for(int i=0;i<tourTwo.length-1;i++){
 
             tourRoute2.geodesic(true)
                     .add(new LatLng(tourTwo[i].getLatatude(),tourTwo[i].getLongatude()))
                     .add(new LatLng(tourTwo[i+1].getLatatude(),tourTwo[i+1].getLongatude()))
-                    .width(15);
-            mMap.addPolyline(tourRoute2);
+                    .width(15)
+                    .color(Color.MAGENTA);
+            tourMarkers2=mMap.addPolyline(tourRoute2);
             if(tourTwo[i].getBuildingNumber()>0) {
 
-                mMap.addMarker(new MarkerOptions().position(new LatLng(tourTwo[i].getLatatude(), tourTwo[i].getLongatude())).title(buildingArray[tourTwo[i].getBuildingNumber()-1].getBuildingName()));
+                mMap.addMarker(new MarkerOptions().position(new LatLng(tourTwo[i].getLatatude(), tourTwo[i].getLongatude()))
+                        .title(buildingArray[tourTwo[i].getBuildingNumber() - 1].getBuildingName()));
 
             }
 
@@ -302,8 +441,12 @@ public class DruryMap extends FragmentActivity  {
 
     public void clearMap(View view){
         mMap.clear();
-        tour=false;
-        firstTime=true;
+        if(tour1) {
+            tourMarkers1.remove();
+        }
+        if(tour2){
+            tourMarkers2.remove();
+        }
     }
 
 
@@ -313,7 +456,8 @@ public class DruryMap extends FragmentActivity  {
 
         for(int i=0;i<buildingArray.length;i++){
 
-            mMap.addMarker(new MarkerOptions().position(new LatLng(buildingArray[i].getbLatatude(),buildingArray[i].getbLongatude())).title(buildingArray[i].getBuildingName()).snippet(buildingArray[i].getBuildingFacts()));
+            mMap.addMarker(new MarkerOptions().position(new LatLng(buildingArray[i]
+                    .getbLatatude(), buildingArray[i].getbLongatude())).title(buildingArray[i].getBuildingName()));
 
         }
     }
@@ -324,24 +468,7 @@ public class DruryMap extends FragmentActivity  {
         }
         return false;
     }
-    private void selfTour(Location location,int next, LatLng[] tour){
 
-        int i=0;
-        while(i<tour.length){
-
-            if(close(location,tour[next])){
-                toStart(location,tour[next]);
-                if(next ==tour.length-1){
-                    next=0;
-                }
-                else{
-                    next++;
-                }
-                i++;
-            }
-        }
-
-    }
     /**
      * Sub-class of of the Department class, which is used for handling the asynchronous functionality.
      * Its nature forces sub-classing for implementation; several methods such as doInBackground are overwritten
@@ -428,7 +555,12 @@ public class DruryMap extends FragmentActivity  {
 
 
         try {
-            JSONObject jsonResponse = new JSONObject(jsonResult);
+            if(network) {
+                jsonResponse = new JSONObject(jsonResult);
+            }
+            else{
+                jsonResponse = new JSONObject(getString(R.string.halls));
+            }
             JSONArray jsonMainNode = jsonResponse.optJSONArray("hall");
             buildingArray=new Building[jsonMainNode.length()];
 
@@ -529,8 +661,12 @@ public class DruryMap extends FragmentActivity  {
         //text.setText(jsonResult2);
 
         try {
-
-            JSONObject jsonResponse = new JSONObject(jsonResult2);
+            if(network) {
+                jsonResponse = new JSONObject(jsonResult2);
+            }
+            else{
+                jsonResponse = new JSONObject(getString(R.string.tours));
+            }
             JSONArray jsonMainNode = jsonResponse.optJSONArray("Tour");
             tours=new TourPoint[jsonMainNode.length()];
 

@@ -3,7 +3,12 @@ package edu.drury.mcs.icarus.druryexplorer;
 Author: Daniel Chick
  */
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -22,6 +27,10 @@ public class SplashScreen extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash_screen);
+        Boolean net = checkNetwork();
+        if(!net){
+            networkAlert();
+        }
 
 
         new Handler().postDelayed(new Runnable() {
@@ -44,6 +53,30 @@ public class SplashScreen extends Activity {
         }, SPLASH_TIME_OUT);
 
 
+    }
+
+    public Boolean checkNetwork() {
+        ConnectivityManager connMgr = (ConnectivityManager)
+                getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo networkInfo = connMgr.getActiveNetworkInfo();
+        if (networkInfo != null && networkInfo.isConnected()) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public void networkAlert(){
+        AlertDialog.Builder network = new AlertDialog.Builder(this);
+        network.setTitle("No Network");
+        network.setMessage("For a better Drury Tour experence please connect to a network");
+        network.setPositiveButton("OK", new DialogInterface.OnClickListener(){
+            public void onClick(DialogInterface dialog, int w){
+                //do nothing but close the dialog
+            }
+        });
+        AlertDialog networkDialog = network.create();
+        networkDialog.show();
     }
 
 
