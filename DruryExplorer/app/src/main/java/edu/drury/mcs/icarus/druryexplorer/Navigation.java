@@ -28,7 +28,7 @@ public class Navigation extends TabActivity {
 
         TabHost.TabSpec spec2 = th.newTabSpec("tab2");
         spec2.setContent(new Intent(this,Halls.class));
-        spec2.setIndicator("Halls");
+        spec2.setIndicator("Buildings");
         th.addTab(spec2);
 
         TabHost.TabSpec spec3 = th.newTabSpec("tab3");

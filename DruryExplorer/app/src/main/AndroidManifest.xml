@@ -32,7 +32,8 @@
         </activity>
         <activity
             android:name=".DruryMap"
-            android:label="@string/title_activity_drury_map" >
+            android:label="@string/title_activity_drury_map"
+            android:screenOrientation="portrait">
         </activity>
 
         <meta-data

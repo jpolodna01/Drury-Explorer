@@ -21,5 +21,6 @@
     <string name="title_hall_detail">Hall Detail</string>
     <string name="title_activity_hall_facts">HallFacts</string>
     <string name="title_activity_department_facts">DepartmentFacts</string>
+    <string name="tours"></string>
 
 </resources>

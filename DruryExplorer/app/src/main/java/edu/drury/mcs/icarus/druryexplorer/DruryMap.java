@@ -21,7 +21,9 @@ import org.apache.http.impl.client.DefaultHttpClient;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.w3c.dom.Text;
 
+import android.app.AlertDialog;
 import android.content.Context;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
@@ -31,8 +33,11 @@ import android.location.LocationManager;
 import android.os.AsyncTask;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
+import android.text.AndroidCharacter;
+import android.util.Log;
 import android.view.View;
 import android.widget.SimpleAdapter;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -48,17 +53,21 @@ public class DruryMap extends FragmentActivity  {
 
     private GoogleMap mMap; // Might be null if Google Play services APK is not available.
     private Building[] buildingArray;
-    private TourPoint[] tours={};
+    private TourPoint[] tours;
+    private TourPoint[] tourOne;
+    private TourPoint[] tourTwo;
     private Boolean firstTime=true;
     private Boolean closeToNext=false;
-    private PolylineOptions tourRoute = new PolylineOptions();
+    private PolylineOptions tourRoute1 = new PolylineOptions();
+    private PolylineOptions tourRoute2 = new PolylineOptions();
     private PolylineOptions touring = new PolylineOptions();
     private int next=0;
-    private int times=0;
+    private int tn;
     private Boolean  tour= false;
     private String jsonResult;
+    private String jsonResult2;
     private String Burl ="http://mcs.drury.edu/jpolodna01/DUE_PHP/DUE_Hall_Object.php";
-    private String Turl="http://mcs.drury.edu/jpolodna01/DUE_PHP/DUE_Tour_Object.php";
+    private String Turl="http://mcs.drury.edu/jpolodna01/DUE_PHP/DUE_Tour_Objects.php";
     private String Tpurl="http://mcs.drury.edu/jpolodna01/DUE_PHP/DUE_Tour_info.php";
     private String Tnum="http://mcs.drury.edu/jpolodna01/DUE_PHP/DUE_Number_Tour.php";
     private int[] test= new int[10];
@@ -127,6 +136,45 @@ public class DruryMap extends FragmentActivity  {
 
         mMap.setMyLocationEnabled(true);
         mMap.getMyLocation();
+
+
+
+    }
+
+    private void splitTourArray(){
+        int place = 0;
+        int count = 0;
+        while(place<tours.length){
+            if(tours[place].getTourNumber()==1){
+                count++;
+            }
+            place++;
+        }
+        tourOne=new TourPoint[count];
+        tourTwo=new TourPoint[tours.length-count];
+        place = 0;
+        int placeOne=0;
+        int placeTwo = 0;
+        while(place<tours.length){
+            if(tours[place].getTourNumber()==1){
+                tourOne[placeOne]= tours[place];
+                placeOne++;
+                place++;
+            }
+            else{
+                tourTwo[placeTwo]=tours[place];
+                place++;
+                placeTwo++;
+            }
+        }
+
+
+    }
+
+
+
+
+    public void startTour(View view){
         LocationManager manager = (LocationManager)this.getSystemService(Context.LOCATION_SERVICE);
         LocationListener listener = new LocationListener() {
             @Override
@@ -134,29 +182,28 @@ public class DruryMap extends FragmentActivity  {
                 //mMap.addMarker(new MarkerOptions().position(new LatLng(location.getLatitude(),location.getLongitude())));
                 //mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(location.getLatitude(), location.getLongitude()), 18));
                 //mMap.addMarker(new MarkerOptions().position(bay).title("bay").snippet("Bay"));
-                /*if(tour) {
+
                     if (firstTime) {
-                        int i = closestBuilding(location, tour1);
-                        toStart(location, tour1[i]);
-                        mMap.addMarker(new MarkerOptions().position(tour1[i]).title(buildings[i]));
+                        int x = closestBuilding(mMap.getMyLocation(), tours);
+                        toStart(mMap.getMyLocation(), new LatLng(tours[x].getLatatude(),tours[x].getLongatude()));
+                        mMap.addMarker(new MarkerOptions().position(new LatLng(tours[x].getLatatude(),tours[x].getLongatude())));
                         firstTime = false;
-                        next = i;
+                        next = x;
                     }
-                    if (close(location, tour1[next]) && location.hasAccuracy()) {
-                        if (next == tour1.length - 1) {
+                    if (close(mMap.getMyLocation(), new LatLng(tours[next].getLatatude(),tours[next].getLongatude())) && mMap.getMyLocation().hasAccuracy()) {
+                        if (next == tours.length - 1) {
                             next = 0;
                         } else {
                             next++;
                         }
-                        mMap.addMarker(new MarkerOptions().position(tour1[next]).title(buildings[next]));
-                        toStart(location, tour1[next]);
+                        if(tours[next].getBuildingNumber()>0) {
+
+                            mMap.addMarker(new MarkerOptions().position(new LatLng(tours[next].getLatatude(), tours[next].getLongatude())).title(buildingArray[tours[next].getBuildingNumber()-1].getBuildingName()));
+
+                        }
+                        toStart(mMap.getMyLocation(), new LatLng(tours[next].getLatatude(), tours[next].getLongatude()));
                     }
-                }*/
-
-
-
-
-            }
+                }
 
             @Override
             public void onStatusChanged(String provider, int status, Bundle extras) {
@@ -178,15 +225,6 @@ public class DruryMap extends FragmentActivity  {
         //manager.requestLocationUpdates(LocationManager.PASSIVE_PROVIDER,0,0,listener);
         boolean on =manager.isProviderEnabled(LocationManager.GPS_PROVIDER);
 
-
-
-    }
-
-
-
-    public void startTour(View view){
-        tour = true;
-
     }
 
 
@@ -201,12 +239,12 @@ public class DruryMap extends FragmentActivity  {
         return dif;
     }
 
-    private int closestBuilding(Location loc, LatLng[] comp){
+    private int closestBuilding(Location loc, TourPoint[] comp){
         int closest=0;
         double cDist= 100000;
         double dist;
         for(int i=0; i<comp.length; i++){
-            dist=trig(loc,comp[i]);
+            dist=trig(loc,new LatLng(comp[i].getLatatude(),comp[i].getLongatude()));
             if(dist<cDist){
                 cDist=dist;
                 closest=i;
@@ -227,17 +265,40 @@ public class DruryMap extends FragmentActivity  {
         mMap.addPolyline(touring);
 
     }
-    /*public void fullTour(View view){
-        for(int i=0;i<tour1.length-1;i++){
+    public void viewTourOne(View view){
+        for(int i=0;i<tourOne.length-1;i++){
 
-            tourRoute.geodesic(true)
-                    .add(tour1[i])
-                    .add(tour1[i+1])
-                    .width(15);
-            mMap.addPolyline(tourRoute);
+            tourRoute1.geodesic(true)
+                    .add(new LatLng(tourOne[i].getLatatude(),tourOne[i].getLongatude()))
+                    .add(new LatLng(tourOne[i+1].getLatatude(),tourOne[i+1].getLongatude()))
+                    .width(15)
+                    .color(Color.WHITE);
+            mMap.addPolyline(tourRoute1);
+            if(tourOne[i].getBuildingNumber()>0) {
+
+                mMap.addMarker(new MarkerOptions().position(new LatLng(tourOne[i].getLatatude(), tourOne[i].getLongatude())).title(buildingArray[tourOne[i].getBuildingNumber()-1].getBuildingName()));
+
+            }
 
         }
-    }*/
+    }
+
+    public void viewTourTwo(View view){
+        for(int i=0;i<tourTwo.length-1;i++){
+
+            tourRoute2.geodesic(true)
+                    .add(new LatLng(tourTwo[i].getLatatude(),tourTwo[i].getLongatude()))
+                    .add(new LatLng(tourTwo[i+1].getLatatude(),tourTwo[i+1].getLongatude()))
+                    .width(15);
+            mMap.addPolyline(tourRoute2);
+            if(tourTwo[i].getBuildingNumber()>0) {
+
+                mMap.addMarker(new MarkerOptions().position(new LatLng(tourTwo[i].getLatatude(), tourTwo[i].getLongatude())).title(buildingArray[tourTwo[i].getBuildingNumber()-1].getBuildingName()));
+
+            }
+
+        }
+    }
 
     public void clearMap(View view){
         mMap.clear();
@@ -357,6 +418,10 @@ public class DruryMap extends FragmentActivity  {
         JsonReadHalls task = new JsonReadHalls();
         // passes values for the urls string array
         task.execute(new String[] { Burl });
+        //tourDrawer();
+        JsonReadTour tTask = new JsonReadTour();
+        tTask.execute(new String[] {Turl});
+
     }
     public void hallDrawer() {
         //
@@ -374,13 +439,14 @@ public class DruryMap extends FragmentActivity  {
                 String history = jsonChildNode.optString("history");
                 double lat = jsonChildNode.optDouble("latitude");
                 double lon = jsonChildNode.optDouble("longitude");
-                buildingArray[i] = new Building();
-                buildingArray[i].setbLongatude(lon);
-                buildingArray[i].setbLatatude(lat);
-                buildingArray[i].setBuildingName(name);
-                buildingArray[i].setBuildingNumber(id);
-                buildingArray[i].setBuildingFacts(history);
-                Building temp = buildingArray[i];
+                buildingArray[id-1] = new Building();
+                buildingArray[id-1].setbLongatude(lon);
+                buildingArray[id-1].setbLatatude(lat);
+                buildingArray[id-1].setBuildingName(name);
+                buildingArray[id-1].setBuildingNumber(id);
+                buildingArray[id-1].setBuildingFacts(history);
+
+
 
 
 
@@ -392,6 +458,113 @@ public class DruryMap extends FragmentActivity  {
         // to the listview how to display the data
 
     }
+    private class JsonReadTour extends AsyncTask<String, Void, String> {
 
+        /* Override the doInBackground method, which handles most of the background processing, to
+            collect the data from the database.
+
+            @param params - vararg, which allows for theoretically unlimited amount of string params.
+                            params: the read-in json data, of undetermined length.
+        */
+        @Override
+        protected String doInBackground(String... params) {
+            //Create the http client and use the post to request the origin server accept the enclosed entity
+            HttpClient httpclient = new DefaultHttpClient();
+            HttpPost httppost = new HttpPost(params[0]);
+            try {
+                // set response variable to the execution of the httppost
+                HttpResponse response = httpclient.execute(httppost);
+                // jsonResult (field) is equal to the content of the response converted to a string
+                jsonResult2 = inputStreamToString(response.getEntity().getContent()).toString();
+            }
+            // catch various errors and print stack trace them
+            catch (ClientProtocolException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            // this method is to return its computation for purposes of threading
+            return null;
+        }
+
+
+
+        /* This method builds a string from the input stream
+
+            @param is - input stream
+        */
+        private StringBuilder inputStreamToString(InputStream is) {
+            String rLine = ""; //String for read-line
+            StringBuilder answer = new StringBuilder(); //string builder, for using modifiable sequence of characters
+            BufferedReader rd = new BufferedReader(new InputStreamReader(is));// buffered reader to read from the input stream
+
+            try {
+                //while another line exists in the input stream, read it in and append it to the stringbuilder answer
+                while ((rLine = rd.readLine()) != null) {
+                    answer.append(rLine);
+                }
+            } catch (IOException e) {
+                // presents the error to the user in an unobtrusive message utilizing toast
+                Toast.makeText(getApplicationContext(), "Error..." + e.toString(), Toast.LENGTH_LONG).show();
+            }
+            return answer; //return the built answer
+        }
+
+
+        /* The final method of the asynchronous sub-class, which posts the data to the ui thread. Overrode
+			to utilize the ListDrwaer method defined in the outer-class
+
+			@param result - String built in the stringbuilder method from the json data
+		*/
+        @Override
+        protected void onPostExecute(String result) {
+            tourDrawer();
+        }
+    }// End Async task
+
+    public void tourDrawer() {
+        //this method will take the array of JSON objects and turn them into an array of TourPoint
+        //objects so to allow the user to follow or see the tour along these routes
+       // TextView text = (TextView)findViewById(R.id.textView2);
+        //text.setText(jsonResult2);
+
+        try {
+
+            JSONObject jsonResponse = new JSONObject(jsonResult2);
+            JSONArray jsonMainNode = jsonResponse.optJSONArray("Tour");
+            tours=new TourPoint[jsonMainNode.length()];
+
+            for (int i = 0; i < jsonMainNode.length(); i++) {
+                JSONObject jsonChildNode = jsonMainNode.getJSONObject(i);
+                int id = jsonChildNode.optInt("Tour ID");
+                double lat = jsonChildNode.optDouble("Latitude");
+                double lon = jsonChildNode.optDouble("Longitude");
+                String hall_id=jsonChildNode.optString("Hall ID");
+                String point = jsonChildNode.optString("Tour Point ID");
+
+
+                tours[i]=new TourPoint();
+                tours[i].setLatatude(lat);
+                tours[i].setLongatude(lon);
+                tours[i].setTourNumber(id);
+                if(hall_id=="null"){
+                    tours[i].setBuildingNumber(0);
+                }
+                else {
+                    tours[i].setBuildingNumber(Integer.parseInt(hall_id));
+                }
+
+
+
+
+
+            }
+        } catch (JSONException e) {
+            Toast.makeText(getApplicationContext(), "error" + e.toString(), Toast.LENGTH_SHORT).show();
+        }
+        splitTourArray();
+
+
+    }
 }
 
