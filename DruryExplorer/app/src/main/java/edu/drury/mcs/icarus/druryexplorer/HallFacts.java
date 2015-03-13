@@ -2,18 +2,27 @@ package edu.drury.mcs.icarus.druryexplorer;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.res.AssetManager;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ImageView;
 import android.widget.TextView;
+
+import java.io.IOException;
+import java.io.InputStream;
+
 import edu.drury.mcs.icarus.druryexplorer.Building;
 
 
 public class HallFacts extends Activity {
 
-    public TextView textView1;
+    private TextView textView1;
     private TextView history;
+    private ImageView hImage;
 
     private String jsonReturn;
     private String url = "http://mcs.drury.edu/jpolodna01/DUE_PHP/DUE_Facts_Halls.php"; //url to the php echo'ed data
@@ -25,7 +34,7 @@ public class HallFacts extends Activity {
         setContentView(R.layout.activity_hall_facts);
         textView1 = (TextView) findViewById(R.id.hNameView);
         history = (TextView) findViewById(R.id.historyView);
-
+        hImage = (ImageView) findViewById(R.id.hImageView);
 
         //creates a string to place the clicked object
         String newName;
@@ -60,6 +69,20 @@ public class HallFacts extends Activity {
         //display the name of the clicked hall
         textView1.setText(newName);
         history.setText(newHistory);
+
+        AssetManager manager = getAssets();
+
+        try
+        {
+            InputStream open = manager.open("test.jpg");
+            Bitmap bitmap = BitmapFactory.decodeStream(open);
+
+            hImage.setImageBitmap(bitmap);
+        }
+        catch (IOException e)
+        {
+            e.printStackTrace();
+        }
     }
 
 
