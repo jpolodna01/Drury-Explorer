@@ -1,17 +1,10 @@
 package edu.drury.mcs.icarus.druryexplorer;
 
-import edu.drury.mcs.icarus.druryexplorer.Building;
-import edu.drury.mcs.icarus.druryexplorer.TourPoint;
-
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 import org.apache.http.HttpResponse;
 import org.apache.http.client.ClientProtocolException;
@@ -21,12 +14,10 @@ import org.apache.http.impl.client.DefaultHttpClient;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.w3c.dom.Text;
 
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.location.Location;
 import android.location.LocationListener;
@@ -36,18 +27,13 @@ import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
-import android.text.AndroidCharacter;
-import android.util.Log;
 import android.view.View;
-import android.widget.SimpleAdapter;
-import android.widget.TextView;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.SupportMapFragment;
-import com.google.android.gms.maps.model.BitmapDescriptorFactory;
-import com.google.android.gms.maps.model.GroundOverlayOptions;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.Polyline;
@@ -68,7 +54,7 @@ public class DruryMap extends FragmentActivity  {
     private Polyline tourMarkers1;
     private Polyline tourMarkers2;
     private int next=0;
-    private int tn;
+    private int level=0;
     private Boolean  tour1= false;
     private Boolean tour2 = false;
     private Boolean firstTime=true;
@@ -82,6 +68,15 @@ public class DruryMap extends FragmentActivity  {
     private String Tpurl="http://mcs.drury.edu/jpolodna01/DUE_PHP/DUE_Tour_info.php";
     private String Tnum="http://mcs.drury.edu/jpolodna01/DUE_PHP/DUE_Number_Tour.php";
     JSONObject jsonResponse;
+    private ImageView dImage;
+    private int[] pic={R.drawable.pearsons,R.drawable.shewmaker, R.drawable.springfield,R.drawable.tsc,R.drawable.hammons,
+            R.drawable.breech,R.drawable.weiser,R.drawable.burnham,
+            R.drawable.bay,R.drawable.oreilly,R.drawable.pac, R.drawable.stonechapel,R.drawable.olin,
+            R.drawable.lay,R.drawable.mabee,R.drawable.fsc,R.drawable.freeman,
+            R.drawable.rose,R.drawable.smith,R.drawable.wallace, R.drawable.sunderland,R.drawable.president,
+            R.drawable.parsonage,R.drawable.congregational,R.drawable.summit,R.drawable.suites,
+            R.drawable.collegepark,R.drawable.mac,R.drawable.jeff,R.drawable.quad,R.drawable.manley,
+            R.drawable.harrison,R.drawable.drury,R.drawable.diversity};
 
 
 
@@ -89,6 +84,7 @@ public class DruryMap extends FragmentActivity  {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_drury_map);
+        dImage=(ImageView)findViewById(R.id.imageView2);
         firstTime=true;
 
         network = checkNetwork();
@@ -99,6 +95,8 @@ public class DruryMap extends FragmentActivity  {
             hallDrawer();
             tourDrawer();
         }
+
+
 
         setUpMapIfNeeded();
 
@@ -224,6 +222,20 @@ public class DruryMap extends FragmentActivity  {
         mMap.clear();
     }
 
+    //allows the user to change between three different views of the map
+    public void cMap(View view){
+        if(level==2) {
+            mMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
+            level = 0;
+        }
+        else {
+            mMap.setMapType(GoogleMap.MAP_TYPE_HYBRID);
+            level = 2;
+        }
+
+
+    }
+
 
     public void startTourOne(View view){
         if(startOne || startTwo) {
@@ -246,9 +258,11 @@ public class DruryMap extends FragmentActivity  {
                             toStart(mMap.getMyLocation(), new LatLng(tourOne[x].getLatatude(), tourOne[x].getLongatude()), selfTour1);
                             if (tourOne[x].getBuildingNumber() > 0) {
                                 mMap.addMarker(new MarkerOptions().position(new LatLng(tourOne[x].getLatatude(), tourOne[x].getLongatude())).title(buildingArray[tourOne[x].getBuildingNumber() - 1].getBuildingName()));
+                                dImage.setImageResource(tourOne[x].getBuildingNumber()-1);
                             }
                             firstTime = false;
                             next = x;
+
                         }
                         if (close(mMap.getMyLocation(), new LatLng(tourOne[next].getLatatude(), tourOne[next].getLongatude())) && mMap.getMyLocation().hasAccuracy()) {
                             if (next == tourOne.length - 1) {
@@ -258,6 +272,7 @@ public class DruryMap extends FragmentActivity  {
                             }
                             if (tourOne[next].getBuildingNumber() > 0) {
                                 mMap.addMarker(new MarkerOptions().position(new LatLng(tourOne[next].getLatatude(), tourOne[next].getLongatude())).title(buildingArray[tourOne[next].getBuildingNumber() - 1].getBuildingName()));
+                                dImage.setImageResource(tourOne[next].getBuildingNumber()-1);
                             }
                             toContinue(new LatLng(tourOne[next].getLatatude(), tourOne[next].getLongatude()), selfTour1);
                         }
@@ -301,7 +316,7 @@ public class DruryMap extends FragmentActivity  {
         startTwo = true;
         LocationManager manager = (LocationManager) this.getSystemService(Context.LOCATION_SERVICE);
         if(startTwo && manager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
-            LocationListener listener = new LocationListener() {
+            LocationListener listener2 = new LocationListener() {
                 @Override
                 public void onLocationChanged(Location location) {
                     //mMap.addMarker(new MarkerOptions().position(new LatLng(location.getLatitude(),location.getLongitude())));
@@ -313,6 +328,7 @@ public class DruryMap extends FragmentActivity  {
                             toStart(mMap.getMyLocation(), new LatLng(tourTwo[x].getLatatude(), tourTwo[x].getLongatude()), selfTour2);
                             if (tourTwo[x].getBuildingNumber() > 0) {
                                 mMap.addMarker(new MarkerOptions().position(new LatLng(tourTwo[x].getLatatude(), tourTwo[x].getLongatude())).title(buildingArray[tourTwo[x].getBuildingNumber() - 1].getBuildingName()));
+                                dImage.setImageResource(tourTwo[x].getBuildingNumber()-1);
                             }
                             firstTime = false;
                             next = x;
@@ -325,6 +341,7 @@ public class DruryMap extends FragmentActivity  {
                             }
                             if (tourTwo[next].getBuildingNumber() > 0) {
                                 mMap.addMarker(new MarkerOptions().position(new LatLng(tourTwo[next].getLatatude(), tourTwo[next].getLongatude())).title(buildingArray[tourTwo[next].getBuildingNumber() - 1].getBuildingName()));
+                                dImage.setImageResource(tourTwo[next].getBuildingNumber()-1);
                             }
                             toContinue(new LatLng(tourTwo[next].getLatatude(), tourTwo[next].getLongatude()), selfTour2);
                         }
@@ -349,7 +366,7 @@ public class DruryMap extends FragmentActivity  {
 
                 }
             };
-            manager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 10, 0, listener);
+            manager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 10, 0, listener2);
 
         }
         else{
@@ -383,6 +400,8 @@ public class DruryMap extends FragmentActivity  {
         }
         return closest;
     }
+
+
 
     private void toStart(Location now, LatLng there,PolylineOptions touring){
        LatLng here = new LatLng(now.getLatitude(),now.getLongitude());

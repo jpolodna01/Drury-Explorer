@@ -2,20 +2,11 @@ package edu.drury.mcs.icarus.druryexplorer;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.content.res.AssetManager;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ImageView;
 import android.widget.TextView;
-
-import java.io.IOException;
-import java.io.InputStream;
-
-import edu.drury.mcs.icarus.druryexplorer.Building;
 
 
 public class HallFacts extends Activity {
@@ -27,6 +18,14 @@ public class HallFacts extends Activity {
     private String jsonReturn;
     private String url = "http://mcs.drury.edu/jpolodna01/DUE_PHP/DUE_Facts_Halls.php"; //url to the php echo'ed data
     private TextView testView; // listview variable
+    private int[] pic={R.drawable.pearsons,R.drawable.shewmaker, R.drawable.springfield,R.drawable.tsc,R.drawable.hammons,
+            R.drawable.breech,R.drawable.weiser,R.drawable.burnham,
+            R.drawable.bay,R.drawable.oreilly,R.drawable.pac, R.drawable.stonechapel,R.drawable.olin,
+            R.drawable.lay,R.drawable.mabee,R.drawable.fsc,R.drawable.freeman,
+            R.drawable.rose,R.drawable.smith,R.drawable.wallace, R.drawable.sunderland,R.drawable.president,
+            R.drawable.parsonage,R.drawable.congregational,R.drawable.summit,R.drawable.suites,
+            R.drawable.collegepark,R.drawable.mac,R.drawable.jeff,R.drawable.quad,R.drawable.manley,
+            R.drawable.harrison,R.drawable.drury,R.drawable.diversity};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,6 +38,7 @@ public class HallFacts extends Activity {
         //creates a string to place the clicked object
         String newName;
         String newHistory;
+        String id;
         if(savedInstanceState == null)
         {
             //get the bundle from Halls.java
@@ -50,6 +50,7 @@ public class HallFacts extends Activity {
             {
                 newName = null;
                 newHistory=null;
+                id= "0";
             }
 
             //if there is something there the get the string from the bundle
@@ -57,6 +58,7 @@ public class HallFacts extends Activity {
             {
                 newName = hall.getBuildingName();
                 newHistory=hall.getBuildingFacts();
+                id=hall.getId();
             }
         }
         else
@@ -64,15 +66,17 @@ public class HallFacts extends Activity {
             Building hall = (Building) savedInstanceState.getSerializable("clickedHall");
             newName = hall.getBuildingName();
             newHistory=hall.getBuildingFacts();
+            id=hall.getId();
         }
 
         //display the name of the clicked hall
         textView1.setText(newName);
         history.setText(newHistory);
+        hImage.setImageResource(pic[Integer.parseInt(id)-1]);
 
-        AssetManager manager = getAssets();
+        //AssetManager manager = getAssets();
 
-        try
+       /* try
         {
             InputStream open = manager.open("test.jpg");
             Bitmap bitmap = BitmapFactory.decodeStream(open);
@@ -82,7 +86,7 @@ public class HallFacts extends Activity {
         catch (IOException e)
         {
             e.printStackTrace();
-        }
+        }*/
     }
 
 
