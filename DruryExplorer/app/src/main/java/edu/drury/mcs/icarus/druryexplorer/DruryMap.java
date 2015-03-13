@@ -236,7 +236,6 @@ public class DruryMap extends FragmentActivity  {
 
     }
 
-
     public void startTourOne(View view){
         if(startOne || startTwo) {
             toured.remove();
