@@ -45,7 +45,7 @@ public class DepartmentFacts extends Activity {
             else
             {
                 newDName = depar.getName();
-                newLocation = "Location: " +depar.getLocation();
+                newLocation = "Located in: " +depar.getLocation();
                 newDescription = depar.getDescription();
             }
         }
@@ -53,7 +53,7 @@ public class DepartmentFacts extends Activity {
         {
             Department depar = (Department) savedInstanceState.getSerializable("clickedDept");
             newDName = depar.getName();
-            newLocation = "Location: "+depar.getLocation();
+            newLocation = "Located in: "+depar.getLocation();
             newDescription = depar.getDescription();
         }
 
