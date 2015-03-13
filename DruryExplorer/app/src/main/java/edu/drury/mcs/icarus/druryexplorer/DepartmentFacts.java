@@ -10,41 +10,57 @@ import android.widget.TextView;
 
 public class DepartmentFacts extends Activity {
 
-    public TextView textView2;
+    private TextView name;
+    private TextView location;
+    private TextView discription;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_department_facts);
 
-        textView2 = (TextView) findViewById(R.id.dNameView);
+        name = (TextView) findViewById(R.id.dNameView);
+        location =(TextView) findViewById(R.id.locationView);
+        discription =(TextView) findViewById(R.id.descriptionView);
 
         //creates a string to place the clicked object
         String newDName;
+        String newLocation;
+        String newDescription;
 
         if(savedInstanceState == null)
         {
             //get the bundle from Departments.java
             Bundle extras = getIntent().getExtras();
+            Department depar = (Department)extras.getParcelable("clickedDept");
 
             //if there is nothing there then the string is empty
             if(extras == null)
             {
                 newDName = null;
+                newLocation = null;
+                newDescription = null;
             }
 
             //if there is something there then get the string from the bundle
             else
             {
-                newDName = extras.getString("clickedDept");
+                newDName = depar.getName();
+                newLocation = "Location: " +depar.getLocation();
+                newDescription = depar.getDescription();
             }
         }
         else
         {
-            newDName = (String) savedInstanceState.getSerializable("clickedDept");
+            Department depar = (Department) savedInstanceState.getSerializable("clickedDept");
+            newDName = depar.getName();
+            newLocation = "Location: "+depar.getLocation();
+            newDescription = depar.getDescription();
         }
 
         //display the name of the clicked department
-        textView2.setText(newDName);
+        name.setText(newDName);
+        location.setText(newLocation);
+        discription.setText(newDescription);
     }
 
 

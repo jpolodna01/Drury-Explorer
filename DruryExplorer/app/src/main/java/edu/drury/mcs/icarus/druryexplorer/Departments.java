@@ -51,6 +51,7 @@ import android.widget.ListView;
 import android.widget.SimpleAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
+import edu.drury.mcs.icarus.druryexplorer.Department;
 
 /**
  Author(s): Josef Polodna (Current Version), Daniel Chick and Josef Polodna (Old Version)
@@ -62,30 +63,17 @@ public class Departments extends Activity {
 /*     public String _name, _description, _location;
     public int _id; */
 
-    private int departmentID, hallID;
-    private String name, description, location;
+
     private Boolean net;
     private JSONObject jsonResponse;
 
-    public List<Departments> departmentList;
+    public List<Department> departmentList;
 
     private String jsonResult; // string to store the json result
     private String url = "http://mcs.drury.edu/jpolodna01/DUE_PHP/DUE_Department_Object.php"; //url to the php echo'ed data
     private ListView listView; // listview variable
 
-    public Departments(){}
 
-    public int getHallID(){return this.hallID;}
-    public int getDepartmentID(){return this.departmentID;}
-    public String getName(){return this.name;}
-    public String getLocation(){return this.location;}
-    public String getDescription(){return this.description;}
-
-    public void setHallID(int id){this.hallID = id;}
-    public void setDepartmentID(int id){this.departmentID = id;}
-    public void setName(String name){this.name = name;}
-    public void setDescription(String description){this.description = description;}
-    public void setLocation(String location){this.location = location;}
 
     /* This is the onCreate method required via the extension. It is the operations preformed on the creation of the app
         @param savedInstanceState - This bundle type parameter is used to take the data from the saved instance state
@@ -104,23 +92,7 @@ public class Departments extends Activity {
             populateListView();
         }
 
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
-                //selected item in the list
-                String clickedDept = ((TextView) view).getText().toString();
-
-                //creates a new intent that will open the DepartmentFacts activity
-                Intent i = new Intent(getApplicationContext(), DepartmentFacts.class);
-
-                //puts the clicked object in the bundle
-                i.putExtra("clickedDept", clickedDept);
-
-                //start the DepartmentFacts activity
-                startActivity(i);
-            }
-        });
     }
 
     public Boolean checkNetwork() {
@@ -224,7 +196,7 @@ public class Departments extends Activity {
     // build hash set for list view
     public void ListDrwaer() {
         //
-        departmentList = new ArrayList<Departments>();
+        departmentList = new ArrayList<Department>();
 
         try {
             if(net) {
@@ -236,7 +208,7 @@ public class Departments extends Activity {
             JSONArray jsonMainNode = jsonResponse.optJSONArray("department");
 
             for (int i = 0; i < jsonMainNode.length(); i++) {
-                Departments departmentObject = new Departments();
+                Department departmentObject = new Department();
                 JSONObject jsonChildNode = jsonMainNode.getJSONObject(i);
                 departmentObject.setDepartmentID(Integer.parseInt(jsonChildNode.optString("Dept_ID")));
                 departmentObject.setHallID(Integer.parseInt(jsonChildNode.optString("Hall_ID")));
@@ -267,9 +239,27 @@ public class Departments extends Activity {
         if(departmentList.size()>0) // check if list contains items.
         {
             ListView lv = (ListView) findViewById(R.id.deptView);
-            ArrayAdapter<Departments> arrayAdapter = new ArrayAdapter<Departments>(this, android.R.layout.simple_list_item_1, departmentList);
+            final ArrayAdapter<Department> arrayAdapter = new ArrayAdapter<Department>(this, android.R.layout.simple_list_item_1, departmentList);
 
             lv.setAdapter(arrayAdapter);
+
+            listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+                    //selected item in the list
+                    Department clickedDept = arrayAdapter.getItem(position);
+
+                    //creates a new intent that will open the DepartmentFacts activity
+                    Intent i = new Intent(getApplicationContext(), DepartmentFacts.class);
+
+                    //puts the clicked object in the bundle
+                    i.putExtra("clickedDept", clickedDept);
+
+                    //start the DepartmentFacts activity
+                    startActivity(i);
+                }
+            });
         }
         else
         {
@@ -277,18 +267,8 @@ public class Departments extends Activity {
         }
     }
 
-    @Override
-    public String toString(){
-        return name;
-    }
 
-    /* As a hashmap, this associates data with a certain key in such a way that each piece has a unique key
-    */
-//    private HashMap<String, String> createDepartment(String name, String number) {
-//        HashMap<String, String> departmentName = new HashMap<String, String>();
-//        departmentName.put(name, number);
-//        return departmentName;
-//    }
+
 }
 
 

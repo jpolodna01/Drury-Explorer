@@ -74,25 +74,7 @@ public class Halls extends Activity {
     private String url = "http://mcs.drury.edu/jpolodna01/DUE_PHP/DUE_Hall_Object.php"; //url to the php echo'ed data
     private ListView listView; // listview variable
 
-    //Get Methods
-    public int getID(){
-        return this.id;
-    }
-    public String getName(){return this.name;}
-    public String getHistory(){return this.history;}
-    private double getLatitude(){return this.latitude;}
-    private double getLongitude(){return this.longitude;}
-
-    //set Methods
-    public void setID(int ID){this.id = ID;}
-    public void setName(String name){this.name=name;}
-    public void setHistory(String history){this.history=history;}
-    public void setLatitude(double latitude){this.latitude=latitude;}
-    public void setLongitude(double longitude){this.longitude=longitude;}
-
-
-
-    /* This is the onCreate method required via the extension. It is the operations preformed on the creation of the app
+     /* This is the onCreate method required via the extension. It is the operations preformed on the creation of the app
         @param savedInstanceState - This bundle type parameter is used to take the data from the saved instance state
                                     as a bundle for passing between states and activities
     */
