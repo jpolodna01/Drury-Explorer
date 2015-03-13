@@ -2,12 +2,15 @@ package edu.drury.mcs.icarus.druryexplorer;
 
 import android.app.Activity;
 import android.content.Intent;
+<<<<<<< HEAD
 import android.content.res.AssetManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.AsyncTask;
 import android.support.v7.app.ActionBarActivity;
+=======
+>>>>>>> e777c8ed0944a8a891ad44887d777b0eb487c5f0
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -15,6 +18,7 @@ import android.view.MenuItem;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+<<<<<<< HEAD
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
@@ -25,6 +29,8 @@ import javax.net.ssl.HttpsURLConnection;
 
 import edu.drury.mcs.icarus.druryexplorer.Building;
 
+=======
+>>>>>>> e777c8ed0944a8a891ad44887d777b0eb487c5f0
 
 public class HallFacts extends Activity {
 
@@ -35,6 +41,14 @@ public class HallFacts extends Activity {
     private String jsonReturn;
     private String url = "http://mcs.drury.edu/jpolodna01/DUE_PHP/DUE_Facts_Halls.php"; //url to the php echo'ed data
     private TextView testView; // listview variable
+    private int[] pic={R.drawable.pearsons,R.drawable.shewmaker, R.drawable.springfield,R.drawable.tsc,R.drawable.hammons,
+            R.drawable.breech,R.drawable.weiser,R.drawable.burnham,
+            R.drawable.bay,R.drawable.oreilly,R.drawable.pac, R.drawable.stonechapel,R.drawable.olin,
+            R.drawable.lay,R.drawable.mabee,R.drawable.fsc,R.drawable.freeman,
+            R.drawable.rose,R.drawable.smith,R.drawable.wallace, R.drawable.sunderland,R.drawable.president,
+            R.drawable.parsonage,R.drawable.congregational,R.drawable.summit,R.drawable.suites,
+            R.drawable.collegepark,R.drawable.mac,R.drawable.jeff,R.drawable.quad,R.drawable.manley,
+            R.drawable.harrison,R.drawable.drury,R.drawable.diversity};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,10 +61,14 @@ public class HallFacts extends Activity {
         //creates a string to place the clicked object
         String newName;
         String newHistory;
+<<<<<<< HEAD
         String newImage;
 
         getImageFromUrl getIMG = new getImageFromUrl(hImage);
 
+=======
+        String id;
+>>>>>>> e777c8ed0944a8a891ad44887d777b0eb487c5f0
         if(savedInstanceState == null)
         {
             //get the bundle from Halls.java
@@ -63,7 +81,11 @@ public class HallFacts extends Activity {
             {
                 newName = null;
                 newHistory=null;
+<<<<<<< HEAD
                 newImage=null;
+=======
+                id= "0";
+>>>>>>> e777c8ed0944a8a891ad44887d777b0eb487c5f0
             }
 
             //if there is something there the get the string from the bundle
@@ -71,7 +93,11 @@ public class HallFacts extends Activity {
             {
                 newName = hall.getBuildingName();
                 newHistory=hall.getBuildingFacts();
+<<<<<<< HEAD
                 newImage=hall.getPicture();
+=======
+                id=hall.getId();
+>>>>>>> e777c8ed0944a8a891ad44887d777b0eb487c5f0
             }
         }
         else
@@ -79,7 +105,11 @@ public class HallFacts extends Activity {
             Building hall = (Building) savedInstanceState.getSerializable("clickedHall");
             newName = hall.getBuildingName();
             newHistory=hall.getBuildingFacts();
+<<<<<<< HEAD
             newImage=hall.getPicture();
+=======
+            id=hall.getId();
+>>>>>>> e777c8ed0944a8a891ad44887d777b0eb487c5f0
         }
 
         getIMG.execute(new String[] {newImage});
@@ -87,11 +117,18 @@ public class HallFacts extends Activity {
         //display the name of the clicked hall
         textView1.setText(newName);
         history.setText(newHistory);
+        hImage.setImageResource(pic[Integer.parseInt(id)-1]);
 
+<<<<<<< HEAD
 
         AssetManager manager = getAssets();
 
         /*try
+=======
+        //AssetManager manager = getAssets();
+
+       /* try
+>>>>>>> e777c8ed0944a8a891ad44887d777b0eb487c5f0
         {
             InputStream open = manager.open("test.jpg");
             Bitmap bitmap = BitmapFactory.decodeStream(open);
