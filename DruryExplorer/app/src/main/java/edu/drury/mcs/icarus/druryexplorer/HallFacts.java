@@ -1,11 +1,14 @@
 package edu.drury.mcs.icarus.druryexplorer;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.content.res.AssetManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
@@ -14,7 +17,10 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ImageView;
 import android.widget.TextView;
+<<<<<<< HEAD
 
+=======
+>>>>>>> a13ef2d0c598c77407075c93231b8daada31baa9
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
@@ -31,6 +37,7 @@ public class HallFacts extends Activity {
     private TextView textView1;
     private TextView history;
     private ImageView hImage;
+    private Boolean net;
 
     private String jsonReturn;
     private String url = "http://mcs.drury.edu/jpolodna01/DUE_PHP/DUE_Facts_Halls.php"; //url to the php echo'ed data
@@ -51,6 +58,7 @@ public class HallFacts extends Activity {
         textView1 = (TextView) findViewById(R.id.hNameView);
         history = (TextView) findViewById(R.id.historyView);
         hImage = (ImageView) findViewById(R.id.hImageView);
+        net = checkNetwork();
 
         //creates a string to place the clicked object
         String newName;
@@ -58,9 +66,13 @@ public class HallFacts extends Activity {
         String newImage;
 
         getImageFromUrl getIMG = new getImageFromUrl(hImage);
+<<<<<<< HEAD
 
         String id;
 
+=======
+        String id;
+>>>>>>> a13ef2d0c598c77407075c93231b8daada31baa9
         if(savedInstanceState == null)
         {
             //get the bundle from Halls.java
@@ -75,7 +87,10 @@ public class HallFacts extends Activity {
                 newHistory=null;
                 newImage=null;
                 id= "0";
+<<<<<<< HEAD
 
+=======
+>>>>>>> a13ef2d0c598c77407075c93231b8daada31baa9
             }
 
             //if there is something there the get the string from the bundle
@@ -85,7 +100,10 @@ public class HallFacts extends Activity {
                 newHistory=hall.getBuildingFacts();
                 newImage=hall.getPicture();
                 id=hall.getId();
+<<<<<<< HEAD
 
+=======
+>>>>>>> a13ef2d0c598c77407075c93231b8daada31baa9
             }
         }
         else
@@ -96,12 +114,19 @@ public class HallFacts extends Activity {
             newImage=hall.getPicture();
             id=hall.getId();
         }
-
-        getIMG.execute(new String[] {newImage});
+        //checks to see if the network is up, uses pics from network if it is other wise uses pic from app
+        if(checkNetwork()) {
+            getIMG.execute(new String[]{newImage});
+            AssetManager manager = getAssets();
+        }
+        else{
+            hImage.setImageResource(pic[Integer.parseInt(id)-1]);
+        }
 
         //display the name of the clicked hall
         textView1.setText(newName);
         history.setText(newHistory);
+<<<<<<< HEAD
         hImage.setImageResource(pic[Integer.parseInt(id)-1]);
 
         AssetManager manager = getAssets();
@@ -113,13 +138,21 @@ public class HallFacts extends Activity {
             Bitmap bitmap = BitmapFactory.decodeStream(open);
 
             hImage.setImageBitmap(bitmap);
-        }
-        catch (IOException e)
-        {
-            e.printStackTrace();
-        }*/
-    }
+=======
 
+
+    }
+    public Boolean checkNetwork() {
+        ConnectivityManager connMgr = (ConnectivityManager)
+                getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo networkInfo = connMgr.getActiveNetworkInfo();
+        if (networkInfo != null && networkInfo.isConnected()) {
+            return true;
+        } else {
+            return false;
+>>>>>>> a13ef2d0c598c77407075c93231b8daada31baa9
+        }
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
