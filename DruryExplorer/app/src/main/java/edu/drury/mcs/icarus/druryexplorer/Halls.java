@@ -219,6 +219,7 @@ public class Halls extends Activity {
                 hallObject.setBuildingNumber(Integer.parseInt(jsonChildNode.optString("Hall_ID")));
                 hallObject.setBuildingName(jsonChildNode.optString("name"));
                 hallObject.setBuildingFacts(jsonChildNode.optString("history"));
+                hallObject.setPicture(jsonChildNode.optString("ImageURL"));
                 String id =""+Integer.parseInt(jsonChildNode.optString("Hall_ID"));
                 hallObject.setId(id);
                 hallList.add(hallObject);

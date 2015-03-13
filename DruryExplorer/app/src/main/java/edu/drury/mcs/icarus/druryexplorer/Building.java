@@ -1,8 +1,15 @@
 package edu.drury.mcs.icarus.druryexplorer;
 
+import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Parcel;
 import android.os.Parcelable;
+
+import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.InputStream;
+import java.net.URL;
 
 /**
  * Created by Daiv McBride on 2/22/2015.
@@ -14,17 +21,16 @@ public class Building implements Parcelable {
     public double bLatatude;
     private String buildingName;
     private String buildingFacts;
-    private BitmapDrawable picture;
+    private String picture;
     private String id;
 
-    public Building(int bnum, double blong, double bLat, String bName, String bFacts){
+    public Building(int bnum, double blong, double bLat, String bName, String bFacts, String img){
         this.buildingNumber=bnum;
         this.bLongatude = blong;
         this.bLatatude=bLat;
         this.buildingName=bName;
         this.buildingFacts=bFacts;
-        this.picture=null;
-
+        this.picture=img;
     }
 
 
@@ -34,7 +40,8 @@ public class Building implements Parcelable {
         this.bLatatude=0.0;
         this.buildingName="";
         this.buildingFacts="";
-        this.picture=null;
+        this.picture="";
+
     }
 
 //object setters
@@ -59,13 +66,15 @@ public class Building implements Parcelable {
         this.buildingFacts = buildingFacts;
     }
 
-    public void setPicture(BitmapDrawable picture) {
+    public void setPicture(String picture) {
         this.picture = picture;
     }
 
     public void setId(String id) {
         this.id = id;
     }
+
+
 
     //object getters
 
@@ -90,9 +99,11 @@ public class Building implements Parcelable {
         return buildingFacts;
     }
 
-    public BitmapDrawable getPicture() {return picture;}
+    public String getPicture() {return picture;}
 
     public String getId(){return id;}
+
+
 
     @Override
     public String toString() {
@@ -103,12 +114,13 @@ public class Building implements Parcelable {
     //obtained from example at stackoverflow.com/questions/7181526/how-can-i-make-my-custom-objects-be-parcelable
 
     public Building(Parcel in){
-        String[] data = new String[3];
+        String[] data = new String[4];
 
         in.readStringArray(data);
         this.id=data[0];
         this.buildingName=data[1];
         this.buildingFacts=data[2];
+        this.picture=data[3];
     }
 
 
@@ -119,8 +131,10 @@ public class Building implements Parcelable {
     public void writeToParcel(Parcel dest, int flags){
         dest.writeStringArray(new String[]{this.id,
                                             this.buildingName,
-                                            this.buildingFacts});
+                                            this.buildingFacts,
+                                            this.picture});
     }
+
 
     public static final Parcelable.Creator<Building> CREATOR = new Parcelable.Creator<Building>(){
         public Building createFromParcel(Parcel in){
@@ -130,4 +144,5 @@ public class Building implements Parcelable {
             return new Building[size];
         }
     };
+
 }

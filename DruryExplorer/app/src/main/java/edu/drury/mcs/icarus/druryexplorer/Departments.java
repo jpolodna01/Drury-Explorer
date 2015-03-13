@@ -37,6 +37,7 @@ import org.json.JSONObject;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.AsyncTask;
@@ -47,6 +48,7 @@ import android.view.Menu;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
 import android.widget.TextView;
@@ -72,7 +74,6 @@ public class Departments extends Activity {
     private String jsonResult; // string to store the json result
     private String url = "http://mcs.drury.edu/jpolodna01/DUE_PHP/DUE_Department_Object.php"; //url to the php echo'ed data
     private ListView listView; // listview variable
-
 
 
     /* This is the onCreate method required via the extension. It is the operations preformed on the creation of the app
@@ -134,9 +135,11 @@ public class Departments extends Activity {
         */
         @Override
         protected String doInBackground(String... params) {
+
             //Create the http client and use the post to request the origin server accept the enclosed entity
             HttpClient httpclient = new DefaultHttpClient();
             HttpPost httppost = new HttpPost(params[0]);
+
             try {
                 // set response variable to the execution of the httppost
                 HttpResponse response = httpclient.execute(httppost);
@@ -266,6 +269,7 @@ public class Departments extends Activity {
             Toast.makeText(Departments.this, "Sorry, could not fetch data from database :(", Toast.LENGTH_LONG).show();
         }
     }
+
 
 
 

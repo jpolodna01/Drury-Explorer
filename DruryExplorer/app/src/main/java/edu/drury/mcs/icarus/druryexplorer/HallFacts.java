@@ -5,8 +5,11 @@ import android.content.Intent;
 import android.content.res.AssetManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
+import android.os.AsyncTask;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ImageView;
@@ -14,6 +17,11 @@ import android.widget.TextView;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.net.URLConnection;
+
+import javax.net.ssl.HttpsURLConnection;
 
 import edu.drury.mcs.icarus.druryexplorer.Building;
 
@@ -39,17 +47,23 @@ public class HallFacts extends Activity {
         //creates a string to place the clicked object
         String newName;
         String newHistory;
+        String newImage;
+
+        getImageFromUrl getIMG = new getImageFromUrl(hImage);
+
         if(savedInstanceState == null)
         {
             //get the bundle from Halls.java
             Bundle extras = getIntent().getExtras();
             Building hall = (Building) extras.getParcelable("clickedHall");
 
+
             //if there is nothing there then the string is empty
             if(extras == null)
             {
                 newName = null;
                 newHistory=null;
+                newImage=null;
             }
 
             //if there is something there the get the string from the bundle
@@ -57,6 +71,7 @@ public class HallFacts extends Activity {
             {
                 newName = hall.getBuildingName();
                 newHistory=hall.getBuildingFacts();
+                newImage=hall.getPicture();
             }
         }
         else
@@ -64,15 +79,19 @@ public class HallFacts extends Activity {
             Building hall = (Building) savedInstanceState.getSerializable("clickedHall");
             newName = hall.getBuildingName();
             newHistory=hall.getBuildingFacts();
+            newImage=hall.getPicture();
         }
+
+        getIMG.execute(new String[] {newImage});
 
         //display the name of the clicked hall
         textView1.setText(newName);
         history.setText(newHistory);
 
+
         AssetManager manager = getAssets();
 
-        try
+        /*try
         {
             InputStream open = manager.open("test.jpg");
             Bitmap bitmap = BitmapFactory.decodeStream(open);
@@ -82,7 +101,7 @@ public class HallFacts extends Activity {
         catch (IOException e)
         {
             e.printStackTrace();
-        }
+        }*/
     }
 
 
@@ -108,5 +127,40 @@ public class HallFacts extends Activity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    private class getImageFromUrl extends AsyncTask<String, Void, Bitmap>
+    {
+        ImageView bmImage;
+        public getImageFromUrl(ImageView hImage)
+        {
+            this.bmImage = hImage;
+        }
+        @Override
+        protected Bitmap doInBackground(String...imgUrl)
+        {
+            String urldisplay = imgUrl[0];
+            Bitmap map = null;
+
+            try
+            {
+                InputStream in = new java.net.URL(urldisplay).openStream();
+                map = BitmapFactory.decodeStream(in);
+            } catch (Exception e)
+            {
+                Log.e("error", e.getMessage());
+                e.printStackTrace();
+            }
+
+            return map;
+        }
+
+        //sets the bitmap returned by doInBackground
+        @Override
+        protected void onPostExecute(Bitmap result)
+        {
+            bmImage.setImageBitmap(result);
+        }
+
     }
 }
