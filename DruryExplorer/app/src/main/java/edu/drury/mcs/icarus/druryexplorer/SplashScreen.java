@@ -27,10 +27,8 @@ public class SplashScreen extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash_screen);
-        Boolean net = checkNetwork();
-        if(!net){
-            networkAlert();
-        }
+        final Boolean net = checkNetwork();
+
 
 
         new Handler().postDelayed(new Runnable() {
@@ -44,8 +42,10 @@ public class SplashScreen extends Activity {
             public void run() {
                 // This method will be executed once the timer is over
                 // Start your app main activity
-                Intent i = new Intent(SplashScreen.this, Navigation.class);
-                startActivity(i);
+
+                    Intent i = new Intent(SplashScreen.this, Navigation.class);
+                    startActivity(i);
+
 
                 // close this activity
                 finish();
@@ -66,18 +66,7 @@ public class SplashScreen extends Activity {
         }
     }
 
-    public void networkAlert(){
-        AlertDialog.Builder network = new AlertDialog.Builder(this);
-        network.setTitle("No Network");
-        network.setMessage("For a better Drury Tour experence please connect to a network");
-        network.setPositiveButton("OK", new DialogInterface.OnClickListener(){
-            public void onClick(DialogInterface dialog, int w){
-                //do nothing but close the dialog
-            }
-        });
-        AlertDialog networkDialog = network.create();
-        networkDialog.show();
-    }
+
 
 
     @Override

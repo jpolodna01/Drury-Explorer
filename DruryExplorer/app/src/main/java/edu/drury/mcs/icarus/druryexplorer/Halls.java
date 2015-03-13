@@ -9,6 +9,9 @@ package edu.drury.mcs.icarus.druryexplorer;
 // import android.os.Bundle;
 // import android.view.Menu;
 // import android.view.MenuItem;
+   import android.content.Context;
+   import android.net.ConnectivityManager;
+   import android.net.NetworkInfo;
    import android.widget.ArrayAdapter;
 // import android.widget.ListView;
 // import android.widget.Toast;
@@ -48,6 +51,7 @@ import android.widget.ListView;
 import android.widget.SimpleAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
+import edu.drury.mcs.icarus.druryexplorer.Building;
 
 /**
  Author(s): Josef Polodna (Current Version), Daniel Chick and Josef Polodna (Old Version)
@@ -59,9 +63,12 @@ public class Halls extends Activity {
     private String name, history;
     private double latitude, longitude;
     private int id;
+    private JSONObject jsonResponse;
+    private Boolean net;
+
 
     // This is the list in which all of the hall objects will be stored. Muy importante
-    public List<Halls> hallList;
+    public List<Building> hallList;
 
     private String jsonResult; // string to store the json result
     private String url = "http://mcs.drury.edu/jpolodna01/DUE_PHP/DUE_Hall_Object.php"; //url to the php echo'ed data
@@ -94,26 +101,25 @@ public class Halls extends Activity {
         super.onCreate(savedInstanceState); // Use parent (onCreate) with the bundle
         setContentView(R.layout.activity_halls);
         listView = (ListView) findViewById(R.id.hallView); // same as above
-        accessWebService(); //
+        net=checkNetwork();
+        if(net) {
+            accessWebService();
+        }
+        else{
+            populateListView();
+        }
 
 
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
-                //Selected item in the list
-                String clickedHall = ((TextView) view).getText().toString();
-
-                //creates a new intent that will open the HallFacts activity
-                Intent i = new Intent(getApplicationContext(), HallFacts.class);
-
-                //puts the clicked object in the bundle
-                i.putExtra("clickedHall", clickedHall);
-
-                //start the HallFacts activity
-                startActivity(i);
-            }
-        });
+    }
+    public Boolean checkNetwork() {
+        ConnectivityManager connMgr = (ConnectivityManager)
+                getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo networkInfo = connMgr.getActiveNetworkInfo();
+        if (networkInfo != null && networkInfo.isConnected()) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
 
@@ -213,20 +219,26 @@ public class Halls extends Activity {
      */
     public void ListDrwaer() {
 
-         hallList = new ArrayList<Halls>();
+         hallList = new ArrayList<Building>();
 
         try {
-            JSONObject jsonResponse = new JSONObject(jsonResult);
+            if(net) {
+                jsonResponse = new JSONObject(jsonResult);
+            }
+            else{
+                jsonResponse = new JSONObject(getString(R.string.halls
+                ));
+            }
             JSONArray jsonMainNode = jsonResponse.optJSONArray("hall");
 
             for (int i = 0; i < jsonMainNode.length(); i++) {
-                Halls hallObject = new Halls();
+                Building hallObject = new Building();
                 JSONObject jsonChildNode = jsonMainNode.getJSONObject(i);
-                hallObject.setID(Integer.parseInt(jsonChildNode.optString("Hall_ID")));
-                hallObject.setName(jsonChildNode.optString("name"));
-                hallObject.setHistory(jsonChildNode.optString("history"));
-                hallObject.setLatitude(Double.parseDouble(jsonChildNode.optString("latitude")));
-                hallObject.setLongitude(Double.parseDouble(jsonChildNode.optString("longitude")));
+                hallObject.setBuildingNumber(Integer.parseInt(jsonChildNode.optString("Hall_ID")));
+                hallObject.setBuildingName(jsonChildNode.optString("name"));
+                hallObject.setBuildingFacts(jsonChildNode.optString("history"));
+                String id =""+Integer.parseInt(jsonChildNode.optString("Hall_ID"));
+                hallObject.setId(id);
                 hallList.add(hallObject);
                //String outPut = name;
                // hallList.add(createDepartment("halls", outPut));
@@ -252,9 +264,27 @@ public class Halls extends Activity {
         if(hallList.size()>0) // check if list contains items.
         {
             ListView lv = (ListView) findViewById(R.id.hallView);
-            ArrayAdapter<Halls> arrayAdapter = new ArrayAdapter<Halls>(this, android.R.layout.simple_list_item_1, hallList);
+            final ArrayAdapter<Building> arrayAdapter = new ArrayAdapter<Building>(this, android.R.layout.simple_list_item_1, hallList);
 
             lv.setAdapter(arrayAdapter);
+
+            listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+                    //Selected item in the list
+                    Building clickedHall = arrayAdapter.getItem(position);
+
+                    //creates a new intent that will open the HallFacts activity
+                    Intent i = new Intent(getApplicationContext(), HallFacts.class);
+
+                    //puts the clicked object in the bundle
+                    i.putExtra("clickedHall", clickedHall);
+
+                    //start the HallFacts activity
+                    startActivity(i);
+                }
+            });
         }
         else
         {

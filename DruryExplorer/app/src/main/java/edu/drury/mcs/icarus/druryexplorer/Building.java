@@ -1,11 +1,13 @@
 package edu.drury.mcs.icarus.druryexplorer;
 
 import android.graphics.drawable.BitmapDrawable;
+import android.os.Parcel;
+import android.os.Parcelable;
 
 /**
- * Created by Tanya on 2/22/2015.
+ * Created by Daiv McBride on 2/22/2015.
  */
-public class Building {
+public class Building implements Parcelable {
 
     public int buildingNumber;
     public double bLongatude;
@@ -13,6 +15,7 @@ public class Building {
     private String buildingName;
     private String buildingFacts;
     private BitmapDrawable picture;
+    private String id;
 
     public Building(int bnum, double blong, double bLat, String bName, String bFacts){
         this.buildingNumber=bnum;
@@ -23,6 +26,7 @@ public class Building {
         this.picture=null;
 
     }
+
 
     public Building(){
         this.buildingNumber=0;
@@ -59,6 +63,10 @@ public class Building {
         this.picture = picture;
     }
 
+    public void setId(String id) {
+        this.id = id;
+    }
+
     //object getters
 
 
@@ -83,4 +91,43 @@ public class Building {
     }
 
     public BitmapDrawable getPicture() {return picture;}
+
+    public String getId(){return id;}
+
+    @Override
+    public String toString() {
+        return buildingName;
+    }
+
+    //methods inorder to make building class Parcelable
+    //obtained from example at stackoverflow.com/questions/7181526/how-can-i-make-my-custom-objects-be-parcelable
+
+    public Building(Parcel in){
+        String[] data = new String[3];
+
+        in.readStringArray(data);
+        this.id=data[0];
+        this.buildingName=data[1];
+        this.buildingFacts=data[2];
+    }
+
+
+    public int describeContents(){
+        return 0;
+    }
+
+    public void writeToParcel(Parcel dest, int flags){
+        dest.writeStringArray(new String[]{this.id,
+                                            this.buildingName,
+                                            this.buildingFacts});
+    }
+
+    public static final Parcelable.Creator<Building> CREATOR = new Parcelable.Creator<Building>(){
+        public Building createFromParcel(Parcel in){
+            return new Building(in);
+        }
+        public Building[] newArray(int size){
+            return new Building[size];
+        }
+    };
 }

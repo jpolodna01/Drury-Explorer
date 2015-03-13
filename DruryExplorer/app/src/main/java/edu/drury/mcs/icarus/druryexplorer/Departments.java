@@ -35,10 +35,14 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import android.content.Context;
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.app.Activity;
+import android.os.Parcelable;
 import android.view.Menu;
 import android.view.View;
 import android.widget.AdapterView;
@@ -60,6 +64,8 @@ public class Departments extends Activity {
 
     private int departmentID, hallID;
     private String name, description, location;
+    private Boolean net;
+    private JSONObject jsonResponse;
 
     public List<Departments> departmentList;
 
@@ -90,7 +96,13 @@ public class Departments extends Activity {
         super.onCreate(savedInstanceState); // Use parent (onCreate) with the bundle
         setContentView(R.layout.activity_departments);
         listView = (ListView) findViewById(R.id.deptView); // same as above
-        accessWebService(); //
+        net = checkNetwork();
+        if(net) {
+            accessWebService();
+        }
+        else{
+            populateListView();
+        }
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -109,6 +121,17 @@ public class Departments extends Activity {
                 startActivity(i);
             }
         });
+    }
+
+    public Boolean checkNetwork() {
+        ConnectivityManager connMgr = (ConnectivityManager)
+                getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo networkInfo = connMgr.getActiveNetworkInfo();
+        if (networkInfo != null && networkInfo.isConnected()) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
     /* Overrides the parent functionality for the method of the same name to inflate the action bar items
@@ -204,7 +227,12 @@ public class Departments extends Activity {
         departmentList = new ArrayList<Departments>();
 
         try {
-            JSONObject jsonResponse = new JSONObject(jsonResult);
+            if(net) {
+                jsonResponse = new JSONObject(jsonResult);
+            }
+            else{
+                jsonResponse = new JSONObject(getString(R.string.departments));
+            }
             JSONArray jsonMainNode = jsonResponse.optJSONArray("department");
 
             for (int i = 0; i < jsonMainNode.length(); i++) {

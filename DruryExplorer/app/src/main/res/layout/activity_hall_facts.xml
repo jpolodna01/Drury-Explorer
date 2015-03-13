@@ -9,7 +9,7 @@
     <ScrollView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/historyView"
+        android:id="@+id/history"
         android:layout_alignParentBottom="true"
         android:layout_alignParentTop="true"
         android:layout_marginTop="175dp"
@@ -18,24 +18,29 @@
         android:layout_marginBottom="10dp"
         android:layout_alignParentLeft="true"
         android:layout_alignParentRight="true"
-        android:layout_alignWithParentIfMissing="false" />
+        android:layout_alignWithParentIfMissing="false" >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/historyView" />
+    </ScrollView>
 
     <TextView
-        android:layout_width="wrap_content"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:id="@+id/hNameView"
         android:layout_marginTop="110dp"
         android:layout_alignParentTop="false"
-        android:layout_centerHorizontal="true"
         android:layout_marginRight="30dp"
         android:layout_marginLeft="30dp"
         android:textColor="#ff000000"
-        android:textSize="120px"
+        android:textSize="25dp"
         android:layout_alignParentBottom="false"
         android:layout_alignParentLeft="true"
         android:layout_alignParentRight="true"
         android:layout_alignWithParentIfMissing="true"
-        android:layout_alignBaseline="@+id/historyView"
+        android:layout_alignBaseline="@+id/history"
         android:layout_marginBottom="118dp" />
 
     <ImageView

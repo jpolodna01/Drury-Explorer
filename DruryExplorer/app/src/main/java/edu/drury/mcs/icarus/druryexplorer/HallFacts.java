@@ -7,11 +7,13 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
+import edu.drury.mcs.icarus.druryexplorer.Building;
 
 
 public class HallFacts extends Activity {
 
     public TextView textView1;
+    private TextView history;
 
     private String jsonReturn;
     private String url = "http://mcs.drury.edu/jpolodna01/DUE_PHP/DUE_Facts_Halls.php"; //url to the php echo'ed data
@@ -22,33 +24,42 @@ public class HallFacts extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_hall_facts);
         textView1 = (TextView) findViewById(R.id.hNameView);
+        history = (TextView) findViewById(R.id.historyView);
+
 
         //creates a string to place the clicked object
         String newName;
+        String newHistory;
         if(savedInstanceState == null)
         {
             //get the bundle from Halls.java
             Bundle extras = getIntent().getExtras();
+            Building hall = (Building) extras.getParcelable("clickedHall");
 
             //if there is nothing there then the string is empty
             if(extras == null)
             {
                 newName = null;
+                newHistory=null;
             }
 
             //if there is something there the get the string from the bundle
             else
             {
-                newName = extras.getString("clickedHall");
+                newName = hall.getBuildingName();
+                newHistory=hall.getBuildingFacts();
             }
         }
         else
         {
-            newName = (String) savedInstanceState.getSerializable("clickedHall");
+            Building hall = (Building) savedInstanceState.getSerializable("clickedHall");
+            newName = hall.getBuildingName();
+            newHistory=hall.getBuildingFacts();
         }
 
         //display the name of the clicked hall
         textView1.setText(newName);
+        history.setText(newHistory);
     }
 
 

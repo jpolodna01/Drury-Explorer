@@ -1,9 +1,14 @@
 package edu.drury.mcs.icarus.druryexplorer;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.TabActivity;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -47,10 +52,39 @@ public class Navigation extends TabActivity {
             tv.setTextColor(Color.WHITE);
         }
 
+        Boolean net = checkNetwork();
+        if(!net){
+            networkAlert();
+        }
 
 
 
 
+
+    }
+
+    public void networkAlert(){
+        AlertDialog.Builder network = new AlertDialog.Builder(this);
+        network.setTitle("No Network");
+        network.setMessage("For a better Drury Tour experence please connect to a network");
+        network.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int w) {
+
+            }
+        });
+        AlertDialog networkDialog = network.create();
+        networkDialog.show();
+    }
+
+    public Boolean checkNetwork() {
+        ConnectivityManager connMgr = (ConnectivityManager)
+                getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo networkInfo = connMgr.getActiveNetworkInfo();
+        if (networkInfo != null && networkInfo.isConnected()) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
 

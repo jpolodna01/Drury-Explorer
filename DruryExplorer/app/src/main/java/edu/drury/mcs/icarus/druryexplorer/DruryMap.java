@@ -240,26 +240,30 @@ public class DruryMap extends FragmentActivity  {
                     //mMap.addMarker(new MarkerOptions().position(new LatLng(location.getLatitude(),location.getLongitude())));
                     //mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(location.getLatitude(), location.getLongitude()), 18));
                     //mMap.addMarker(new MarkerOptions().position(bay).title("bay").snippet("Bay"));
-
-                    if (firstTime && mMap.getMyLocation()!=null) {
-                        int x = closestBuilding(mMap.getMyLocation(), tourOne);
-                        toStart(mMap.getMyLocation(), new LatLng(tourOne[x].getLatatude(), tourOne[x].getLongatude()),selfTour1);
-                        if (tourOne[x].getBuildingNumber() > 0) {
-                            mMap.addMarker(new MarkerOptions().position(new LatLng(tourOne[x].getLatatude(), tourOne[x].getLongatude())).title(buildingArray[tourOne[x].getBuildingNumber() - 1].getBuildingName()));
+                    if(mMap.getMyLocation()!=null) {
+                        if (firstTime) {
+                            int x = closestBuilding(mMap.getMyLocation(), tourOne);
+                            toStart(mMap.getMyLocation(), new LatLng(tourOne[x].getLatatude(), tourOne[x].getLongatude()), selfTour1);
+                            if (tourOne[x].getBuildingNumber() > 0) {
+                                mMap.addMarker(new MarkerOptions().position(new LatLng(tourOne[x].getLatatude(), tourOne[x].getLongatude())).title(buildingArray[tourOne[x].getBuildingNumber() - 1].getBuildingName()));
+                            }
+                            firstTime = false;
+                            next = x;
                         }
-                        firstTime = false;
-                        next = x;
+                        if (close(mMap.getMyLocation(), new LatLng(tourOne[next].getLatatude(), tourOne[next].getLongatude())) && mMap.getMyLocation().hasAccuracy()) {
+                            if (next == tourOne.length - 1) {
+                                next = 0;
+                            } else {
+                                next++;
+                            }
+                            if (tourOne[next].getBuildingNumber() > 0) {
+                                mMap.addMarker(new MarkerOptions().position(new LatLng(tourOne[next].getLatatude(), tourOne[next].getLongatude())).title(buildingArray[tourOne[next].getBuildingNumber() - 1].getBuildingName()));
+                            }
+                            toContinue(new LatLng(tourOne[next].getLatatude(), tourOne[next].getLongatude()), selfTour1);
+                        }
                     }
-                    if (close(mMap.getMyLocation(), new LatLng(tourOne[next].getLatatude(), tourOne[next].getLongatude())) && mMap.getMyLocation().hasAccuracy()) {
-                        if (next == tourOne.length - 1) {
-                            next = 0;
-                        } else {
-                            next++;
-                        }
-                        if (tourOne[next].getBuildingNumber() > 0) {
-                            mMap.addMarker(new MarkerOptions().position(new LatLng(tourOne[next].getLatatude(), tourOne[next].getLongatude())).title(buildingArray[tourOne[next].getBuildingNumber() - 1].getBuildingName()));
-                        }
-                        toContinue(new LatLng(tourOne[next].getLatatude(), tourOne[next].getLongatude()),selfTour1);
+                    else{
+                        startOne=false;
                     }
                 }
 
@@ -303,26 +307,30 @@ public class DruryMap extends FragmentActivity  {
                     //mMap.addMarker(new MarkerOptions().position(new LatLng(location.getLatitude(),location.getLongitude())));
                     //mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(location.getLatitude(), location.getLongitude()), 18));
                     //mMap.addMarker(new MarkerOptions().position(bay).title("bay").snippet("Bay"));
-
-                    if (firstTime && mMap.getMyLocation()!=null) {
-                        int x = closestBuilding(mMap.getMyLocation(), tourTwo);
-                        toStart(mMap.getMyLocation(), new LatLng(tourTwo[x].getLatatude(), tourTwo[x].getLongatude()),selfTour2);
-                        if (tourTwo[x].getBuildingNumber() > 0) {
-                            mMap.addMarker(new MarkerOptions().position(new LatLng(tourTwo[x].getLatatude(), tourTwo[x].getLongatude())).title(buildingArray[tourTwo[x].getBuildingNumber() - 1].getBuildingName()));
+                    if(mMap.getMyLocation()!=null) {
+                        if (firstTime) {
+                            int x = closestBuilding(mMap.getMyLocation(), tourTwo);
+                            toStart(mMap.getMyLocation(), new LatLng(tourTwo[x].getLatatude(), tourTwo[x].getLongatude()), selfTour2);
+                            if (tourTwo[x].getBuildingNumber() > 0) {
+                                mMap.addMarker(new MarkerOptions().position(new LatLng(tourTwo[x].getLatatude(), tourTwo[x].getLongatude())).title(buildingArray[tourTwo[x].getBuildingNumber() - 1].getBuildingName()));
+                            }
+                            firstTime = false;
+                            next = x;
                         }
-                        firstTime = false;
-                        next = x;
+                        if (close(mMap.getMyLocation(), new LatLng(tourTwo[next].getLatatude(), tourTwo[next].getLongatude())) && mMap.getMyLocation().hasAccuracy()) {
+                            if (next == tourTwo.length - 1) {
+                                next = 0;
+                            } else {
+                                next++;
+                            }
+                            if (tourTwo[next].getBuildingNumber() > 0) {
+                                mMap.addMarker(new MarkerOptions().position(new LatLng(tourTwo[next].getLatatude(), tourTwo[next].getLongatude())).title(buildingArray[tourTwo[next].getBuildingNumber() - 1].getBuildingName()));
+                            }
+                            toContinue(new LatLng(tourTwo[next].getLatatude(), tourTwo[next].getLongatude()), selfTour2);
+                        }
                     }
-                    if (close(mMap.getMyLocation(), new LatLng(tourTwo[next].getLatatude(), tourTwo[next].getLongatude())) && mMap.getMyLocation().hasAccuracy()) {
-                        if (next == tourTwo.length - 1) {
-                            next = 0;
-                        } else {
-                            next++;
-                        }
-                        if (tourTwo[next].getBuildingNumber() > 0) {
-                            mMap.addMarker(new MarkerOptions().position(new LatLng(tourTwo[next].getLatatude(), tourTwo[next].getLongatude())).title(buildingArray[tourTwo[next].getBuildingNumber() - 1].getBuildingName()));
-                        }
-                        toContinue(new LatLng(tourTwo[next].getLatatude(), tourTwo[next].getLongatude()),selfTour2);
+                    else{
+                        startTwo=false;
                     }
                 }
 
