@@ -252,13 +252,13 @@ public class DruryMap extends FragmentActivity  {
                     //mMap.addMarker(new MarkerOptions().position(new LatLng(location.getLatitude(),location.getLongitude())));
                     //mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(location.getLatitude(), location.getLongitude()), 18));
                     //mMap.addMarker(new MarkerOptions().position(bay).title("bay").snippet("Bay"));
-                    if(mMap.getMyLocation()!=null) {
+                    if(mMap.getMyLocation()!=null && mMap.getMyLocation().hasAccuracy()) {
                         if (firstTime) {
                             int x = closestBuilding(mMap.getMyLocation(), tourOne);
                             toStart(mMap.getMyLocation(), new LatLng(tourOne[x].getLatatude(), tourOne[x].getLongatude()), selfTour1);
                             if (tourOne[x].getBuildingNumber() > 0) {
                                 mMap.addMarker(new MarkerOptions().position(new LatLng(tourOne[x].getLatatude(), tourOne[x].getLongatude())).title(buildingArray[tourOne[x].getBuildingNumber() - 1].getBuildingName()));
-                                dImage.setImageResource(tourOne[x].getBuildingNumber()-1);
+                                dImage.setImageResource(pic[tourOne[x].getBuildingNumber()-1]);
                             }
                             firstTime = false;
                             next = x;
@@ -272,7 +272,7 @@ public class DruryMap extends FragmentActivity  {
                             }
                             if (tourOne[next].getBuildingNumber() > 0) {
                                 mMap.addMarker(new MarkerOptions().position(new LatLng(tourOne[next].getLatatude(), tourOne[next].getLongatude())).title(buildingArray[tourOne[next].getBuildingNumber() - 1].getBuildingName()));
-                                dImage.setImageResource(tourOne[next].getBuildingNumber()-1);
+                                dImage.setImageResource(pic[tourOne[next].getBuildingNumber()-1]);
                             }
                             toContinue(new LatLng(tourOne[next].getLatatude(), tourOne[next].getLongatude()), selfTour1);
                         }
@@ -322,13 +322,13 @@ public class DruryMap extends FragmentActivity  {
                     //mMap.addMarker(new MarkerOptions().position(new LatLng(location.getLatitude(),location.getLongitude())));
                     //mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(location.getLatitude(), location.getLongitude()), 18));
                     //mMap.addMarker(new MarkerOptions().position(bay).title("bay").snippet("Bay"));
-                    if(mMap.getMyLocation()!=null) {
+                    if(mMap.getMyLocation()!=null && mMap.getMyLocation().hasAccuracy()) {
                         if (firstTime) {
                             int x = closestBuilding(mMap.getMyLocation(), tourTwo);
                             toStart(mMap.getMyLocation(), new LatLng(tourTwo[x].getLatatude(), tourTwo[x].getLongatude()), selfTour2);
                             if (tourTwo[x].getBuildingNumber() > 0) {
                                 mMap.addMarker(new MarkerOptions().position(new LatLng(tourTwo[x].getLatatude(), tourTwo[x].getLongatude())).title(buildingArray[tourTwo[x].getBuildingNumber() - 1].getBuildingName()));
-                                dImage.setImageResource(tourTwo[x].getBuildingNumber()-1);
+                                dImage.setImageResource(pic[tourTwo[x].getBuildingNumber()-1]);
                             }
                             firstTime = false;
                             next = x;
@@ -341,7 +341,7 @@ public class DruryMap extends FragmentActivity  {
                             }
                             if (tourTwo[next].getBuildingNumber() > 0) {
                                 mMap.addMarker(new MarkerOptions().position(new LatLng(tourTwo[next].getLatatude(), tourTwo[next].getLongatude())).title(buildingArray[tourTwo[next].getBuildingNumber() - 1].getBuildingName()));
-                                dImage.setImageResource(tourTwo[next].getBuildingNumber()-1);
+                                dImage.setImageResource(pic[tourTwo[next].getBuildingNumber()-1]);
                             }
                             toContinue(new LatLng(tourTwo[next].getLatatude(), tourTwo[next].getLongatude()), selfTour2);
                         }
@@ -490,7 +490,7 @@ public class DruryMap extends FragmentActivity  {
     }
     private boolean close(Location location, LatLng next){
         double dist = trig(location, next);
-        if(dist*10000000<.5){
+        if(dist*10000000<.35){
             return true;
         }
         return false;

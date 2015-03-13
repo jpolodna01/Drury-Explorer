@@ -1,24 +1,22 @@
 package edu.drury.mcs.icarus.druryexplorer;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
-<<<<<<< HEAD
 import android.content.res.AssetManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.support.v7.app.ActionBarActivity;
-=======
->>>>>>> e777c8ed0944a8a891ad44887d777b0eb487c5f0
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ImageView;
 import android.widget.TextView;
-
-<<<<<<< HEAD
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
@@ -29,14 +27,13 @@ import javax.net.ssl.HttpsURLConnection;
 
 import edu.drury.mcs.icarus.druryexplorer.Building;
 
-=======
->>>>>>> e777c8ed0944a8a891ad44887d777b0eb487c5f0
 
 public class HallFacts extends Activity {
 
     private TextView textView1;
     private TextView history;
     private ImageView hImage;
+    private Boolean net;
 
     private String jsonReturn;
     private String url = "http://mcs.drury.edu/jpolodna01/DUE_PHP/DUE_Facts_Halls.php"; //url to the php echo'ed data
@@ -57,18 +54,15 @@ public class HallFacts extends Activity {
         textView1 = (TextView) findViewById(R.id.hNameView);
         history = (TextView) findViewById(R.id.historyView);
         hImage = (ImageView) findViewById(R.id.hImageView);
+        net = checkNetwork();
 
         //creates a string to place the clicked object
         String newName;
         String newHistory;
-<<<<<<< HEAD
         String newImage;
 
         getImageFromUrl getIMG = new getImageFromUrl(hImage);
-
-=======
         String id;
->>>>>>> e777c8ed0944a8a891ad44887d777b0eb487c5f0
         if(savedInstanceState == null)
         {
             //get the bundle from Halls.java
@@ -81,11 +75,8 @@ public class HallFacts extends Activity {
             {
                 newName = null;
                 newHistory=null;
-<<<<<<< HEAD
                 newImage=null;
-=======
                 id= "0";
->>>>>>> e777c8ed0944a8a891ad44887d777b0eb487c5f0
             }
 
             //if there is something there the get the string from the bundle
@@ -93,11 +84,8 @@ public class HallFacts extends Activity {
             {
                 newName = hall.getBuildingName();
                 newHistory=hall.getBuildingFacts();
-<<<<<<< HEAD
                 newImage=hall.getPicture();
-=======
                 id=hall.getId();
->>>>>>> e777c8ed0944a8a891ad44887d777b0eb487c5f0
             }
         }
         else
@@ -105,42 +93,34 @@ public class HallFacts extends Activity {
             Building hall = (Building) savedInstanceState.getSerializable("clickedHall");
             newName = hall.getBuildingName();
             newHistory=hall.getBuildingFacts();
-<<<<<<< HEAD
             newImage=hall.getPicture();
-=======
             id=hall.getId();
->>>>>>> e777c8ed0944a8a891ad44887d777b0eb487c5f0
         }
-
-        getIMG.execute(new String[] {newImage});
+        //checks to see if the network is up, uses pics from network if it is other wise uses pic from app
+        if(checkNetwork()) {
+            getIMG.execute(new String[]{newImage});
+            AssetManager manager = getAssets();
+        }
+        else{
+            hImage.setImageResource(pic[Integer.parseInt(id)-1]);
+        }
 
         //display the name of the clicked hall
         textView1.setText(newName);
         history.setText(newHistory);
-        hImage.setImageResource(pic[Integer.parseInt(id)-1]);
 
-<<<<<<< HEAD
 
-        AssetManager manager = getAssets();
-
-        /*try
-=======
-        //AssetManager manager = getAssets();
-
-       /* try
->>>>>>> e777c8ed0944a8a891ad44887d777b0eb487c5f0
-        {
-            InputStream open = manager.open("test.jpg");
-            Bitmap bitmap = BitmapFactory.decodeStream(open);
-
-            hImage.setImageBitmap(bitmap);
-        }
-        catch (IOException e)
-        {
-            e.printStackTrace();
-        }*/
     }
-
+    public Boolean checkNetwork() {
+        ConnectivityManager connMgr = (ConnectivityManager)
+                getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo networkInfo = connMgr.getActiveNetworkInfo();
+        if (networkInfo != null && networkInfo.isConnected()) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
