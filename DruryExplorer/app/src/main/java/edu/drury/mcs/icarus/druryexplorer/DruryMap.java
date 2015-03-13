@@ -205,7 +205,7 @@ public class DruryMap extends FragmentActivity  {
     public void GPSAlert(){
         AlertDialog.Builder gps = new AlertDialog.Builder(this);
         gps.setTitle("GPS");
-        gps.setMessage("You GPS needs to be turned on for this function to work");
+        gps.setMessage("Your GPS needs to be turned on for this function to work");
         gps.setPositiveButton("OK", new DialogInterface.OnClickListener(){
             public void onClick(DialogInterface dialog, int w){
                 //do nothing but close the dialog
