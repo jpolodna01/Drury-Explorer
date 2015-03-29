@@ -18,9 +18,6 @@ import android.view.MenuItem;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-
-
-
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
@@ -70,63 +67,88 @@ public class HallFacts extends Activity {
 
         getImageFromUrl getIMG = new getImageFromUrl(hImage, rLayout);
 
-        String id;
-
         if(savedInstanceState == null)
         {
+
+        String id;
+
+
+            if (savedInstanceState == null) {
+
             //get the bundle from Halls.java
             Bundle extras = getIntent().getExtras();
             Building hall = (Building) extras.getParcelable("clickedHall");
 
 
-            //if there is nothing there then the string is empty
-            if(extras == null)
-            {
-                newName = null;
-                newHistory=null;
-                newImage=null;
-                id= "0";
+                //if there is nothing there then the string is empty
+                if (extras == null) {
+                    newName = null;
 
-            }
+                    newHistory=null;
+                    newImage=null;
+                    id= "0";
 
-            //if there is something there the get the string from the bundle
-            else
-            {
+                    newHistory = null;
+                    newImage = null;
+                    id = "0";
+
+                }
+
+                //if there is something there the get the string from the bundle
+                else {
+                    newName = hall.getBuildingName();
+                    newHistory=hall.getBuildingFacts();
+                    newImage=hall.getPicture();
+                    id=hall.getId();
+
+                    newHistory = hall.getBuildingFacts();
+                    newImage = hall.getPicture();
+                    id = hall.getId();
+
+                }
+            } else {
+                Building hall = (Building) savedInstanceState.getSerializable("clickedHall");
                 newName = hall.getBuildingName();
                 newHistory=hall.getBuildingFacts();
                 newImage=hall.getPicture();
+                bgImage=hall.getPicture();
+
                 id=hall.getId();
+
+                newHistory = hall.getBuildingFacts();
+                newImage = hall.getPicture();
+                id = hall.getId();
+
+                }
+            //checks to see if the network is up, uses pics from network if it is other wise uses pic from app
+            if (checkNetwork()) {
+                getIMG.execute(new String[]{newImage});
+                AssetManager manager = getAssets();
+
             }
-        }
-        else
-        {
-            Building hall = (Building) savedInstanceState.getSerializable("clickedHall");
-            newName = hall.getBuildingName();
-            newHistory=hall.getBuildingFacts();
-            newImage=hall.getPicture();
-            bgImage=hall.getPicture();
+            else {
+                rLayout.setImageResource(pic[Integer.parseInt(id) - 1]);
+                hImage.setImageResource(pic[Integer.parseInt(id) - 1]);
+            }
 
-            id=hall.getId();
-        }
-        //checks to see if the network is up, uses pics from network if it is other wise uses pic from app
-        if(checkNetwork()) {
-            getIMG.execute(new String[]{newImage});
-            AssetManager manager = getAssets();
-        }
-        else{
-            rLayout.setImageResource(pic[Integer.parseInt(id) - 1]);
+           /* else {
+                hImage.setImageResource(pic[Integer.parseInt(id) - 1]);
+
+            }*/
+
+            //display the name of the clicked hall
+            textView1.setText(newName);
+            history.setText(newHistory);
+
             hImage.setImageResource(pic[Integer.parseInt(id)-1]);
+
+            AssetManager manager = getAssets();
+
         }
-
-        //display the name of the clicked hall
-        textView1.setText(newName);
-        history.setText(newHistory);
-
-        hImage.setImageResource(pic[Integer.parseInt(id)-1]);
-
-        AssetManager manager = getAssets();
 
     }
+
+
     public Boolean checkNetwork() {
         ConnectivityManager connMgr = (ConnectivityManager)
                 getSystemService(Context.CONNECTIVITY_SERVICE);
