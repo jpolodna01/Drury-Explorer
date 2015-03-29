@@ -9,7 +9,7 @@ import android.os.Parcelable;
 public class Department implements Parcelable {
 
     private int departmentID, hallID;
-    private String name, description, location;
+    private String name, description, location, picture;
 
     public Department(){}
 
@@ -18,12 +18,14 @@ public class Department implements Parcelable {
     public String getName(){return this.name;}
     public String getLocation(){return this.location;}
     public String getDescription(){return this.description;}
+    public String getPicture(){return this.picture;}
 
     public void setHallID(int id){this.hallID = id;}
     public void setDepartmentID(int id){this.departmentID = id;}
     public void setName(String name){this.name = name;}
     public void setDescription(String description){this.description = description;}
     public void setLocation(String location){this.location = location;}
+    public void setPicture(String picture){this.picture = picture;}
 
 
     public String toString(){

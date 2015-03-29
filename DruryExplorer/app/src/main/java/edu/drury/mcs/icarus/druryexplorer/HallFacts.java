@@ -16,11 +16,11 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
-<<<<<<< HEAD
 
-=======
->>>>>>> a13ef2d0c598c77407075c93231b8daada31baa9
+
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
@@ -37,6 +37,7 @@ public class HallFacts extends Activity {
     private TextView textView1;
     private TextView history;
     private ImageView hImage;
+    private ImageView rLayout;
     private Boolean net;
 
     private String jsonReturn;
@@ -58,21 +59,19 @@ public class HallFacts extends Activity {
         textView1 = (TextView) findViewById(R.id.hNameView);
         history = (TextView) findViewById(R.id.historyView);
         hImage = (ImageView) findViewById(R.id.hImageView);
+        rLayout = (ImageView) findViewById(R.id.hBG);
         net = checkNetwork();
 
         //creates a string to place the clicked object
         String newName;
         String newHistory;
         String newImage;
+        String bgImage;
 
-        getImageFromUrl getIMG = new getImageFromUrl(hImage);
-<<<<<<< HEAD
+        getImageFromUrl getIMG = new getImageFromUrl(hImage, rLayout);
 
         String id;
 
-=======
-        String id;
->>>>>>> a13ef2d0c598c77407075c93231b8daada31baa9
         if(savedInstanceState == null)
         {
             //get the bundle from Halls.java
@@ -87,10 +86,7 @@ public class HallFacts extends Activity {
                 newHistory=null;
                 newImage=null;
                 id= "0";
-<<<<<<< HEAD
 
-=======
->>>>>>> a13ef2d0c598c77407075c93231b8daada31baa9
             }
 
             //if there is something there the get the string from the bundle
@@ -100,10 +96,6 @@ public class HallFacts extends Activity {
                 newHistory=hall.getBuildingFacts();
                 newImage=hall.getPicture();
                 id=hall.getId();
-<<<<<<< HEAD
-
-=======
->>>>>>> a13ef2d0c598c77407075c93231b8daada31baa9
             }
         }
         else
@@ -112,6 +104,8 @@ public class HallFacts extends Activity {
             newName = hall.getBuildingName();
             newHistory=hall.getBuildingFacts();
             newImage=hall.getPicture();
+            bgImage=hall.getPicture();
+
             id=hall.getId();
         }
         //checks to see if the network is up, uses pics from network if it is other wise uses pic from app
@@ -120,26 +114,17 @@ public class HallFacts extends Activity {
             AssetManager manager = getAssets();
         }
         else{
+            rLayout.setImageResource(pic[Integer.parseInt(id) - 1]);
             hImage.setImageResource(pic[Integer.parseInt(id)-1]);
         }
 
         //display the name of the clicked hall
         textView1.setText(newName);
         history.setText(newHistory);
-<<<<<<< HEAD
+
         hImage.setImageResource(pic[Integer.parseInt(id)-1]);
 
         AssetManager manager = getAssets();
-
-        //AssetManager manager = getAssets();
-       /* try
-        {
-            InputStream open = manager.open("test.jpg");
-            Bitmap bitmap = BitmapFactory.decodeStream(open);
-
-            hImage.setImageBitmap(bitmap);
-=======
-
 
     }
     public Boolean checkNetwork() {
@@ -150,7 +135,7 @@ public class HallFacts extends Activity {
             return true;
         } else {
             return false;
->>>>>>> a13ef2d0c598c77407075c93231b8daada31baa9
+
         }
     }
 
@@ -178,17 +163,24 @@ public class HallFacts extends Activity {
         return super.onOptionsItemSelected(item);
     }
 
+    /**
+     *
+     *
+     */
     private class getImageFromUrl extends AsyncTask<String, Void, Bitmap>
     {
-        ImageView bmImage;
-        public getImageFromUrl(ImageView hImage)
+        ImageView bannerImage;
+        ImageView bgImage;
+
+        public getImageFromUrl(ImageView hImage, ImageView rLayout)
         {
-            this.bmImage = hImage;
+            this.bannerImage = hImage;
+            this.bgImage = rLayout;
         }
         @Override
-        protected Bitmap doInBackground(String...imgUrl)
+        protected Bitmap doInBackground(String...url)
         {
-            String urldisplay = imgUrl[0];
+            String urldisplay = url[0];
             Bitmap map = null;
 
             try
@@ -208,7 +200,9 @@ public class HallFacts extends Activity {
         @Override
         protected void onPostExecute(Bitmap result)
         {
-            bmImage.setImageBitmap(result);
+            bannerImage.setImageBitmap(result);
+            bgImage.setImageBitmap(result);
+
         }
 
     }

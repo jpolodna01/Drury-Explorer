@@ -45,7 +45,7 @@ public class DepartmentFacts extends Activity {
             else
             {
                 newDName = depar.getName();
-                newLocation = "Located in: " +depar.getLocation();
+                newLocation = "Located in: " + depar.getLocation();
                 newDescription = depar.getDescription();
             }
         }

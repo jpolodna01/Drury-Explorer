@@ -1,11 +1,24 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
     android:layout_height="match_parent"
-
-
-    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:id="@+id/rLayout"
     tools:context="edu.drury.mcs.icarus.druryexplorer.HallFacts">
 
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/hBG"
+        android:layout_marginLeft="0dp"
+        android:layout_marginRight="0dp"
+        android:layout_marginTop="0dp"
+        android:layout_marginBottom="0dp"
+        android:scaleType="centerCrop"
+        android:alpha="0.15"
+        android:layout_alignParentEnd="false"
+        android:layout_alignParentStart="false"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentBottom="true"
+        android:baselineAlignBottom="false" />
     <ImageView
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
