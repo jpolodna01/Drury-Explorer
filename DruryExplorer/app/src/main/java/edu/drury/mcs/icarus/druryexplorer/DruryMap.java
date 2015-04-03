@@ -428,7 +428,7 @@ public class DruryMap extends FragmentActivity  {
                     .add(new LatLng(tourOne[i].getLatatude(),tourOne[i].getLongatude()))
                     .add(new LatLng(tourOne[i+1].getLatatude(),tourOne[i+1].getLongatude()))
                     .width(15)
-                    .color(Color.GREEN);
+                    .color(Color.BLACK);
             tourMarkers1=mMap.addPolyline(tourRoute1);
             if(tourOne[i].getBuildingNumber()>0) {
 
@@ -448,7 +448,7 @@ public class DruryMap extends FragmentActivity  {
                     .add(new LatLng(tourTwo[i].getLatatude(),tourTwo[i].getLongatude()))
                     .add(new LatLng(tourTwo[i+1].getLatatude(),tourTwo[i+1].getLongatude()))
                     .width(15)
-                    .color(Color.MAGENTA);
+                    .color(Color.GRAY);
             tourMarkers2=mMap.addPolyline(tourRoute2);
             if(tourTwo[i].getBuildingNumber()>0) {
 
