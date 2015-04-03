@@ -20,10 +20,11 @@
         android:theme="@style/AppTheme"
         android:versionCode="2"
         android:versionName="1.1"
-        android:screenOrientation="portrait">
+        >
         <activity
             android:name=".Navigation"
-            android:label="@string/app_name" >
+            android:label="@string/app_name"
+            android:screenOrientation="portrait">
 
             <!--
             <intent-filter>
@@ -48,15 +49,18 @@
 
         <activity
             android:name=".Halls"
-            android:label="@string/title_activity_halls" >
+            android:label="@string/title_activity_halls"
+            android:screenOrientation="portrait">
         </activity>
         <activity
             android:name=".Departments"
-            android:label="@string/title_activity_departments" >
+            android:label="@string/title_activity_departments"
+            android:screenOrientation="portrait">
         </activity>
         <activity
             android:name=".SplashScreen"
-            android:label="@string/app_name" >
+            android:label="@string/app_name"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -66,30 +70,21 @@
         <activity
             android:name=".About_Page"
             android:label="@string/title_activity_about__page"
-            android:parentActivityName=".Navigation" >
+            android:parentActivityName=".Navigation"
+            android:screenOrientation="portrait">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="edu.drury.mcs.icarus.druryexplorer.Navigation" />
         </activity>
         <activity
-            android:name=".HallListActivity"
-            android:label="@string/title_hall_list" >
-        </activity>
-        <activity
             android:name=".HallFacts"
-            android:label="@string/title_activity_hall_facts" >
-        </activity>
-        <activity
-            android:name=".HallDetailActivity"
-            android:label="@string/title_hall_detail"
-            android:parentActivityName=".HallListActivity" >
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="edu.drury.mcs.icarus.druryexplorer.HallListActivity" />
+            android:label="@string/title_activity_hall_facts"
+            android:screenOrientation="portrait">
         </activity>
         <activity
             android:name=".DepartmentFacts"
-            android:label="@string/title_activity_department_facts" >
+            android:label="@string/title_activity_department_facts"
+            android:screenOrientation="portrait">
         </activity>
     </application>
 
