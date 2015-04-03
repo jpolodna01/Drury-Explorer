@@ -107,7 +107,7 @@
                         style="?android:attr/buttonStyleSmall"
                         android:layout_width="fill_parent"
                         android:layout_height="wrap_content"
-                        android:text="Show Normal Tour"
+                        android:text="Normal Tour"
                         android:id="@+id/quickTour"
                         android:clickable="true"
                         android:onClick="viewTourTwo"
