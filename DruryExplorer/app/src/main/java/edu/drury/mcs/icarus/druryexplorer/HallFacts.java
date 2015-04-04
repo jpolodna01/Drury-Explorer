@@ -140,7 +140,6 @@ public class HallFacts extends Activity {
             textView1.setText(newName);
             history.setText(newHistory);
 
-            hImage.setImageResource(pic[Integer.parseInt(id)-1]);
 
             AssetManager manager = getAssets();
 

@@ -1,8 +1,195 @@
-<fragment xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="wrap_content"
-    android:layout_height="match_parent"
-    android:id="@+id/map"
-    tools:context="edu.drury.mcs.icarus.druryexplorer.DruryMap"
-    android:name="com.google.android.gms.maps.SupportMapFragment"
-   />
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <fragment xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="wrap_content"
+        android:layout_height="300dp"
+        android:paddingBottom="30dp"
+        android:id="@+id/map"
+        tools:context="edu.drury.mcs.icarus.druryexplorer.DruryMap"
+        android:name="com.google.android.gms.maps.SupportMapFragment"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+
+
+    <SlidingDrawer
+        android:layout_width="250dp"
+        android:layout_height="fill_parent"
+        android:content="@+id/content"
+        android:handle="@+id/handle"
+        android:id="@+id/slidingDrawer"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:orientation="horizontal"
+        android:rotation="180"
+        android:layout_alignParentStart="true">
+
+        <LinearLayout
+            android:id="@+id/content"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:orientation="vertical"
+            android:rotation="180"
+            android:background="#59121212">
+
+            <ImageView
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/imageView2"
+                android:src="@drawable/drury"/>
+
+
+            <ScrollView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:id="@+id/scrollView"
+                android:scrollbars="vertical">
+
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent">
+
+                    <Button
+                        style="?android:attr/buttonStyleSmall"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Show Buildings"
+                        android:id="@+id/buildingMarkers"
+                        android:layout_alignWithParentIfMissing="false"
+                        android:onClick="buildingMarkers"
+                        android:clickable="true"
+                        android:textColor="@android:color/black"
+
+                        android:layout_marginLeft="15dp"
+                        android:layout_marginRight="15dp"
+                        android:layout_marginBottom="15dp" />
+
+
+
+                    <Button
+                        style="?android:attr/buttonStyleSmall"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Long Tour"
+                        android:id="@+id/mainTour"
+                        android:clickable="true"
+                        android:onClick="viewTourOne"
+                        android:textColor="@android:color/black"
+
+                        android:layout_marginLeft="15dp"
+                        android:layout_marginRight="15dp"
+                        android:layout_marginBottom="15dp" />
+
+                    <Button
+                        style="?android:attr/buttonStyleSmall"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Start Long Tour"
+                        android:id="@+id/startMainTour"
+                        android:onClick="startTourOne"
+                        android:clickable="true"
+                        android:textColor="@android:color/black"
+
+                        android:layout_marginLeft="15dp"
+                        android:layout_marginRight="15dp"
+                        android:layout_marginBottom="15dp" />
+
+                    <Button
+                        style="?android:attr/buttonStyleSmall"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Normal Tour"
+                        android:id="@+id/quickTour"
+                        android:clickable="true"
+                        android:onClick="viewTourTwo"
+                        android:textColor="@android:color/black"
+
+                        android:layout_marginLeft="15dp"
+                        android:layout_marginRight="15dp"
+                        android:layout_marginBottom="15dp" />
+
+                    <Button
+                        style="?android:attr/buttonStyleSmall"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Start Normal Tour"
+                        android:id="@+id/startQuickTour"
+                        android:onClick="startTourTwo"
+                        android:clickable="true"
+                        android:textColor="@android:color/black"
+
+                        android:layout_marginLeft="15dp"
+                        android:layout_marginRight="15dp"
+                        android:layout_marginBottom="15dp" />
+
+                    <Button
+                        style="?android:attr/buttonStyleSmall"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Clear Map"
+                        android:id="@+id/clear"
+                        android:clickable="true"
+                        android:onClick="clearMap"
+                        android:textColor="@android:color/black"
+
+                        android:layout_marginLeft="15dp"
+                        android:layout_marginRight="15dp"
+                        android:layout_marginBottom="15dp"
+                        android:longClickable="true" />
+
+                    <Button
+                        style="?android:attr/buttonStyleSmall"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Stop Tour"
+                        android:id="@+id/stop"
+                        android:clickable="true"
+                        android:onClick="stopTours"
+                        android:textColor="@android:color/black"
+
+                        android:layout_marginLeft="15dp"
+                        android:layout_marginRight="15dp"
+                        android:layout_marginBottom="15dp"
+                        android:longClickable="true" />
+
+                    <Button
+                        style="?android:attr/buttonStyleSmall"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Satelite/Standard View"
+
+                        android:id="@+id/change"
+                        android:clickable="true"
+
+                        android:layout_marginLeft="15dp"
+                        android:layout_marginRight="15dp"
+                        android:layout_marginBottom="15dp"
+                        android:longClickable="true"
+                        android:onClick="cMap" />
+
+                </LinearLayout>
+            </ScrollView>
+
+
+        </LinearLayout>
+
+        <ImageButton
+            android:id="@+id/handle"
+            android:layout_width="wrap_content"
+            android:layout_height="fill_parent"
+            android:background="@android:color/transparent"
+            android:src="@drawable/arrow"
+            android:rotation="180"/>
+    </SlidingDrawer>
+
+
+</RelativeLayout>
