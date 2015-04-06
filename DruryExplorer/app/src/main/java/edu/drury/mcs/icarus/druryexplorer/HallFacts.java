@@ -39,6 +39,7 @@ public class HallFacts extends Activity {
     private ImageView hImage;
     private ImageView rLayout;
     private Boolean net;
+    private Bundle extras;
 
     private String jsonReturn;
     private String url = "http://mcs.drury.edu/jpolodna01/DUE_PHP/DUE_Facts_Halls.php"; //url to the php echo'ed data
@@ -79,7 +80,7 @@ public class HallFacts extends Activity {
             if (savedInstanceState == null) {
 
             //get the bundle from Halls.java
-            Bundle extras = getIntent().getExtras();
+            extras = getIntent().getExtras();
             Building hall = (Building) extras.getParcelable("clickedHall");
 
 
@@ -151,13 +152,23 @@ public class HallFacts extends Activity {
     }
 
     @Override
-    protected void onDestroy() {
+    protected void onStop() {
+        super.onStop();
+        //View root = findViewById(R.id.hImageView);
+        //View bg = findViewById(R.id.rLayout);
+        //setContentView(new View(this));
+        //unbindDrawables(bg);
+        //unbindDrawables(root);
+        getIntent().getExtras().clear();
+        //extras.clear();
+        System.gc();
+    }
+
+    @Override
+    protected void onDestroy()
+    {
         super.onDestroy();
-        View root = findViewById(R.id.hImageView);
-        View bg = findViewById(R.id.rLayout);
-        setContentView(new View(this));
-        unbindDrawables(bg);
-        unbindDrawables(root);
+        //extras.clear();
         System.gc();
     }
 

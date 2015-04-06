@@ -157,9 +157,9 @@
         <ImageButton
             android:id="@+id/handle"
             android:layout_width="wrap_content"
-            android:layout_height="fill_parent"
+            android:layout_height="wrap_content"
             android:background="@android:color/transparent"
-            android:src="@drawable/arrow"
+            android:src="@drawable/blackArrow"
             android:rotation="180"/>
     </SlidingDrawer>
 

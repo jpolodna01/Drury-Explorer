@@ -229,13 +229,7 @@ public class Halls extends Activity {
         } catch (JSONException e) {
             Toast.makeText(getApplicationContext(), "error" + e.toString(), Toast.LENGTH_SHORT).show();
         }
-        // android.R.layout.simple_list_item_1 is predefined in android libraries and not in local xml, and it specifies
-        // to the listview how to display the data
-//        SimpleAdapter simpleAdapter = new SimpleAdapter(this, hallList, android.R.layout.simple_list_item_1,
-//                new String[]{"halls"}, new int[]{android.R.id.text1}); //android.R.id.text1 defined by android and not locally
-//        listView.setAdapter(simpleAdapter);// set the listview to the previously created adapter (write data to screen)
 
-//        LinkedList<Halls> hallListLinked = new LinkedList<Halls>(hallList);
     }
 
     public void populateListView()
@@ -280,12 +274,4 @@ public class Halls extends Activity {
         return name;
     }
 
-    /* As a hashmap, this associates data with a certain key in such a way that each piece has a unique key
-
-    */
-//    private HashMap<String, String> createDepartment(String name, String number) {
-//        HashMap<String, String> hallName = new HashMap<String, String>();
-//        hallName.put(name, number);
-//        return hallName;
-//    }
 }

@@ -84,6 +84,7 @@ public class DruryMap extends FragmentActivity  {
     private Button stop;
     private Button change;
     private SlidingDrawer drawer;
+    private ImageButton handle;
     private int[] pic={R.drawable.pearsons,R.drawable.shewmaker, R.drawable.springfield,R.drawable.tsc,R.drawable.hammons,
             R.drawable.breech,R.drawable.weiser,R.drawable.burnham,
             R.drawable.bay,R.drawable.oreilly,R.drawable.pac, R.drawable.stonechapel,R.drawable.olin,
@@ -109,25 +110,28 @@ public class DruryMap extends FragmentActivity  {
         stop = (Button)findViewById(R.id.stop);
         change = (Button)findViewById(R.id.change);
         drawer = (SlidingDrawer)findViewById(R.id.slidingDrawer);
+        handle = (ImageButton)findViewById(R.id.handle);
 
         dImage=(ImageView)findViewById(R.id.imageView2);
         firstTime1=true;
         firstTime2=true;
         if(level==0) {
-            change.setBackgroundColor(Color.BLACK);
-            change.setTextColor(Color.WHITE);
-            stop.setBackgroundColor(Color.BLACK);
-            stop.setTextColor(Color.WHITE);
-            startNormalTour.setBackgroundColor(Color.BLACK);
-            startNormalTour.setTextColor(Color.WHITE);
-            normalTour.setBackgroundColor(Color.BLACK);
-            normalTour.setTextColor(Color.WHITE);
-            longTour.setBackgroundColor(Color.BLACK);
-            longTour.setTextColor(Color.WHITE);
-            startLongTour.setBackgroundColor(Color.BLACK);
-            startLongTour.setTextColor(Color.WHITE);
-            buildingMarker.setBackgroundColor(Color.BLACK);
-            buildingMarker.setTextColor(Color.WHITE);
+            mMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
+            level = 0;
+            change.setBackgroundColor(Color.TRANSPARENT);
+            change.setTextColor(Color.BLACK);
+            stop.setBackgroundColor(Color.TRANSPARENT);
+            stop.setTextColor(Color.BLACK);
+            startNormalTour.setBackgroundColor(Color.TRANSPARENT);
+            startNormalTour.setTextColor(Color.BLACK);
+            normalTour.setBackgroundColor(Color.TRANSPARENT);
+            normalTour.setTextColor(Color.BLACK);
+            longTour.setBackgroundColor(Color.TRANSPARENT);
+            longTour.setTextColor(Color.BLACK);
+            startLongTour.setBackgroundColor(Color.TRANSPARENT);
+            startLongTour.setTextColor(Color.BLACK);
+            buildingMarker.setBackgroundColor(Color.TRANSPARENT);
+            buildingMarker.setTextColor(Color.BLACK);
         }
 
 
@@ -274,38 +278,22 @@ public class DruryMap extends FragmentActivity  {
         if(level==2) {
             mMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
             level = 0;
-            change.setBackgroundColor(Color.BLACK);
-            change.setTextColor(Color.WHITE);
-            stop.setBackgroundColor(Color.BLACK);
-            stop.setTextColor(Color.WHITE);
-            startNormalTour.setBackgroundColor(Color.BLACK);
-            startNormalTour.setTextColor(Color.WHITE);
-            normalTour.setBackgroundColor(Color.BLACK);
-            normalTour.setTextColor(Color.WHITE);
-            longTour.setBackgroundColor(Color.BLACK);
-            longTour.setTextColor(Color.WHITE);
-            startLongTour.setBackgroundColor(Color.BLACK);
-            startLongTour.setTextColor(Color.WHITE);
-            buildingMarker.setBackgroundColor(Color.BLACK);
-            buildingMarker.setTextColor(Color.WHITE);
+            change.setTextColor(Color.BLACK);
+            stop.setTextColor(Color.BLACK);
+            startNormalTour.setTextColor(Color.BLACK);
+            normalTour.setTextColor(Color.BLACK);
+            longTour.setTextColor(Color.BLACK);
+            startLongTour.setTextColor(Color.BLACK);
+            buildingMarker.setTextColor(Color.BLACK);
         }
         else {
-            mMap.setMapType(GoogleMap.MAP_TYPE_HYBRID);
-            level = 2;
-            change.setBackgroundColor(Color.WHITE);
-            change.setTextColor(Color.BLACK);
-            stop.setBackgroundColor(Color.WHITE);
-            stop.setTextColor(Color.BLACK);
-            startNormalTour.setBackgroundColor(Color.WHITE);
-            startNormalTour.setTextColor(Color.BLACK);
-            normalTour.setBackgroundColor(Color.WHITE);
-            normalTour.setTextColor(Color.BLACK);
-            longTour.setBackgroundColor(Color.WHITE);
-            longTour.setTextColor(Color.BLACK);
-            startLongTour.setBackgroundColor(Color.WHITE);
-            startLongTour.setTextColor(Color.BLACK);
-            buildingMarker.setBackgroundColor(Color.WHITE);
-            buildingMarker.setTextColor(Color.BLACK);
+            change.setTextColor(Color.WHITE);
+            stop.setTextColor(Color.WHITE);
+            startNormalTour.setTextColor(Color.WHITE);
+            normalTour.setTextColor(Color.WHITE);
+            longTour.setTextColor(Color.WHITE);
+            startLongTour.setTextColor(Color.WHITE);
+            buildingMarker.setTextColor(Color.WHITE);
         }
 
 
