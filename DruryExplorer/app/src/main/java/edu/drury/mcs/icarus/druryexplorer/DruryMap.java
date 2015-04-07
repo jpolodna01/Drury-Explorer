@@ -116,8 +116,6 @@ public class DruryMap extends FragmentActivity  {
         firstTime1=true;
         firstTime2=true;
         if(level==0) {
-            mMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
-            level = 0;
             change.setBackgroundColor(Color.TRANSPARENT);
             change.setTextColor(Color.BLACK);
             stop.setBackgroundColor(Color.TRANSPARENT);

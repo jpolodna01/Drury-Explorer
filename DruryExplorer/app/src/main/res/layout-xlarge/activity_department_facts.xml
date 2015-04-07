@@ -17,7 +17,8 @@
         android:layout_alignParentStart="false"
         android:layout_alignParentTop="true"
         android:layout_alignParentBottom="true"
-        android:baselineAlignBottom="false" />
+        android:baselineAlignBottom="false"
+        />
     <TextView
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
