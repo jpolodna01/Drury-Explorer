@@ -151,43 +151,6 @@ public class HallFacts extends Activity {
 
     }
 
-    @Override
-    protected void onStop() {
-        super.onStop();
-        //View root = findViewById(R.id.hImageView);
-        //View bg = findViewById(R.id.rLayout);
-        //setContentView(new View(this));
-        //unbindDrawables(bg);
-        //unbindDrawables(root);
-        getIntent().getExtras().clear();
-        //extras.clear();
-        System.gc();
-    }
-
-    @Override
-    protected void onDestroy()
-    {
-        super.onDestroy();
-        //extras.clear();
-        System.gc();
-    }
-
-    private void unbindDrawables(View view)
-    {
-        if (view.getBackground() != null)
-        {
-            view.getBackground().setCallback(null);
-        }
-        if (view instanceof ViewGroup && !(view instanceof AdapterView))
-        {
-            for (int i = 0; i < ((ViewGroup) view).getChildCount(); i++)
-            {
-                unbindDrawables(((ViewGroup) view).getChildAt(i));
-            }
-            ((ViewGroup) view).removeAllViews();
-        }
-    }
-
     public Boolean checkNetwork() {
         ConnectivityManager connMgr = (ConnectivityManager)
                 getSystemService(Context.CONNECTIVITY_SERVICE);
