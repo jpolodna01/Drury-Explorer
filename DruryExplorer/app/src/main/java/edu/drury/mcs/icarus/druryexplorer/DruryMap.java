@@ -28,6 +28,7 @@ import android.os.AsyncTask;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 import android.transition.Slide;
+import android.util.Log;
 import android.view.View;
 import android.webkit.WebView;
 import android.widget.Button;
@@ -173,9 +174,7 @@ public class DruryMap extends FragmentActivity  {
     protected void onResume() {
         super.onResume();
         setUpMapIfNeeded();
-        if(tour1){
-            tourMarkers1.isVisible();
-        }
+
 
     }
 
@@ -224,10 +223,7 @@ public class DruryMap extends FragmentActivity  {
 
     }
 
-    /*
-        This method will be called when the handle for the drawer is clicked when it is clicked, it will make sure that the
-        arrow is facing the right direction.
-     */
+
 
 
 
@@ -498,46 +494,66 @@ public class DruryMap extends FragmentActivity  {
 
     }
     public void viewTourOne(View view){
-        clearMap(1);
         drawer.toggle();
-        tour1=true;
-        for(int i=0;i<tourOne.length-1;i++){
+        if(tour2){
+            clearMap(2);
+            tour2=false;
+        }
+        if(tourMarkers1!=null & tour1) {
+            clearMap(1);
+            tour1=false;
+        }
+        else {
+            tour1=true;
+            for (int i = 0; i < tourOne.length - 1; i++) {
 
-            tourRoute1.geodesic(true)
-                    .add(new LatLng(tourOne[i].getLatatude(),tourOne[i].getLongatude()))
-                    .add(new LatLng(tourOne[i+1].getLatatude(),tourOne[i+1].getLongatude()))
-                    .width(12)
-                    .color(Color.BLACK);
-            tourMarkers1=mMap.addPolyline(tourRoute1);
-            if(tourOne[i].getBuildingNumber()>0) {
+                tourRoute1.geodesic(true)
+                        .add(new LatLng(tourOne[i].getLatatude(), tourOne[i].getLongatude()))
+                        .add(new LatLng(tourOne[i + 1].getLatatude(), tourOne[i + 1].getLongatude()))
+                        .width(12)
+                        .color(Color.BLACK);
+                tourMarkers1 = mMap.addPolyline(tourRoute1);
+                if (tourOne[i].getBuildingNumber() > 0) {
 
-                mMap.addMarker(new MarkerOptions().position(new LatLng(tourOne[i].getLatatude(), tourOne[i].getLongatude()))
-                        .title(buildingArray[tourOne[i].getBuildingNumber() - 1].getBuildingName()));
+                    mMap.addMarker(new MarkerOptions().position(new LatLng(tourOne[i].getLatatude(), tourOne[i].getLongatude()))
+                            .title(buildingArray[tourOne[i].getBuildingNumber() - 1].getBuildingName()));
+
+                }
 
             }
-
         }
+
+
     }
 
     public void viewTourTwo(View view){
-        clearMap(2);
         drawer.toggle();
-        tour2=true;
-        for(int i=0;i<tourTwo.length-1;i++){
+        if(tour1){
+            clearMap(1);
+            tour1=false;
+        }
+        if(tourMarkers2!=null & tour2) {
+            clearMap(2);
+            tour2=false;
+        }
+        else {
+            tour2 = true;
+            for (int i = 0; i < tourTwo.length - 1; i++) {
 
-            tourRoute2.geodesic(true)
-                    .add(new LatLng(tourTwo[i].getLatatude(),tourTwo[i].getLongatude()))
-                    .add(new LatLng(tourTwo[i+1].getLatatude(),tourTwo[i+1].getLongatude()))
-                    .width(12)
-                    .color(Color.GRAY);
-            tourMarkers2=mMap.addPolyline(tourRoute2);
-            if(tourTwo[i].getBuildingNumber()>0) {
+                tourRoute2.geodesic(true)
+                        .add(new LatLng(tourTwo[i].getLatatude(), tourTwo[i].getLongatude()))
+                        .add(new LatLng(tourTwo[i + 1].getLatatude(), tourTwo[i + 1].getLongatude()))
+                        .width(12)
+                        .color(Color.GRAY);
+                tourMarkers2 = mMap.addPolyline(tourRoute2);
+                if (tourTwo[i].getBuildingNumber() > 0) {
 
-                mMap.addMarker(new MarkerOptions().position(new LatLng(tourTwo[i].getLatatude(), tourTwo[i].getLongatude()))
-                        .title(buildingArray[tourTwo[i].getBuildingNumber() - 1].getBuildingName()));
+                    mMap.addMarker(new MarkerOptions().position(new LatLng(tourTwo[i].getLatatude(), tourTwo[i].getLongatude()))
+                            .title(buildingArray[tourTwo[i].getBuildingNumber() - 1].getBuildingName()));
+
+                }
 
             }
-
         }
     }
 

@@ -79,15 +79,14 @@
                         style="?android:attr/buttonStyleSmall"
                         android:layout_width="fill_parent"
                         android:layout_height="wrap_content"
-                        android:text="Long Tour"
+                        android:text="Show/Hide Long Tour"
                         android:id="@+id/mainTour"
                         android:clickable="true"
                         android:onClick="viewTourOne"
-                        android:textColor="@android:color/black"
-
-                        android:layout_marginLeft="15dp"
-                        android:layout_marginRight="15dp"
-                        android:layout_marginBottom="15dp" />
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginRight="10dp"
+                        android:layout_marginBottom="10dp"
+                        android:textSize="25sp"/>
 
                     <Button
                         style="?android:attr/buttonStyleSmall"
@@ -97,25 +96,23 @@
                         android:id="@+id/startMainTour"
                         android:onClick="startTourOne"
                         android:clickable="true"
-                        android:textColor="@android:color/black"
-
-                        android:layout_marginLeft="15dp"
-                        android:layout_marginRight="15dp"
-                        android:layout_marginBottom="15dp" />
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginRight="10dp"
+                        android:layout_marginBottom="10dp"
+                        android:textSize="25sp"/>
 
                     <Button
                         style="?android:attr/buttonStyleSmall"
                         android:layout_width="fill_parent"
                         android:layout_height="wrap_content"
-                        android:text="Normal Tour"
+                        android:text="Show/Hide Normal Tour"
                         android:id="@+id/quickTour"
                         android:clickable="true"
                         android:onClick="viewTourTwo"
-                        android:textColor="@android:color/black"
-
-                        android:layout_marginLeft="15dp"
-                        android:layout_marginRight="15dp"
-                        android:layout_marginBottom="15dp" />
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginRight="10dp"
+                        android:layout_marginBottom="10dp"
+                        android:textSize="25sp" />
 
                     <Button
                         style="?android:attr/buttonStyleSmall"
@@ -125,26 +122,12 @@
                         android:id="@+id/startQuickTour"
                         android:onClick="startTourTwo"
                         android:clickable="true"
-                        android:textColor="@android:color/black"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginRight="10dp"
+                        android:layout_marginBottom="10dp"
+                        android:textSize="25sp" />
 
-                        android:layout_marginLeft="15dp"
-                        android:layout_marginRight="15dp"
-                        android:layout_marginBottom="15dp" />
 
-                    <Button
-                        style="?android:attr/buttonStyleSmall"
-                        android:layout_width="fill_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Clear Map"
-                        android:id="@+id/clear"
-                        android:clickable="true"
-                        android:onClick="clearMap"
-                        android:textColor="@android:color/black"
-
-                        android:layout_marginLeft="15dp"
-                        android:layout_marginRight="15dp"
-                        android:layout_marginBottom="15dp"
-                        android:longClickable="true" />
 
                     <Button
                         style="?android:attr/buttonStyleSmall"
@@ -154,12 +137,10 @@
                         android:id="@+id/stop"
                         android:clickable="true"
                         android:onClick="stopTours"
-                        android:textColor="@android:color/black"
-
-                        android:layout_marginLeft="15dp"
-                        android:layout_marginRight="15dp"
-                        android:layout_marginBottom="15dp"
-                        android:longClickable="true" />
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginRight="10dp"
+                        android:layout_marginBottom="10dp"
+                        android:textSize="25sp" />
 
                     <Button
                         style="?android:attr/buttonStyleSmall"

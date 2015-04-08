@@ -151,6 +151,7 @@ public class HallFacts extends Activity {
 
     }
 
+<<<<<<< HEAD
     @Override
     protected void onStop() {
         super.onStop();
@@ -194,6 +195,8 @@ public class HallFacts extends Activity {
         }
     }
 
+=======
+>>>>>>> d07ea64781a74418fdb5ba4463863e9686ab27ee
     public Boolean checkNetwork() {
         ConnectivityManager connMgr = (ConnectivityManager)
                 getSystemService(Context.CONNECTIVITY_SERVICE);
