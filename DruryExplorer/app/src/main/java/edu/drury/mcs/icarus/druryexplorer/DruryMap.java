@@ -33,6 +33,7 @@ import android.webkit.WebView;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.SlidingDrawer;
 import android.widget.Toast;
 
@@ -85,6 +86,7 @@ public class DruryMap extends FragmentActivity  {
     private Button change;
     private SlidingDrawer drawer;
     private ImageButton handle;
+    private LinearLayout content;
     private int[] pic={R.drawable.pearsons,R.drawable.shewmaker, R.drawable.springfield,R.drawable.tsc,R.drawable.hammons,
             R.drawable.breech,R.drawable.weiser,R.drawable.burnham,
             R.drawable.bay,R.drawable.oreilly,R.drawable.pac, R.drawable.stonechapel,R.drawable.olin,
@@ -111,6 +113,7 @@ public class DruryMap extends FragmentActivity  {
         change = (Button)findViewById(R.id.change);
         drawer = (SlidingDrawer)findViewById(R.id.slidingDrawer);
         handle = (ImageButton)findViewById(R.id.handle);
+        content = (LinearLayout)findViewById(R.id.content);
 
         dImage=(ImageView)findViewById(R.id.imageView2);
         firstTime1=true;
@@ -130,7 +133,11 @@ public class DruryMap extends FragmentActivity  {
             startLongTour.setTextColor(Color.BLACK);
             buildingMarker.setBackgroundColor(Color.TRANSPARENT);
             buildingMarker.setTextColor(Color.BLACK);
+            content.setBackgroundColor(Color.argb(120,250,250,250));
+            handle.setImageResource(R.drawable.blackarrow);
         }
+
+
 
 
 
@@ -217,6 +224,13 @@ public class DruryMap extends FragmentActivity  {
 
     }
 
+    /*
+        This method will be called when the handle for the drawer is clicked when it is clicked, it will make sure that the
+        arrow is facing the right direction.
+     */
+
+
+
     private void splitTourArray(){
         int place = 0;
         int count = 0;
@@ -283,8 +297,12 @@ public class DruryMap extends FragmentActivity  {
             longTour.setTextColor(Color.BLACK);
             startLongTour.setTextColor(Color.BLACK);
             buildingMarker.setTextColor(Color.BLACK);
+            content.setBackgroundColor(Color.argb(120,250,250,250));
+            handle.setImageResource(R.drawable.blackarrow);
         }
         else {
+            mMap.setMapType(GoogleMap.MAP_TYPE_SATELLITE);
+            level = 2;
             change.setTextColor(Color.WHITE);
             stop.setTextColor(Color.WHITE);
             startNormalTour.setTextColor(Color.WHITE);
@@ -292,6 +310,8 @@ public class DruryMap extends FragmentActivity  {
             longTour.setTextColor(Color.WHITE);
             startLongTour.setTextColor(Color.WHITE);
             buildingMarker.setTextColor(Color.WHITE);
+            content.setBackgroundColor(Color.argb(120,0,0,0));
+            handle.setImageResource(R.drawable.whitearrow);
         }
 
 
@@ -784,5 +804,7 @@ public class DruryMap extends FragmentActivity  {
 
 
     }
+
+
 }
 

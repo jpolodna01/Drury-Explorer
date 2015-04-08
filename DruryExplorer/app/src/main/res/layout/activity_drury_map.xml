@@ -37,8 +37,7 @@
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
             android:orientation="vertical"
-            android:rotation="180"
-            android:background="#59121212">
+            android:rotation="180">
 
             <ImageView
                 android:layout_width="fill_parent"
@@ -59,16 +58,17 @@
                     android:layout_height="fill_parent">
 
                     <Button
-                    style="?android:attr/buttonStyleSmall"
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Show Buildings"
-                    android:id="@+id/buildingMarkers"
-                    android:onClick="buildingMarkers"
-                    android:clickable="true"
-                    android:layout_marginLeft="15dp"
-                    android:layout_marginRight="15dp"
-                    android:layout_marginBottom="15dp" />
+                         style="?android:attr/buttonStyleSmall"
+                         android:layout_width="fill_parent"
+                         android:layout_height="wrap_content"
+                         android:text="Show Buildings"
+                         android:id="@+id/buildingMarkers"
+                         android:onClick="buildingMarkers"
+                         android:clickable="true"
+                         android:layout_marginLeft="5dp"
+                         android:layout_marginRight="10dp"
+                         android:layout_marginBottom="10dp"
+                         android:textSize="18sp"/>
 
 
 
@@ -80,9 +80,10 @@
                         android:id="@+id/mainTour"
                         android:clickable="true"
                         android:onClick="viewTourOne"
-                        android:layout_marginLeft="15dp"
-                        android:layout_marginRight="15dp"
-                        android:layout_marginBottom="15dp" />
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginRight="10dp"
+                        android:layout_marginBottom="10dp"
+                        android:textSize="18sp" />
 
                     <Button
                         style="?android:attr/buttonStyleSmall"
@@ -92,9 +93,10 @@
                         android:id="@+id/startMainTour"
                         android:onClick="startTourOne"
                         android:clickable="true"
-                        android:layout_marginLeft="15dp"
-                        android:layout_marginRight="15dp"
-                        android:layout_marginBottom="15dp" />
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginRight="10dp"
+                        android:layout_marginBottom="10dp"
+                        android:textSize="18sp" />
 
                     <Button
                         style="?android:attr/buttonStyleSmall"
@@ -104,9 +106,10 @@
                         android:id="@+id/quickTour"
                         android:clickable="true"
                         android:onClick="viewTourTwo"
-                        android:layout_marginLeft="15dp"
-                        android:layout_marginRight="15dp"
-                        android:layout_marginBottom="15dp" />
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginRight="10dp"
+                        android:layout_marginBottom="10dp"
+                        android:textSize="18sp" />
 
                     <Button
                         style="?android:attr/buttonStyleSmall"
@@ -116,9 +119,10 @@
                         android:id="@+id/startQuickTour"
                         android:onClick="startTourTwo"
                         android:clickable="true"
-                         android:layout_marginLeft="15dp"
-                        android:layout_marginRight="15dp"
-                        android:layout_marginBottom="15dp" />
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginRight="10dp"
+                        android:layout_marginBottom="10dp"
+                        android:textSize="18sp" />
 
                     <Button
                         style="?android:attr/buttonStyleSmall"
@@ -128,24 +132,22 @@
                         android:id="@+id/stop"
                         android:clickable="true"
                         android:onClick="stopTours"
-                        android:layout_marginLeft="15dp"
-                        android:layout_marginRight="15dp"
-                        android:layout_marginBottom="15dp"
-                        android:longClickable="true" />
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginRight="10dp"
+                        android:layout_marginBottom="10dp"
+                        android:textSize="18sp" />
 
                     <Button
                         style="?android:attr/buttonStyleSmall"
                         android:layout_width="fill_parent"
                         android:layout_height="wrap_content"
                         android:text="Satelite/Standard View"
-
                         android:id="@+id/change"
                         android:clickable="true"
-
-                        android:layout_marginLeft="15dp"
-                        android:layout_marginRight="15dp"
-                        android:layout_marginBottom="15dp"
-                        android:longClickable="true"
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginRight="10dp"
+                        android:layout_marginBottom="10dp"
+                        android:textSize="18sp"
                         android:onClick="cMap" />
 
                 </LinearLayout>
@@ -159,7 +161,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@android:color/transparent"
-            android:src="@drawable/blackarrow"
             android:rotation="180"/>
     </SlidingDrawer>
 
