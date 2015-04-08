@@ -495,6 +495,10 @@ public class DruryMap extends FragmentActivity  {
     }
     public void viewTourOne(View view){
         drawer.toggle();
+        if(tour2){
+            clearMap(2);
+            tour2=false;
+        }
         if(tourMarkers1!=null & tour1) {
             clearMap(1);
             tour1=false;
@@ -524,6 +528,10 @@ public class DruryMap extends FragmentActivity  {
 
     public void viewTourTwo(View view){
         drawer.toggle();
+        if(tour1){
+            clearMap(1);
+            tour1=false;
+        }
         if(tourMarkers2!=null & tour2) {
             clearMap(2);
             tour2=false;
@@ -551,8 +559,8 @@ public class DruryMap extends FragmentActivity  {
 
     public void clearMap(int i){
         mMap.clear();
-        if(tourMarkers1!=null & tourMarkers1.isVisible()) {
-            tourMarkers1.setVisible(false);
+        if(tour1) {
+            tourMarkers1.remove();
         }
         if(tour2){
             tourMarkers2.remove();
