@@ -154,14 +154,20 @@ public class HallFacts extends Activity {
     @Override
     protected void onStop() {
         super.onStop();
+        finish();
+
         //View root = findViewById(R.id.hImageView);
         //View bg = findViewById(R.id.rLayout);
         //setContentView(new View(this));
         //unbindDrawables(bg);
         //unbindDrawables(root);
-        getIntent().getExtras().clear();
+
+        //used
+      //  getIntent().getExtras().clear();
         //extras.clear();
-        System.gc();
+
+        //used
+      //  System.gc();
     }
 
     @Override
@@ -169,7 +175,7 @@ public class HallFacts extends Activity {
     {
         super.onDestroy();
         //extras.clear();
-        System.gc();
+        //System.gc();
     }
 
     private void unbindDrawables(View view)
