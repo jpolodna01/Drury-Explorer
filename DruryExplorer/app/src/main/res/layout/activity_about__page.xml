@@ -6,7 +6,6 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     android:paddingBottom="@dimen/activity_vertical_margin"
-    android:background="@drawable/logo"
 
     tools:context="edu.drury.mcs.icarus.druryexplorer.About_Page">
 
@@ -28,6 +27,13 @@
         android:clickable="true"
         android:onClick="close" />
 
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/imageView"
+        android:layout_below="@+id/textView"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="213dp" />
 
 
 </RelativeLayout>
