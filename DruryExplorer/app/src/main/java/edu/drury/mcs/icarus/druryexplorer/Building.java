@@ -12,6 +12,15 @@ import java.io.InputStream;
 import java.net.URL;
 
 /**
+ * This object is to encase all the information needed to represent a building on
+ * Drury University.
+ * buildingNumber-number reresenting that building in database
+ * bLongatude-the longatude point of the building
+ * bLatatude-the latatude point for that building
+ * buildingName-name of the building
+ * buildingFacts-facts about the building
+ * picture-web address of the picture for the building
+ * id-string representation of the building number
  * Created by Daiv McBride on 2/22/2015.
  */
 public class Building implements Parcelable {
