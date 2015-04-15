@@ -42,7 +42,7 @@ public class HallFacts extends Activity {
     private Bundle extras;
 
     private String jsonReturn;
-    private String url = "http://mcs.drury.edu/jpolodna01/DUE_PHP/DUE_Facts_Halls.php"; //url to the php echo'ed data
+    private String url = "http://mcs.drury.edu/duexplorer/DUE_PHP/DUE_Facts_Halls.php"; //url to the php echo'ed data
     private TextView testView; // listview variable
     private int[] pic={R.drawable.pearsons,R.drawable.shewmaker, R.drawable.springfield,R.drawable.tsc,R.drawable.hammons,
             R.drawable.breech,R.drawable.weiser,R.drawable.burnham,

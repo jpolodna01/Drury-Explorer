@@ -43,7 +43,7 @@ public class DepartmentFacts extends Activity {
     private String jsonResult;
     JSONObject jsonResponse;
 
-    private String Burl ="http://mcs.drury.edu/jpolodna01/DUE_PHP/DUE_Hall_Object.php";
+    private String Burl ="http://mcs.drury.edu/duexplorer/DUE_PHP/DUE_Hall_Object.php";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

@@ -71,7 +71,7 @@ public class Halls extends Activity {
     public List<Building> hallList;
 
     private String jsonResult; // string to store the json result
-    private String url = "http://mcs.drury.edu/jpolodna01/DUE_PHP/DUE_Hall_Object.php"; //url to the php echo'ed data
+    private String url = "http://mcs.drury.edu/duexplorer/DUE_PHP/DUE_Hall_Object.php"; //url to the php echo'ed data
     private ListView listView; // listview variable
 
      /* This is the onCreate method required via the extension. It is the operations preformed on the creation of the app

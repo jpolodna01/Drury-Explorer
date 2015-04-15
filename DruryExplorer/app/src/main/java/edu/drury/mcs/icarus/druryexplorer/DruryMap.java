@@ -82,10 +82,10 @@ public class DruryMap extends FragmentActivity  {
     Boolean network;
     private String jsonResult;
     private String jsonResult2;
-    private String Burl ="http://mcs.drury.edu/jpolodna01/DUE_PHP/DUE_Hall_Object.php";
-    private String Turl="http://mcs.drury.edu/jpolodna01/DUE_PHP/DUE_Tour_Objects.php";
-    private String Tpurl="http://mcs.drury.edu/jpolodna01/DUE_PHP/DUE_Tour_info.php";
-    private String Tnum="http://mcs.drury.edu/jpolodna01/DUE_PHP/DUE_Number_Tour.php";
+    private String Burl ="http://mcs.drury.edu/duexplorer/DUE_PHP/DUE_Hall_Object.php";
+    private String Turl="http://mcs.drury.edu/duexplorer/DUE_PHP/DUE_Tour_Objects.php";
+    private String Tpurl="http://mcs.drury.edu/duexplorer/DUE_PHP/DUE_Tour_info.php";
+    private String Tnum="http://mcs.drury.edu/duexplorer/DUE_PHP/DUE_Number_Tours.php";
     JSONObject jsonResponse;
     private ImageView dImage;
     private Button buildingMarker;

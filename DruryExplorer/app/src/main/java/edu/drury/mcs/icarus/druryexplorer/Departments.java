@@ -72,7 +72,7 @@ public class Departments extends Activity {
     public List<Department> departmentList;
 
     private String jsonResult; // string to store the json result
-    private String url = "http://mcs.drury.edu/jpolodna01/DUE_PHP/DUE_Department_Object.php"; //url to the php echo'ed data
+    private String url = "http://mcs.drury.edu/duexplorer/DUE_PHP/DUE_Department_Object.php"; //url to the php echo'ed data
     private ListView listView; // listview variable
 
 
