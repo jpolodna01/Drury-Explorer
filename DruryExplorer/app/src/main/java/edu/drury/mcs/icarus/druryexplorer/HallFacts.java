@@ -171,7 +171,7 @@ public class HallFacts extends Activity {
       //  System.gc();
     }
 
-    @Override
+/*    @Override
     protected void onDestroy()
     {
         super.onDestroy();
@@ -193,7 +193,7 @@ public class HallFacts extends Activity {
             }
             ((ViewGroup) view).removeAllViews();
         }
-    }
+    }*/
 
 
     public Boolean checkNetwork() {

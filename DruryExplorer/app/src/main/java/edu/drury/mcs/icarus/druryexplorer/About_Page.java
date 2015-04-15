@@ -1,18 +1,27 @@
 package edu.drury.mcs.icarus.druryexplorer;
 
 import android.app.Activity;
+import android.graphics.Bitmap;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageView;
 
 
 public class About_Page extends Activity {
+
+    private ImageView aImage;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_about__page);
+
+
+        aImage = (ImageView) findViewById(R.id.aImageView);
+        aImage.setImageResource(R.drawable.logo);
     }
 
     public void close(View view){
