@@ -218,6 +218,7 @@ public class Departments extends Activity {
                 departmentObject.setName(jsonChildNode.optString("Name"));
                 departmentObject.setDescription(jsonChildNode.optString("Description"));
                 departmentObject.setLocation(jsonChildNode.optString("Location"));
+                departmentObject.setNumber(jsonChildNode.optString("Hall_ID"));
                 departmentList.add(departmentObject);
 //                String outPut = name;
 //                departmentList.add(createDepartment("departments", outPut));

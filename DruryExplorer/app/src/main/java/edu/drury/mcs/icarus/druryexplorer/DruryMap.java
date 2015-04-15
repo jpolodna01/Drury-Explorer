@@ -98,6 +98,7 @@ public class DruryMap extends FragmentActivity  {
     private SlidingDrawer drawer;
     private ImageButton handle;
     private LinearLayout content;
+    //back up array of pictures
     private int[] pic={R.drawable.pearsons,R.drawable.shewmaker, R.drawable.springfield,R.drawable.tsc,R.drawable.hammons,
             R.drawable.breech,R.drawable.weiser,R.drawable.burnham,
             R.drawable.bay,R.drawable.oreilly,R.drawable.pac, R.drawable.stonechapel,R.drawable.olin,
@@ -115,6 +116,7 @@ public class DruryMap extends FragmentActivity  {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_drury_map);
+        //get the different xml objects we need to change
         buildingMarker = (Button)findViewById(R.id.buildingMarkers);
         longTour = (Button)findViewById(R.id.mainTour);
         startLongTour = (Button)findViewById(R.id.startMainTour);
@@ -125,10 +127,11 @@ public class DruryMap extends FragmentActivity  {
         drawer = (SlidingDrawer)findViewById(R.id.slidingDrawer);
         handle = (ImageButton)findViewById(R.id.handle);
         content = (LinearLayout)findViewById(R.id.content);
-
         dImage=(ImageView)findViewById(R.id.imageView2);
+        //set up tour booleans for first time use
         firstTime1=true;
         firstTime2=true;
+        //set the color of the buttons for normal map view
         if(level==0) {
             change.setBackgroundColor(Color.TRANSPARENT);
             change.setTextColor(Color.BLACK);
@@ -173,12 +176,8 @@ public class DruryMap extends FragmentActivity  {
             }
         });
 
-        /*
-            Changing the on click method for the info bobble above a marker to get the title of the marker
-            and compare it to the list of buildings to get the building and send it to the building fact page
-         */
 
-
+        //check to see if we have a internet connection and to decided if we use it or the back up data
         network = checkNetwork();
         if(network) {
             hallArray();
@@ -197,11 +196,9 @@ public class DruryMap extends FragmentActivity  {
             @Override
             public void onInfoWindowClick(Marker marker) {
                 Building clickedHall=new Building();
-                int x;
 
+                //look for the building object that the marker represents
                 for(int i=0;i<buildingArray.length;i++){
-
-
 
                     if(buildingArray[i].getbLatatude()==marker.getPosition().latitude & buildingArray[i].getbLongatude()==marker.getPosition().longitude){
 
@@ -227,7 +224,7 @@ public class DruryMap extends FragmentActivity  {
 
     }
 
-
+    //This method looks to see if the app is connected to a network or not and then returns a boolean
     public Boolean checkNetwork() {
         ConnectivityManager connMgr = (ConnectivityManager)
                 getSystemService(Context.CONNECTIVITY_SERVICE);
@@ -285,7 +282,7 @@ public class DruryMap extends FragmentActivity  {
         //this sets up the map to be loaded up at Drury and zoomed into the middle of campus
         mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(37.219736, -93.285769), 18));
         //(example of interior map)mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(-33.86997, 151.2089), 18));
-
+        //allow the map to get the users location when gps is on
         mMap.setMyLocationEnabled(true);
         mMap.getMyLocation();
 
@@ -295,19 +292,24 @@ public class DruryMap extends FragmentActivity  {
 
 
 
-
+    /*
+        takes the tour array obtained from the json string and turns it into the two different tours
+     */
 
     private void splitTourArray(){
         int place = 0;
         int count = 0;
+        //counts to see how big the first tour is
         while(place<tours.length){
             if(tours[place].getTourNumber()==1){
                 count++;
             }
             place++;
         }
+        //set the size of the two tour arrays
         tourOne=new TourPoint[count];
         tourTwo=new TourPoint[tours.length-count];
+        //places the correct tours into the two differnt arrays
         place = 0;
         int placeOne=0;
         int placeTwo = 0;
@@ -327,6 +329,9 @@ public class DruryMap extends FragmentActivity  {
 
     }
 
+    /*
+        this will create a alert box when called, this allert box is for when the users gps is not on
+     */
     public void GPSAlert(){
         AlertDialog.Builder gps = new AlertDialog.Builder(this);
         gps.setTitle("GPS");
@@ -340,8 +345,12 @@ public class DruryMap extends FragmentActivity  {
         gpsDialog.show();
     }
 
+    /*
+        this function will stop, reset and erase the two start tour functions
+     */
     public void stopTours(View view){
         //drawer.toggle();
+        //checks to see if a tour is running and to see if there is anythign to erase
         if(startOne || startTwo){
             if(toured!=null) {
                 toured.remove();
@@ -361,9 +370,13 @@ public class DruryMap extends FragmentActivity  {
         setButtonColor(startNormalTour);
     }
 
+
+
     //allows the user to change between three different views of the map
     public void cMap(View view){
         //drawer.toggle();
+        //if the map is on satalite view then it is changed to normal view and all buttons are changed to
+        //that color scheme
         if(level==2) {
             mMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
             level = 0;
@@ -383,12 +396,14 @@ public class DruryMap extends FragmentActivity  {
             handle.setImageResource(R.drawable.blackreverse
             );
             if(tourMarkers2!=null) {
-                tourMarkers2.setColor(Color.GRAY);
+                tourMarkers2.setColor(Color.rgb(51,153,255));
             }
             if(tourMarkers1!=null) {
-                tourMarkers1.setColor(Color.BLACK);
+                tourMarkers1.setColor(Color.YELLOW);
             }
         }
+        //if the map is on normal view then the map is changed to satellite and all buttons are
+        //changed to that color scheme
         else {
             mMap.setMapType(GoogleMap.MAP_TYPE_SATELLITE);
             level = 2;
@@ -407,13 +422,17 @@ public class DruryMap extends FragmentActivity  {
                 tourMarkers2.setColor(Color.rgb(51,153,255));
             }
             if(tourMarkers1!=null) {
-                tourMarkers1.setColor(Color.rgb(0,153,255));
+                tourMarkers1.setColor(Color.YELLOW);
             }
         }
 
 
     }
-
+    /*
+        this takes the listener functions and overrides thme to allow the user to take a self quided
+        tour of the campus. Depending on what is true and false when this method is called will
+        decide what tour is used.
+     */
     private void selfTour(){
 
         LocationManager manager = (LocationManager) this.getSystemService(Context.LOCATION_SERVICE);
@@ -423,7 +442,7 @@ public class DruryMap extends FragmentActivity  {
                 @Override
                 public void onLocationChanged(Location location) {
                     if(startOne && tournum==1) {
-                        if (mMap.getMyLocation() != null && mMap.getMyLocation().hasAccuracy()) {
+                        if (mMap.getMyLocation() != null) {
                             if (firstTime1) {
                                 int x = closestBuilding(mMap.getMyLocation(), tourOne);
                                 toStart(mMap.getMyLocation(), new LatLng(tourOne[x].getLatatude(), tourOne[x].getLongatude()));
@@ -473,8 +492,9 @@ public class DruryMap extends FragmentActivity  {
                     }
 
                     if(startTwo && tournum==2) {
-                        if (mMap.getMyLocation() != null && mMap.getMyLocation().hasAccuracy()) {
+                        if (mMap.getMyLocation() != null) {
                             if (firstTime2) {
+                                Log.e("first","time");
                                 int x = closestBuilding(mMap.getMyLocation(), tourTwo);
                                 toStart(mMap.getMyLocation(), new LatLng(tourTwo[x].getLatatude(), tourTwo[x].getLongatude()));
                                 if (tourTwo[x].getBuildingNumber() > 0) {
@@ -505,12 +525,12 @@ public class DruryMap extends FragmentActivity  {
 
 
 
-                                    newMarker=mMap.addMarker(new MarkerOptions().position(new LatLng(tourOne[next].getLatatude(), tourTwo[next].getLongatude())).title(buildingArray[tourTwo[next].getBuildingNumber() - 1].getBuildingName()));
+                                    newMarker=mMap.addMarker(new MarkerOptions().position(new LatLng(tourTwo[next].getLatatude(), tourTwo[next].getLongatude())).title(buildingArray[tourTwo[next].getBuildingNumber() - 1].getBuildingName()));
                                     dImage.setImageResource(pic[tourTwo[next].getBuildingNumber() - 1]);
 
                                 }
 
-                                toContinue(new LatLng(tourOne[next].getLatatude(), tourTwo[next].getLongatude()));
+                                toContinue(new LatLng(tourTwo[next].getLatatude(), tourTwo[next].getLongatude()));
                             }
                         } else {
                             if (firstTime2) {
@@ -533,6 +553,12 @@ public class DruryMap extends FragmentActivity  {
 
                 @Override
                 public void onProviderDisabled(String provider) {
+
+                    startOne=false;
+                    startTwo=false;
+                    setButtonColor(startLongTour);
+                    setButtonColor(startNormalTour);
+                    GPSAlert();
 
                 }
             };
@@ -586,7 +612,10 @@ public class DruryMap extends FragmentActivity  {
             but.setTextColor(offColor);
         }
     }
-
+/*
+    this method starts the self guided tour for tour one while stopping any other tours in action, it also
+    stops tour two if it is pressed while the tour is in action
+     */
 
     public void startTourOne(View view){
         //drawer.toggle();
@@ -618,7 +647,10 @@ public class DruryMap extends FragmentActivity  {
 
 
     }
-
+    /*
+    this method starts the self guided tour for tour two while stopping any other tours in action, it also
+    stops tour two if it is pressed while the tour is in action
+     */
     public void startTourTwo(View view){
        //drawer.toggle();
         if(startOne){
@@ -648,7 +680,9 @@ public class DruryMap extends FragmentActivity  {
         }
 
     }
-
+    /*
+    this method is used to caculated the distance between to LatLng points on a map
+     */
     private double trig(Location loc1, LatLng loc2){
         double lat1 = loc1.getLatitude();
         double lat2 = loc2.latitude;
@@ -659,7 +693,9 @@ public class DruryMap extends FragmentActivity  {
 
         return dif;
     }
-
+    /*
+    this method decides which building in a tour the user is closestest to.
+     */
     private int closestBuilding(Location loc, TourPoint[] comp){
         int closest=0;
         double cDist= 100000;
@@ -675,7 +711,9 @@ public class DruryMap extends FragmentActivity  {
     }
 
 
-
+    /*
+    this method sets up the polyline for a selfguided tour
+     */
     private void toStart(Location now, LatLng there){
         toured = mMap.addPolyline(tourRoute1);
         toured.setWidth(12);
@@ -693,7 +731,10 @@ public class DruryMap extends FragmentActivity  {
         toured.setVisible(true);
 
     }
-
+    /*
+    this method is used to continue a self guided tour seting the polyline of the tour to the next
+    part of the tour
+     */
     private void toContinue(LatLng there){
         tour.set(0,tour.get(1));
         tour.set(1,there);
@@ -702,6 +743,13 @@ public class DruryMap extends FragmentActivity  {
         toured.setPoints(tour);
 
     }
+
+    /*
+    this method takes the array of tourpoints for tour one and makes a polyline with markers
+    at the buildings along the route. it will remove the polyline and markers if they are already
+    displayed it also changes the color of the button to corespond with being in use or out of use
+    as well as compensating for the different types of map views
+     */
     public void viewTourOne(View view){
         //drawer.toggle();
         if(tour2){
@@ -752,11 +800,11 @@ public class DruryMap extends FragmentActivity  {
             tourMarkers1 = mMap.addPolyline(tourRoute1);
             tourMarkers1.setPoints(setTourOneRoute);
             if(level==0){
-                tourMarkers1.setColor(Color.BLACK);
+                tourMarkers1.setColor(Color.YELLOW);
                 longTour.setTextColor(Color.rgb(155,0,13));
             }
             else{
-                tourMarkers1.setColor(Color.rgb(0,153,255));
+                tourMarkers1.setColor(Color.YELLOW);
                 longTour.setTextColor(Color.rgb(255,0,13));
             }
             tourMarkers1.setWidth(12);
@@ -768,11 +816,11 @@ public class DruryMap extends FragmentActivity  {
                 setTourOneMarkers.get(y).setVisible(true);
             }
             if(level==0){
-                tourMarkers1.setColor(Color.BLACK);
+                tourMarkers1.setColor(Color.YELLOW);
                 longTour.setTextColor(Color.rgb(155,0,13));
             }
             else{
-                tourMarkers1.setColor(Color.rgb(0,153,255));
+                tourMarkers1.setColor(Color.YELLOW);
                 longTour.setTextColor(Color.rgb(255,0,13));
             }
 
@@ -781,7 +829,12 @@ public class DruryMap extends FragmentActivity  {
 
 
     }
-
+    /*
+    this method takes the array of tourpoints for tour two and makes a polyline with markers
+    at the buildings along the route. it will remove the polyline and markers if they are already
+    displayed it also changes the color of the button to corespond with being in use or out of use
+    as well as compensating for the different types of map views
+     */
     public void viewTourTwo(View view){
         //drawer.toggle();
         if(tour1){
@@ -833,7 +886,7 @@ public class DruryMap extends FragmentActivity  {
             tourMarkers2 = mMap.addPolyline(tourRoute2);
             tourMarkers2.setPoints(setTourTwoRoute);
             if(level==0){
-                tourMarkers2.setColor(Color.GRAY);
+                tourMarkers2.setColor(Color.rgb(51,153,255));
                 normalTour.setTextColor(Color.rgb(155,0,13));
             }
             else{
@@ -848,7 +901,7 @@ public class DruryMap extends FragmentActivity  {
                 setTourTwoMarkers.get(y).setVisible(true);
             }
             if(level==0){
-                tourMarkers2.setColor(Color.GRAY);
+                tourMarkers2.setColor(Color.rgb(51,153,255));
                 normalTour.setTextColor(Color.rgb(155,0,13));
             }
             else{
@@ -914,6 +967,8 @@ public class DruryMap extends FragmentActivity  {
             }
         }
     }
+
+    //checks to see if user is current to a certain location
     private boolean close(Location location, LatLng next){
         double dist = trig(location, next);
         if(dist*10000000<.35){
@@ -983,7 +1038,7 @@ public class DruryMap extends FragmentActivity  {
 
 
         /* The final method of the asynchronous sub-class, which posts the data to the ui thread. Overrode
-			to utilize the ListDrwaer method defined in the outer-class
+			to utilize the hallDrawer method defined in the outer-class
 
 			@param result - String built in the stringbuilder method from the json data
 		*/
@@ -1004,7 +1059,7 @@ public class DruryMap extends FragmentActivity  {
 
     }
     public void hallDrawer() {
-        //
+        //this method takes a json string and turns them into an array of building objects
 
 
         try {
@@ -1014,6 +1069,7 @@ public class DruryMap extends FragmentActivity  {
             else{
                 jsonResponse = new JSONObject(getString(R.string.halls));
             }
+
             JSONArray jsonMainNode = jsonResponse.optJSONArray("hall");
             buildingArray=new Building[jsonMainNode.length()];
 
@@ -1025,6 +1081,7 @@ public class DruryMap extends FragmentActivity  {
                 double lat = jsonChildNode.optDouble("latitude");
                 double lon = jsonChildNode.optDouble("longitude");
                 String pic = jsonChildNode.optString("ImageURL");
+                String sID = ""+id;
                 buildingArray[id-1] = new Building();
                 buildingArray[id-1].setbLongatude(lon);
                 buildingArray[id-1].setbLatatude(lat);
@@ -1032,6 +1089,7 @@ public class DruryMap extends FragmentActivity  {
                 buildingArray[id-1].setBuildingNumber(id);
                 buildingArray[id-1].setBuildingFacts(history);
                 buildingArray[id-1].setPicture(pic);
+                buildingArray[id-1].setId(sID);
 
 
 
@@ -1041,8 +1099,7 @@ public class DruryMap extends FragmentActivity  {
         } catch (JSONException e) {
             Toast.makeText(getApplicationContext(), "error" + e.toString(), Toast.LENGTH_SHORT).show();
         }
-        // android.R.layout.simple_list_item_1 is predefined in android libraries and not in local xml, and it specifies
-        // to the listview how to display the data
+
 
     }
     private class JsonReadTour extends AsyncTask<String, Void, String> {
@@ -1099,7 +1156,7 @@ public class DruryMap extends FragmentActivity  {
 
 
         /* The final method of the asynchronous sub-class, which posts the data to the ui thread. Overrode
-			to utilize the ListDrwaer method defined in the outer-class
+			to utilize the tourDrawer method defined in the outer-class
 
 			@param result - String built in the stringbuilder method from the json data
 		*/
@@ -1112,8 +1169,7 @@ public class DruryMap extends FragmentActivity  {
     public void tourDrawer() {
         //this method will take the array of JSON objects and turn them into an array of TourPoint
         //objects so to allow the user to follow or see the tour along these routes
-       // TextView text = (TextView)findViewById(R.id.textView2);
-        //text.setText(jsonResult2);
+
 
         try {
             if(network) {

@@ -4,12 +4,13 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 /**
- * Created by Tanya on 3/12/2015.
+ * This class encases everything that a department for Drury would include
+ * Created by Daiv McBride on 3/12/2015.
  */
 public class Department implements Parcelable {
 
     private int departmentID, hallID;
-    private String name, description, location, picture;
+    private String name, description, location, picture, number;
 
     public Department(){}
 
@@ -19,6 +20,7 @@ public class Department implements Parcelable {
     public String getLocation(){return this.location;}
     public String getDescription(){return this.description;}
     public String getPicture(){return this.picture;}
+    public String getNumber(){return this.number;}
 
     public void setHallID(int id){this.hallID = id;}
     public void setDepartmentID(int id){this.departmentID = id;}
@@ -26,6 +28,7 @@ public class Department implements Parcelable {
     public void setDescription(String description){this.description = description;}
     public void setLocation(String location){this.location = location;}
     public void setPicture(String picture){this.picture = picture;}
+    public void setNumber(String number){this.number=number;}
 
 
     public String toString(){
@@ -33,12 +36,13 @@ public class Department implements Parcelable {
     }
 
     public Department(Parcel in){
-        String[] data = new String[3];
+        String[] data = new String[4];
 
         in.readStringArray(data);
         this.name=data[0];
         this.description=data[1];
         this.location=data[2];
+        this.number=data[3];
     }
 
 
@@ -49,7 +53,8 @@ public class Department implements Parcelable {
     public void writeToParcel(Parcel dest, int flags){
         dest.writeStringArray(new String[]{this.name,
                 this.description,
-                this.location});
+                this.location,
+                this.number});
     }
 
     public static final Parcelable.Creator<Department> CREATOR = new Parcelable.Creator<Department>(){

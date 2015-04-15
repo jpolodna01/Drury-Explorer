@@ -8,6 +8,7 @@ package edu.drury.mcs.icarus.druryexplorer;
  * tlong - is the longatude of the tour point
  * tlat - is the laguitude of the tour point
  * build - is a boolean
+ * buildingNumber-the building if one at that point
  */
 public class TourPoint {
     private int tourNumber;
