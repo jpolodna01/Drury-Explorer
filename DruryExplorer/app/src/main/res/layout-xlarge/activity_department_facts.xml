@@ -42,7 +42,7 @@
         android:layout_marginRight="26dp"
         android:layout_alignParentRight="true"
         android:clickable="true"
-        android:onClick="openBuildingFact" />
+        android:onClick="openBuildingFact"/>
 
     <ScrollView
         android:layout_width="fill_parent"

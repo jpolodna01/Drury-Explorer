@@ -362,6 +362,68 @@ public class DruryMap extends FragmentActivity  {
                 oldMarker.remove();
             }
         }
+        if(tourMarkers2!=null & tour2){
+            tour2=false;
+            tourMarkers2.setVisible(false);
+            for(int y=0;y<setTourTwoMarkers.size();y++){
+                setTourTwoMarkers.get(y).setVisible(false);
+            }
+            if(level==0){
+                normalTour.setTextColor(Color.BLACK);
+            }
+            else{
+                normalTour.setTextColor(Color.WHITE);
+            }
+        }
+        if(tourMarkers1!=null & tour1) {
+            tour1=false;
+            tourMarkers1.setVisible(false);
+            for(int y=0;y<setTourOneMarkers.size();y++){
+                setTourOneMarkers.get(y).setVisible(false);
+            }
+            if(level==0){
+                longTour.setTextColor(Color.BLACK);
+            }
+            else{
+                longTour.setTextColor(Color.WHITE);
+            }
+        }
+        if(markers!=null) {
+            if (markers[1].isVisible()) {
+                for (int i = 0; i < markers.length; i++) {
+                    markers[i].setVisible(false);
+                    if (level == 0) {
+                        buildingMarker.setTextColor(Color.BLACK);
+                    } else {
+                        buildingMarker.setTextColor(Color.WHITE);
+                    }
+                }
+            }
+        }
+        startOne=false;
+        firstTime1=true;
+        startTwo=false;
+        firstTime2=true;
+        setButtonColor(startLongTour);
+        setButtonColor(startNormalTour);
+    }
+
+    /*
+        this function will stop, reset and erase the two start tour functions
+     */
+    private void stopTours(){
+        //checks to see if a tour is running and to see if there is anythign to erase
+        if(startOne || startTwo){
+            if(toured!=null) {
+                toured.remove();
+            }
+            if(newMarker!=null){
+                newMarker.remove();
+            }
+            if(oldMarker!=null){
+                oldMarker.remove();
+            }
+        }
         startOne=false;
         firstTime1=true;
         startTwo=false;
@@ -393,8 +455,7 @@ public class DruryMap extends FragmentActivity  {
             else{buildingMarker.setTextColor(Color.BLACK);}
 
             content.setBackgroundColor(Color.argb(120,250,250,250));
-            handle.setImageResource(R.drawable.blackreverse
-            );
+            handle.setImageResource(R.drawable.blackreverse);
             if(tourMarkers2!=null) {
                 tourMarkers2.setColor(Color.rgb(51,153,255));
             }
@@ -621,7 +682,7 @@ public class DruryMap extends FragmentActivity  {
         //drawer.toggle();
 
         if(startTwo){
-            stopTours(view);
+            stopTours();
         }
         if(!startOne) {
             startOne = true;
@@ -654,7 +715,7 @@ public class DruryMap extends FragmentActivity  {
     public void startTourTwo(View view){
        //drawer.toggle();
         if(startOne){
-            stopTours(view);
+            stopTours();
         }
         if(!startTwo) {
             startTwo = true;

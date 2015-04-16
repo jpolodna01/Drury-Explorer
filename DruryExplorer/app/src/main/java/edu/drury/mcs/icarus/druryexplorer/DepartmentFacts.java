@@ -3,6 +3,7 @@ package edu.drury.mcs.icarus.druryexplorer;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.AsyncTask;
@@ -53,6 +54,7 @@ public class DepartmentFacts extends Activity {
         name = (TextView) findViewById(R.id.dNameView);
         location =(TextView) findViewById(R.id.locationView);
         discription =(TextView) findViewById(R.id.descriptionView);
+        location.setTextColor(Color.BLUE);
 
         //creates a string to place the clicked object
         String newDName;
