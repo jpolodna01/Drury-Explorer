@@ -456,12 +456,7 @@ public class DruryMap extends FragmentActivity  {
 
             content.setBackgroundColor(Color.argb(120,250,250,250));
             handle.setImageResource(R.drawable.blackreverse);
-            if(tourMarkers2!=null) {
-                tourMarkers2.setColor(Color.rgb(51,153,255));
-            }
-            if(tourMarkers1!=null) {
-                tourMarkers1.setColor(Color.YELLOW);
-            }
+            
         }
         //if the map is on normal view then the map is changed to satellite and all buttons are
         //changed to that color scheme
@@ -479,12 +474,7 @@ public class DruryMap extends FragmentActivity  {
             else{buildingMarker.setTextColor(Color.WHITE);}
             content.setBackgroundColor(Color.argb(120,0,0,0));
             handle.setImageResource(R.drawable.whitereverse);
-            if(tourMarkers2!=null) {
-                tourMarkers2.setColor(Color.rgb(51,153,255));
-            }
-            if(tourMarkers1!=null) {
-                tourMarkers1.setColor(Color.YELLOW);
-            }
+
         }
 
 
@@ -861,11 +851,11 @@ public class DruryMap extends FragmentActivity  {
             tourMarkers1 = mMap.addPolyline(tourRoute1);
             tourMarkers1.setPoints(setTourOneRoute);
             if(level==0){
-                tourMarkers1.setColor(Color.YELLOW);
+                tourMarkers1.setColor(Color.rgb(19,113,50));
                 longTour.setTextColor(Color.rgb(155,0,13));
             }
             else{
-                tourMarkers1.setColor(Color.YELLOW);
+                tourMarkers1.setColor(Color.rgb(19,113,50));
                 longTour.setTextColor(Color.rgb(255,0,13));
             }
             tourMarkers1.setWidth(12);
