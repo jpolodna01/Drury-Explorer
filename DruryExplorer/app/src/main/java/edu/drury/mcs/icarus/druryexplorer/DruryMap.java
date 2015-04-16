@@ -851,12 +851,12 @@ public class DruryMap extends FragmentActivity  {
             tourMarkers1 = mMap.addPolyline(tourRoute1);
             tourMarkers1.setPoints(setTourOneRoute);
             if(level==0){
-                tourMarkers1.setColor(Color.rgb(19,113,50));
-                longTour.setTextColor(Color.rgb(155,0,13));
+                tourMarkers1.setColor(Color.rgb(210,5,0));
+                longTour.setTextColor(Color.rgb(170,0,13));
             }
             else{
-                tourMarkers1.setColor(Color.rgb(19,113,50));
-                longTour.setTextColor(Color.rgb(255,0,13));
+                tourMarkers1.setColor(Color.rgb(215,5,0));
+                longTour.setTextColor(Color.rgb(210,0,13));
             }
             tourMarkers1.setWidth(12);
 
@@ -867,12 +867,12 @@ public class DruryMap extends FragmentActivity  {
                 setTourOneMarkers.get(y).setVisible(true);
             }
             if(level==0){
-                tourMarkers1.setColor(Color.rgb(19,113,50));
-                longTour.setTextColor(Color.rgb(155,0,13));
+                tourMarkers1.setColor(Color.rgb(210,5,0));
+                longTour.setTextColor(Color.rgb(170,0,13));
             }
             else{
-                tourMarkers1.setColor(Color.rgb(19,113,50));
-                longTour.setTextColor(Color.rgb(255,0,13));
+                tourMarkers1.setColor(Color.rgb(210,5,0));
+                longTour.setTextColor(Color.rgb(210,0,13));
             }
 
             tour1=true;
