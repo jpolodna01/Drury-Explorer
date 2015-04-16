@@ -877,11 +877,11 @@ public class DruryMap extends FragmentActivity  {
                 setTourOneMarkers.get(y).setVisible(true);
             }
             if(level==0){
-                tourMarkers1.setColor(Color.YELLOW);
+                tourMarkers1.setColor(Color.rgb(19,113,50));
                 longTour.setTextColor(Color.rgb(155,0,13));
             }
             else{
-                tourMarkers1.setColor(Color.YELLOW);
+                tourMarkers1.setColor(Color.rgb(19,113,50));
                 longTour.setTextColor(Color.rgb(255,0,13));
             }
 
