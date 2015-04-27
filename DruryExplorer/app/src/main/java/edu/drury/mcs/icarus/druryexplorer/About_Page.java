@@ -8,11 +8,13 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 
 public class About_Page extends Activity {
 
     private ImageView aImage;
+    private TextView text;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,6 +24,15 @@ public class About_Page extends Activity {
 
         aImage = (ImageView) findViewById(R.id.aImageView);
         aImage.setImageResource(R.drawable.logo);
+
+        text = (TextView) findViewById(R.id.textView);
+        /*text.setText("AppName: Drury Explorer\\n Company Name: Icuras Software\\n\n" +
+                "    Team Name: ASCII U\\n Team Members:\\n    Daiv McBride\\n\n" +
+                "        Daniel Chick\\n\n" +
+                "        Josef Polodna\\n\n" +
+                "    Version: 1.1\\n\n" +
+                "    Last Update:");*/
+
     }
 
     public void close(View view){
