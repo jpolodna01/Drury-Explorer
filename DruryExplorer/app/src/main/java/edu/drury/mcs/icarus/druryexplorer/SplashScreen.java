@@ -29,7 +29,7 @@ public class SplashScreen extends Activity {
         setContentView(R.layout.activity_splash_screen);
         final Boolean net = checkNetwork();
 
-
+        getActionBar().hide();
 
         new Handler().postDelayed(new Runnable() {
 

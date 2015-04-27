@@ -57,10 +57,6 @@ public class Navigation extends TabActivity {
             networkAlert();
         }
 
-
-
-
-
     }
 
     public void networkAlert(){

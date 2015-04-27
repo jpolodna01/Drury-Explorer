@@ -210,7 +210,7 @@ public class DruryMap extends FragmentActivity  {
                     }
                 }
 
-                Intent intent = new Intent(getApplicationContext(), HallFacts.class);
+                Intent intent = new Intent(getApplicationContext(), BuildingFacts.class);
 
                 //puts the clicked object in the bundle
                 intent.putExtra("clickedHall", clickedHall);

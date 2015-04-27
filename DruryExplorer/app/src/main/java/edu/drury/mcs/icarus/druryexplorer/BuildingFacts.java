@@ -32,7 +32,7 @@ import javax.net.ssl.HttpsURLConnection;
 import edu.drury.mcs.icarus.druryexplorer.Building;
 
 
-public class HallFacts extends Activity {
+public class BuildingFacts extends Activity {
 
     private TextView textView1;
     private TextView history;

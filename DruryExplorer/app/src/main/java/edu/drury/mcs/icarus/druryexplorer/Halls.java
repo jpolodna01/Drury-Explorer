@@ -25,12 +25,9 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
-import java.util.HashMap;
-   import java.util.LinkedList;
    import java.util.List;
-import java.util.Map;
 
-import org.apache.http.HttpResponse;
+   import org.apache.http.HttpResponse;
 import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpPost;
@@ -43,15 +40,11 @@ import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.app.Activity;
-import android.support.v7.internal.widget.AdapterViewCompat;
-import android.view.Menu;
+   import android.view.Menu;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
-import android.widget.SimpleAdapter;
-import android.widget.TextView;
-import android.widget.Toast;
-import edu.drury.mcs.icarus.druryexplorer.Building;
+   import android.widget.Toast;
 
 /**
  Author(s): Josef Polodna (Current Version), Daniel Chick and Josef Polodna (Old Version)
@@ -253,7 +246,7 @@ public class Halls extends Activity {
                     Building clickedHall = arrayAdapter.getItem(position);
 
                     //creates a new intent that will open the HallFacts activity
-                    Intent i = new Intent(getApplicationContext(), HallFacts.class);
+                    Intent i = new Intent(getApplicationContext(), BuildingFacts.class);
 
                     //puts the clicked object in the bundle
                     i.putExtra("clickedHall", clickedHall);

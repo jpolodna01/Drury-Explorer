@@ -7,13 +7,11 @@ import android.graphics.Color;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.AsyncTask;
-import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -30,8 +28,6 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-
-import edu.drury.mcs.icarus.druryexplorer.Building;
 
 
 public class DepartmentFacts extends Activity {
@@ -105,7 +101,7 @@ public class DepartmentFacts extends Activity {
     public void openBuildingFact(View v){
         String bname = building.getBuildingName();
         Log.e("building",bname);
-        Intent intent = new Intent(getApplicationContext(), HallFacts.class);
+        Intent intent = new Intent(getApplicationContext(), BuildingFacts.class);
 
         //puts the clicked object in the bundle
         intent.putExtra("clickedHall", building);
