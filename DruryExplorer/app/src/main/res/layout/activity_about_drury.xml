@@ -16,12 +16,14 @@
         android:layout_marginBottom="0dp"
         android:scaleType="centerCrop"
         android:alpha="0.15"
-        android:layout_alignParentEnd="false"
-        android:layout_alignParentStart="false"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
         android:layout_alignParentBottom="true"
         android:baselineAlignBottom="false"
-        android:background="@drawable/campus"/>
+        android:background="@drawable/campus"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true" />
     <ImageView
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
@@ -32,7 +34,9 @@
         android:scaleType="fitCenter"
         android:adjustViewBounds="true"
         android:layout_alignParentTop="true"
-        android:background="@drawable/drury"/>
+        android:background="@drawable/drury"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentStart="true" />
 
     <TextView
         android:layout_width="fill_parent"
@@ -70,7 +74,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/historyView"
-            android:textSize="20sp"/>
+            android:textSize="20sp"
+            android:text="@string/about"/>
     </ScrollView>
 
 </RelativeLayout>

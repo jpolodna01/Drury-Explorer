@@ -10,7 +10,7 @@
     tools:context="edu.drury.mcs.icarus.druryexplorer.About_Page">
 
     <TextView
-        android:text="@string/about"
+        android:text="@string/credits"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/textView"
