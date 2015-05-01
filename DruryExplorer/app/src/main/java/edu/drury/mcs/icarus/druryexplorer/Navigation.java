@@ -102,6 +102,11 @@ public class Navigation extends TabActivity {
             startActivity(about);
             return true;
         }
+        if (id == R.id.about_drury) {
+            Intent drury = new Intent(this, about_drury.class);
+            startActivity(drury);
+            return true;
+        }
         return super.onOptionsItemSelected(item);
     }
 

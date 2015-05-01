@@ -1,6 +1,7 @@
 package edu.drury.mcs.icarus.druryexplorer;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
@@ -43,7 +44,7 @@ public class About_Page extends Activity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.about__page, menu);
+        getMenuInflater().inflate(R.menu.navigation, menu);
         return true;
     }
 
@@ -53,7 +54,14 @@ public class About_Page extends Activity {
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
-        if (id == R.id.action_settings) {
+        if (id == R.id.action_about) {
+            Intent about = new Intent(this, About_Page.class);
+            startActivity(about);
+            return true;
+        }
+        if (id == R.id.about_drury) {
+            Intent drury = new Intent(this, about_drury.class);
+            startActivity(drury);
             return true;
         }
         return super.onOptionsItemSelected(item);
