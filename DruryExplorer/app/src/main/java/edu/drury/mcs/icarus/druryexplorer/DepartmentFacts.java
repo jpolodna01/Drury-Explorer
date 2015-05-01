@@ -247,7 +247,7 @@ public class DepartmentFacts extends Activity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_department_facts, menu);
+        getMenuInflater().inflate(R.menu.navigation, menu);
         return true;
     }
 
@@ -257,12 +257,16 @@ public class DepartmentFacts extends Activity {
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
+        if (id == R.id.action_about) {
+            Intent about = new Intent(this, About_Page.class);
+            startActivity(about);
             return true;
         }
-
+        if (id == R.id.about_drury) {
+            Intent drury = new Intent(this, about_drury.class);
+            startActivity(drury);
+            return true;
+        }
         return super.onOptionsItemSelected(item);
     }
 

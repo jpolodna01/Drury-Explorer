@@ -1,0 +1,72 @@
+#
+# There is insufficient memory for the Java Runtime Environment to continue.
+# Native memory allocation (malloc) failed to allocate 32744 bytes for ChunkPool::allocate
+# Possible reasons:
+#   The system is out of physical RAM or swap space
+#   In 32 bit mode, the process size limit was hit
+# Possible solutions:
+#   Reduce memory load on the system
+#   Increase physical memory or swap space
+#   Check if swap backing store is full
+#   Use 64 bit Java on a 64 bit OS
+#   Decrease Java heap size (-Xmx/-Xms)
+#   Decrease number of Java threads
+#   Decrease Java thread stack sizes (-Xss)
+#   Set larger code cache with -XX:ReservedCodeCacheSize=
+# This output file may be truncated or incomplete.
+#
+#  Out of Memory Error (allocation.cpp:222), pid=17384, tid=18296
+#
+# JRE version: 7.0_07-b11
+# Java VM: Java HotSpot(TM) 64-Bit Server VM (23.3-b01 mixed mode windows-amd64 compressed oops)
+# Failed to write core dump. Minidumps are not enabled by default on client versions of Windows
+#
+
+---------------  T H R E A D  ---------------
+
+Current thread (0x00000000084b7000):  JavaThread "C2 CompilerThread0" daemon [_thread_in_native, id=18296, stack(0x0000000009780000,0x0000000009880000)]
+
+Stack: [0x0000000009780000,0x0000000009880000]
+
+Current CompileTask:
+C2:   2243   30   !         com.android.dx.cf.code.BytecodeArray::parseInstruction (2764 bytes)
+
+
+---------------  P R O C E S S  ---------------
+
+Java Threads: ( => current thread )
+  0x00000000084c9000 JavaThread "Service Thread" daemon [_thread_blocked, id=17268, stack(0x0000000009ab0000,0x0000000009bb0000)]
+  0x00000000084c7000 JavaThread "C2 CompilerThread1" daemon [_thread_blocked, id=18084, stack(0x00000000098e0000,0x00000000099e0000)]
+=>0x00000000084b7000 JavaThread "C2 CompilerThread0" daemon [_thread_in_native, id=18296, stack(0x0000000009780000,0x0000000009880000)]
+  0x00000000084b5800 JavaThread "Attach Listener" daemon [_thread_blocked, id=14420, stack(0x0000000009500000,0x0000000009600000)]
+  0x00000000084b4000 JavaThread "Signal Dispatcher" daemon [_thread_blocked, id=17392, stack(0x0000000009390000,0x0000000009490000)]
+  0x0000000008428800 JavaThread "Finalizer" daemon [_thread_blocked, id=17900, stack(0x0000000009140000,0x0000000009240000)]
+  0x0000000008427000 JavaThread "Reference Handler" daemon [_thread_blocked, id=17584, stack(0x0000000008f40000,0x0000000009040000)]
+  0x0000000001fad000 JavaThread "main" [_thread_in_vm, id=17440, stack(0x0000000001fb0000,0x00000000020b0000)]
+
+Other Threads:
+  0x000000000841e800 VMThread [stack: 0x0000000008e10000,0x0000000008f10000] [id=17168]
+  0x00000000084d7000 WatcherThread [stack: 0x0000000009ca0000,0x0000000009da0000] [id=16344]
+
+VM state:not at safepoint (normal execution)
+
+VM Mutex/Monitor currently owned by a thread: None
+
+Heap
+ PSYoungGen      total 14208K, used 8343K [0x00000000eaab0000, 0x00000000eba80000, 0x0000000100000000)
+  eden space 12224K, 68% used [0x00000000eaab0000,0x00000000eb2d5e18,0x00000000eb6a0000)
+  from space 1984K, 0% used [0x00000000eb890000,0x00000000eb890000,0x00000000eba80000)
+  to   space 1984K, 0% used [0x00000000eb6a0000,0x00000000eb6a0000,0x00000000eb890000)
+ ParOldGen       total 32384K, used 0K [0x00000000c0000000, 0x00000000c1fa0000, 0x00000000eaab0000)
+  object space 32384K, 0% used [0x00000000c0000000,0x00000000c0000000,0x00000000c1fa0000)
+ PSPermGen       total 21248K, used 4961K [0x00000000bae00000, 0x00000000bc2c0000, 0x00000000c0000000)
+  object space 21248K, 23% used [0x00000000bae00000,0x00000000bb2d8688,0x00000000bc2c0000)
+
+Card table byte_map: [0x00000000050b0000,0x00000000052e0000] byte_map_base: 0x0000000004ad9000
+
+Polling page: 0x0000000000110000
+
+Code Cache  [0x00000000020b0000, 0x0000000002320000, 0x00000000050b0000)
+ total_blobs=258 nmethods=29 adapters=181 free_code_cache=48706Kb largest_free_block=49855616
+
+Compilation events (10 events):

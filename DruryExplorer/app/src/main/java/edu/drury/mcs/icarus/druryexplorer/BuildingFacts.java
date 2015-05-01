@@ -1,5 +1,6 @@
 package edu.drury.mcs.icarus.druryexplorer;
 
+import android.app.ActionBar;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -62,6 +63,7 @@ public class BuildingFacts extends Activity {
         hImage = (ImageView) findViewById(R.id.hImageView);
         rLayout = (ImageView) findViewById(R.id.hBG);
         net = checkNetwork();
+        ActionBar bar = getActionBar();
 
         //creates a string to place the clicked object
         String newName;
@@ -143,6 +145,7 @@ public class BuildingFacts extends Activity {
             //display the name of the clicked hall
             textView1.setText(newName);
             history.setText(newHistory);
+            bar.setTitle(newName + " Facts");
 
 
             AssetManager manager = getAssets();
@@ -221,14 +224,16 @@ public class BuildingFacts extends Activity {
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
         if (id == R.id.action_about) {
             Intent about = new Intent(this, About_Page.class);
             startActivity(about);
             return true;
         }
-
+        if (id == R.id.about_drury) {
+            Intent drury = new Intent(this, about_drury.class);
+            startActivity(drury);
+            return true;
+        }
         return super.onOptionsItemSelected(item);
     }
 
