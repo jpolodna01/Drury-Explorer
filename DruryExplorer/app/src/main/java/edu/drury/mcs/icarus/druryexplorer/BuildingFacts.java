@@ -137,10 +137,6 @@ public class BuildingFacts extends Activity {
                 hImage.setImageResource(pic[Integer.parseInt(id) - 1]);
             }
 
-           /* else {
-                hImage.setImageResource(pic[Integer.parseInt(id) - 1]);
-
-            }*/
 
             //display the name of the clicked hall
             textView1.setText(newName);
@@ -160,44 +156,7 @@ public class BuildingFacts extends Activity {
         super.onStop();
         finish();
 
-        //View root = findViewById(R.id.hImageView);
-        //View bg = findViewById(R.id.rLayout);
-        //setContentView(new View(this));
-        //unbindDrawables(bg);
-        //unbindDrawables(root);
-
-        //used
-      //  getIntent().getExtras().clear();
-        //extras.clear();
-
-        //used
-      //  System.gc();
     }
-
-/*    @Override
-    protected void onDestroy()
-    {
-        super.onDestroy();
-        //extras.clear();
-        //System.gc();
-    }
-
-    private void unbindDrawables(View view)
-    {
-        if (view.getBackground() != null)
-        {
-            view.getBackground().setCallback(null);
-        }
-        if (view instanceof ViewGroup && !(view instanceof AdapterView))
-        {
-            for (int i = 0; i < ((ViewGroup) view).getChildCount(); i++)
-            {
-                unbindDrawables(((ViewGroup) view).getChildAt(i));
-            }
-            ((ViewGroup) view).removeAllViews();
-        }
-    }*/
-
 
     public Boolean checkNetwork() {
         ConnectivityManager connMgr = (ConnectivityManager)

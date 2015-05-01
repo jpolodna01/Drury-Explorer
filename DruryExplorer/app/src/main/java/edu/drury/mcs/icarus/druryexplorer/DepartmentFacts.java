@@ -1,5 +1,6 @@
 package edu.drury.mcs.icarus.druryexplorer;
 
+import android.app.ActionBar;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -52,6 +53,8 @@ public class DepartmentFacts extends Activity {
         discription =(TextView) findViewById(R.id.descriptionView);
         location.setTextColor(Color.BLUE);
 
+        ActionBar bar = getActionBar();
+
         //creates a string to place the clicked object
         String newDName;
         String newLocation;
@@ -94,6 +97,7 @@ public class DepartmentFacts extends Activity {
         location.setText(newLocation);
         discription.setText(newDescription);
         retrieveBuilding();
+        bar.setTitle(newDName + " Facts");
     }
 
     ////////////////methods to set building name clickable and got to building factpage//////////
