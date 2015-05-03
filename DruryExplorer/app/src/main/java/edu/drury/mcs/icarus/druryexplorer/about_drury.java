@@ -1,5 +1,6 @@
 package edu.drury.mcs.icarus.druryexplorer;
 
+import android.app.ActionBar;
 import android.app.Activity;
 import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
@@ -14,6 +15,9 @@ public class about_drury extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_about_drury);
+
+        ActionBar bar =getActionBar();
+        bar.setTitle("About Drury");
     }
 
 
