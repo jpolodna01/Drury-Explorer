@@ -62,7 +62,7 @@ public class DepartmentFacts extends Activity {
 
         if(savedInstanceState == null)
         {
-            //get the bundle from Departments.java
+            //get the bundle from Department.java
             Bundle extras = getIntent().getExtras();
             Department depar = (Department)extras.getParcelable("clickedDept");
 
@@ -125,7 +125,10 @@ public class DepartmentFacts extends Activity {
         }
     }
 
-    private class JsonReadHalls extends AsyncTask<String, Void, String> {
+    /**
+     *
+     */
+    private class JsonReadDepts extends AsyncTask<String, Void, String> {
 
         /* Override the doInBackground method, which handles most of the background processing, to
             collect the data from the database.
@@ -190,7 +193,7 @@ public class DepartmentFacts extends Activity {
     }// End Async task
 
     public void retrieveBuilding() {
-        JsonReadHalls task = new JsonReadHalls();
+        JsonReadDepts task = new JsonReadDepts();
         // passes values for the urls string array
         task.execute(new String[] { Burl });
 

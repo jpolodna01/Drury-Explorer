@@ -192,7 +192,7 @@ public class Halls extends Activity {
     /**
      * This method will be altered to draw the data from the database and insert it in a list
      */
-    public void ListDrwaer() {
+    public void ListDrawer() {
 
          hallList = new ArrayList<Building>();
 
@@ -216,8 +216,7 @@ public class Halls extends Activity {
                 String id =""+Integer.parseInt(jsonChildNode.optString("Hall_ID"));
                 hallObject.setId(id);
                 hallList.add(hallObject);
-               //String outPut = name;
-               // hallList.add(createDepartment("halls", outPut));
+
             }
         } catch (JSONException e) {
             Toast.makeText(getApplicationContext(), "error" + e.toString(), Toast.LENGTH_SHORT).show();
@@ -227,9 +226,7 @@ public class Halls extends Activity {
 
     public void populateListView()
     {
-        ListDrwaer();
-//        ListView mainListView;
-//        ArrayAdapter<String> listAdapter = new ArrayAdapter<String>(this, R.layout.activity_halls, namesList);
+        ListDrawer();
 
         if(hallList.size()>0) // check if list contains items.
         {

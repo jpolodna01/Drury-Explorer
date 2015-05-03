@@ -197,7 +197,7 @@ public class Departments extends Activity {
     }
 
     // build hash set for list view
-    public void ListDrwaer() {
+    public void ListDrawer() {
         //
         departmentList = new ArrayList<Department>();
 
@@ -220,25 +220,18 @@ public class Departments extends Activity {
                 departmentObject.setLocation(jsonChildNode.optString("Location"));
                 departmentObject.setNumber(jsonChildNode.optString("Hall_ID"));
                 departmentList.add(departmentObject);
-//                String outPut = name;
-//                departmentList.add(createDepartment("departments", outPut));
+
             }
         } catch (JSONException e) {
             Toast.makeText(getApplicationContext(), "error" + e.toString(), Toast.LENGTH_SHORT).show();
         }
-        // android.R.layout.simple_list_item_1 is predefined in android libraries and not in local xml, and it specifies
-        // to the listview how to display the data
-//        SimpleAdapter simpleAdapter = new SimpleAdapter(this, departmentList, android.R.layout.simple_list_item_1,
-//                new String[]{"departments"}, new int[]{android.R.id.text1}); //android.R.id.text1 defined by android and not locally
-//        listView.setAdapter(simpleAdapter);// set the listview to the previously created adapter (write data to screen)
+
     }
 
 
     public void populateListView()
     {
-        ListDrwaer();
-//        ListView mainListView;
-//        ArrayAdapter<String> listAdapter = new ArrayAdapter<String>(this, R.layout.activity_halls, namesList);
+        ListDrawer();
 
         if(departmentList.size()>0) // check if list contains items.
         {
