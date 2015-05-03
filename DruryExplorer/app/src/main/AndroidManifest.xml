@@ -93,7 +93,8 @@
         <activity
             android:name=".about_drury"
             android:label="@string/title_activity_about_drury"
-            android:parentActivityName=".Navigation">
+            android:parentActivityName=".Navigation"
+            android:screenOrientation="portrait" >
         </activity>
     </application>
 
