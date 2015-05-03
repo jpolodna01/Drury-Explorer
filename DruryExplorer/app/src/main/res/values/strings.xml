@@ -9,25 +9,26 @@
     <string name="title_activity_departments">Departments</string>
     <string name="title_activity_splash_screen">SplashScreen</string>
     <string name="title_activity_about__page">About_Page</string>
-    <string name="credits">&#160;App Name: Drury Explorer\n Company Name: Icuras Software\n\n
-    Team Name: ASCII U\n Team Members:\n    &#160;&#160;&#160;Daiv McBride\n
-        &#160;&#160;&#160;Daniel Chick\n
-        &#160;&#160;&#160;Josef Polodna\n\n
+    <string name="credits">&#160;App Name: Drury Explorer\n Company Name: Icarus Software\n\n
+    Team Name: ASCII U\n Team Members:\n    &#160;&#160;&#8226;Daiv McBride\n
+        &#160;&#160;&#8226;Daniel Chick\n
+        &#160;&#160;&#8226;Josef Polodna\n\n
     App Icon Designer: Maggie Sholes\n\n
     Version: 1.5\n
-    Last Update: April 27, 2015</string>
+    Last Update: May 1, 2015 \n\n\n
+    This app was created in partial completeion of the requirements for the Bachelors of Computer Science degree through the Math &amp; Computer Science department of Drury University. </string>
     <string name="about">Drury is a new kind of university that honors and effectively links liberal arts and sciences to the study of professional areas. In doing so, students are more authentically connected to: \n\n
 
-    Why what they are learning matters and how they can apply it in real life.\n
-    Why decisions, both personally and professionally, should come from a place of ethics and morality.\n
-    Faculty: accessibility is a point of pride for us because we are a teaching university.\n
-    The community: in the classroom, on campus and beyond.\n
-    Thought leaders and mentors: from freshman year to graduation to job search to alumni connections. At Drury, students make lifelong connections.\n
-    Wellness and sustainability as a way of life rather than a task. We believe healthy people lead happier, longer, more productive lives.\n
-    Community outreach as part of a life well lived.\n
-    A spirit of entrepreneurship, which inspires confidence, creativity and accountability.\n
-    An environment of collaboration where students are actively involved in enhancing their Drury experience.\n
-    A life well lived: Drury students learn how to connect dreams and aspirations to successful futures.\n
+    &#8226; Why what they are learning matters and how they can apply it in real life.\n
+    &#8226; Why decisions, both personally and professionally, should come from a place of ethics and morality.\n
+    &#8226; Faculty: accessibility is a point of pride for us because we are a teaching university.\n
+    &#8226; The community: in the classroom, on campus and beyond.\n
+    &#8226; Thought leaders and mentors: from freshman year to graduation to job search to alumni connections. At Drury, students make lifelong connections.\n
+    &#8226; Wellness and sustainability as a way of life rather than a task. We believe healthy people lead happier, longer, more productive lives.\n
+    &#8226; Community outreach as part of a life well lived.\n
+    &#8226; A spirit of entrepreneurship, which inspires confidence, creativity and accountability.\n
+    &#8226; An environment of collaboration where students are actively involved in enhancing their Drury experience.\n
+    &#8226; A life well lived: Drury students learn how to connect dreams and aspirations to successful futures.\n
 </string>
     <string name="title_halldetail_list">HallDetails</string>
     <string name="title_halldetail_detail">HallDetail Detail</string>

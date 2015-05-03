@@ -1,5 +1,6 @@
 package edu.drury.mcs.icarus.druryexplorer;
 
+import android.app.ActionBar;
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -24,6 +25,9 @@ public class About_Page extends Activity {
 
         aImage = (ImageView) findViewById(R.id.aImageView);
         aImage.setImageResource(R.drawable.logo);
+
+        ActionBar bar= getActionBar();
+        bar.setTitle("Credits");
 
     }
 
