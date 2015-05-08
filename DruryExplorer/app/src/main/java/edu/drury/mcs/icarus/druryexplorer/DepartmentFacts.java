@@ -4,6 +4,9 @@ import android.app.ActionBar;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.AssetManager;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
@@ -13,6 +16,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -39,9 +43,20 @@ public class DepartmentFacts extends Activity {
     private Building building;
     private int buildingNumber;
     private String jsonResult;
+    private ImageView rLayout;
     JSONObject jsonResponse;
+    getImageFromUrl getIMG;
 
     private String Burl ="http://mcs.drury.edu/duexplorer/DUE_PHP/DUE_Hall_Object.php";
+
+    private int[] pics={R.drawable.pearsons,R.drawable.shewmaker, R.drawable.springfield,R.drawable.tsc,R.drawable.hammons,
+            R.drawable.breech,R.drawable.weiser,R.drawable.burnham,
+            R.drawable.bay,R.drawable.oreilly,R.drawable.pac, R.drawable.stonechapel,R.drawable.olin,
+            R.drawable.lay,R.drawable.mabee,R.drawable.fsc,R.drawable.freeman,
+            R.drawable.rose,R.drawable.smith,R.drawable.wallace, R.drawable.sunderland,R.drawable.president,
+            R.drawable.parsonage,R.drawable.congregational,R.drawable.summit,R.drawable.suites,
+            R.drawable.collegepark,R.drawable.mac,R.drawable.jeff,R.drawable.quad,R.drawable.manley,
+            R.drawable.harrison,R.drawable.drury,R.drawable.diversity};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,6 +67,8 @@ public class DepartmentFacts extends Activity {
         location =(TextView) findViewById(R.id.locationView);
         discription =(TextView) findViewById(R.id.descriptionView);
         location.setTextColor(Color.BLUE);
+        rLayout = (ImageView) findViewById(R.id.dBG);
+        getIMG = new getImageFromUrl( rLayout);
 
         ActionBar bar = getActionBar();
 
@@ -234,6 +251,15 @@ public class DepartmentFacts extends Activity {
                     building.setPicture(pic);
                     building.setId(sID);
                     found=true;
+
+                    if (checkNetwork()) {
+                        getIMG.execute(new String[]{building.getPicture()});
+                        AssetManager manager = getAssets();
+
+                    }
+                    else {
+                        rLayout.setImageResource(pics[id - 1]);
+                    }
                 }
                 i++;
 
@@ -249,6 +275,45 @@ public class DepartmentFacts extends Activity {
 
     }
 
+    private class getImageFromUrl extends AsyncTask<String, Void, Bitmap>
+    {
+
+        ImageView bgImage;
+
+        public getImageFromUrl( ImageView rLayout)
+        {
+
+            this.bgImage = rLayout;
+        }
+        @Override
+        protected Bitmap doInBackground(String...url)
+        {
+            String urldisplay = url[0];
+            Bitmap map = null;
+
+            try
+            {
+                InputStream in = new java.net.URL(urldisplay).openStream();
+                map = BitmapFactory.decodeStream(in);
+            } catch (Exception e)
+            {
+                Log.e("error", e.getMessage());
+                e.printStackTrace();
+            }
+
+            return map;
+        }
+
+        //sets the bitmap returned by doInBackground
+        @Override
+        protected void onPostExecute(Bitmap result)
+        {
+            bgImage.setImageBitmap(result);
+
+        }
+
+
+    }
 
     /////////////methods for android menu /////////////////////////////////////
     @Override
