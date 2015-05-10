@@ -120,7 +120,6 @@ public class Halls extends Activity {
      * Sub-class of of the Department class, which is used for handling the asynchronous functionality.
      * Its nature forces sub-classing for implementation; several methods such as doInBackground are overwritten
      * to handle the asynchronous threads as they are appropriate for this app.
-     * <p/>
      * Author: Josef Polodna
      */
     private class JsonReadTask extends AsyncTask<String, Void, String> {
