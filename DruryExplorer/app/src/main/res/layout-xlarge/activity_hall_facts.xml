@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:id="@+id/rLayout"
-    tools:context="edu.drury.mcs.icarus.druryexplorer.HallFacts">
+    tools:context="edu.drury.mcs.icarus.druryexplorer.BuildingFacts">
 
     <ImageView
         android:layout_width="match_parent"
@@ -26,10 +26,13 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentRight="true"
         android:id="@+id/hImageView"
-        android:layout_centerHorizontal="true"
-        android:scaleType="fitCenter"
+        android:scaleType="centerCrop"
         android:adjustViewBounds="true"
-        android:layout_alignParentTop="true" />
+        android:layout_alignParentTop="true"
+        android:maxHeight="50dp"
+        android:cropToPadding="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentStart="true" />
 
     <TextView
         android:layout_width="fill_parent"

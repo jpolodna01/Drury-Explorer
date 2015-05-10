@@ -1,8 +1,6 @@
 -- Merging decision tree log ---
 manifest
 ADDED from AndroidManifest.xml:2:1
-	xmlns:android
-		ADDED from AndroidManifest.xml:2:11
 	package
 		ADDED from AndroidManifest.xml:3:5
 		INJECTED from AndroidManifest.xml:0:0
@@ -10,6 +8,8 @@ ADDED from AndroidManifest.xml:2:1
 	android:versionName
 		INJECTED from AndroidManifest.xml:0:0
 		INJECTED from AndroidManifest.xml:0:0
+	xmlns:android
+		ADDED from AndroidManifest.xml:2:11
 	android:versionCode
 		INJECTED from AndroidManifest.xml:0:0
 		INJECTED from AndroidManifest.xml:0:0
@@ -46,16 +46,16 @@ MERGED from com.android.support:support-v4:21.0.3:16:5
 MERGED from com.android.support:support-v4:21.0.3:16:5
 	android:label
 		ADDED from AndroidManifest.xml:19:9
+	android:versionName
+		ADDED from AndroidManifest.xml:22:9
+	android:versionCode
+		ADDED from AndroidManifest.xml:21:9
 	android:allowBackup
 		ADDED from AndroidManifest.xml:17:9
 	android:icon
 		ADDED from AndroidManifest.xml:18:9
 	android:theme
 		ADDED from AndroidManifest.xml:20:9
-	android:versionName
-		ADDED from AndroidManifest.xml:22:9
-	android:versionCode
-		ADDED from AndroidManifest.xml:21:9
 activity#edu.drury.mcs.icarus.druryexplorer.Navigation
 ADDED from AndroidManifest.xml:24:9
 	android:screenOrientation
@@ -75,16 +75,16 @@ ADDED from AndroidManifest.xml:37:9
 meta-data#com.google.android.gms.version
 ADDED from AndroidManifest.xml:43:9
 MERGED from com.google.android.gms:play-services:6.5.87:21:9
-	android:name
-		ADDED from AndroidManifest.xml:44:13
 	android:value
 		ADDED from AndroidManifest.xml:45:13
+	android:name
+		ADDED from AndroidManifest.xml:44:13
 meta-data#com.google.android.maps.v2.API_KEY
 ADDED from AndroidManifest.xml:46:9
-	android:name
-		ADDED from AndroidManifest.xml:47:13
 	android:value
 		ADDED from AndroidManifest.xml:48:13
+	android:name
+		ADDED from AndroidManifest.xml:47:13
 activity#edu.drury.mcs.icarus.druryexplorer.Halls
 ADDED from AndroidManifest.xml:50:9
 	android:screenOrientation
@@ -131,26 +131,30 @@ ADDED from AndroidManifest.xml:70:9
 		ADDED from AndroidManifest.xml:71:13
 meta-data#android.support.PARENT_ACTIVITY
 ADDED from AndroidManifest.xml:75:13
-	android:name
-		ADDED from AndroidManifest.xml:76:17
 	android:value
 		ADDED from AndroidManifest.xml:77:17
-activity#edu.drury.mcs.icarus.druryexplorer.HallFacts
+	android:name
+		ADDED from AndroidManifest.xml:76:17
+activity#edu.drury.mcs.icarus.druryexplorer.BuildingFacts
 ADDED from AndroidManifest.xml:79:9
 	android:screenOrientation
-		ADDED from AndroidManifest.xml:82:13
+		ADDED from AndroidManifest.xml:83:13
 	android:label
 		ADDED from AndroidManifest.xml:81:13
+	android:parentActivityName
+		ADDED from AndroidManifest.xml:82:13
 	android:name
 		ADDED from AndroidManifest.xml:80:13
 activity#edu.drury.mcs.icarus.druryexplorer.DepartmentFacts
-ADDED from AndroidManifest.xml:84:9
+ADDED from AndroidManifest.xml:85:9
 	android:screenOrientation
-		ADDED from AndroidManifest.xml:87:13
+		ADDED from AndroidManifest.xml:89:13
 	android:label
-		ADDED from AndroidManifest.xml:86:13
+		ADDED from AndroidManifest.xml:87:13
+	android:parentActivityName
+		ADDED from AndroidManifest.xml:88:13
 	android:name
-		ADDED from AndroidManifest.xml:85:13
+		ADDED from AndroidManifest.xml:86:13
 uses-sdk
 INJECTED from AndroidManifest.xml:0:0 reason: use-sdk injection requested
 MERGED from com.google.android.gms:play-services:6.5.87:18:5

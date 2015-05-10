@@ -24,23 +24,27 @@
         android:layout_height="wrap_content"
         android:id="@+id/dNameView"
         android:gravity="center_horizontal"
-        android:textSize="50sp"
-        android:layout_marginLeft="26dp"
-        android:layout_marginRight="26dp"
-        android:layout_marginTop="100dp"/>
+        android:textSize="55sp"
+        android:layout_marginTop="105dp"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true" />
 
     <TextView
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:id="@+id/locationView"
-        android:textSize="20sp"
+        android:textSize="14sp"
         android:gravity="center"
         android:layout_below="@+id/dNameView"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="false"
-        android:layout_marginLeft="26dp"
-        android:layout_marginRight="26dp"
-        android:layout_alignParentRight="true" />
+        android:layout_alignParentStart="true"
+        android:layout_alignParentRight="true"
+        android:clickable="true"
+        android:onClick="openBuildingFact"
+        android:layout_marginTop="40dp"
+        android:layout_alignParentEnd="true" />
 
     <ScrollView
         android:layout_width="fill_parent"
@@ -48,7 +52,7 @@
         android:id="@+id/scrollView2"
         android:layout_below="@+id/locationView"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="15dp"
+        android:layout_marginTop="160dp"
         android:layout_marginLeft="26dp"
         android:layout_marginRight="26dp"
         android:layout_marginBottom="26dp">

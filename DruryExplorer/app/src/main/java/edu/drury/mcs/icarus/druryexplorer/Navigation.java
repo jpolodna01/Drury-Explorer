@@ -57,10 +57,6 @@ public class Navigation extends TabActivity {
             networkAlert();
         }
 
-
-
-
-
     }
 
     public void networkAlert(){
@@ -104,6 +100,11 @@ public class Navigation extends TabActivity {
         if (id == R.id.action_about) {
             Intent about = new Intent(this, About_Page.class);
             startActivity(about);
+            return true;
+        }
+        if (id == R.id.about_drury) {
+            Intent drury = new Intent(this, about_drury.class);
+            startActivity(drury);
             return true;
         }
         return super.onOptionsItemSelected(item);
